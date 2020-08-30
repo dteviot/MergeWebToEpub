@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>Main directory: Gifting this Wonderful World with Blessings!</dc:title>
+    <dc:language>en_US</dc:language>
+    <dc:date>2020-08-12T11:40:09.393Z</dc:date>
+    <dc:creator opf:file-as="&lt;unknown&gt;" opf:role="aut">&lt;unknown&gt;</dc:creator>
+    <dc:identifier id="BookId" opf:scheme="URI">https://cgtranslations.me/konosuba/</dc:identifier>
+    <dc:contributor opf:role="bkp">[https://github.com/dteviot/WebToEpub] (ver. 0.0.0.116)</dc:contributor>
+    <meta content="cover-image" name="cover"/>
+    <dc:source id="id.cover-image">https://cgtranslations321782266.files.wordpress.com/2020/07/p1alt2en.png</dc:source>
+    <dc:source id="id.image0008">https://cgtranslations321782266.files.wordpress.com/2020/07/ch2.png</dc:source>
+    <dc:source id="id.image0011">https://cgtranslations321782266.files.wordpress.com/2020/07/ch1.png</dc:source>
+    <dc:source id="id.image0015">https://cgtranslations321782266.files.wordpress.com/2020/08/ch3.png</dc:source>
+    <dc:source id="id.image0002">https://cgtranslations321782266.files.wordpress.com/2020/07/p2eng.png</dc:source>
+    <dc:source id="id.image0017">https://cgtranslations321782266.files.wordpress.com/2020/08/ch4.png</dc:source>
+    <dc:source id="id.image0009">https://cgtranslations321782266.files.wordpress.com/2020/07/p085.png</dc:source>
+    <dc:source id="id.image0012">https://cgtranslations321782266.files.wordpress.com/2020/07/1-e7q4xru.png</dc:source>
+    <dc:source id="id.image0003">https://cgtranslations321782266.files.wordpress.com/2020/07/typeset.jpg</dc:source>
+    <dc:source id="id.image0016">https://cgtranslations321782266.files.wordpress.com/2020/08/p143.png</dc:source>
+    <dc:source id="id.image0018">https://cgtranslations321782266.files.wordpress.com/2020/08/p197.png</dc:source>
+    <dc:source id="id.image0010">https://cgtranslations321782266.files.wordpress.com/2020/07/p099.png</dc:source>
+    <dc:source id="id.image0013">https://cgtranslations321782266.files.wordpress.com/2020/07/2-jbpltcq.png</dc:source>
+    <dc:source id="id.image0004">https://cgtranslations321782266.files.wordpress.com/2020/07/p4clean.png</dc:source>
+    <dc:source id="id.image0019">https://cgtranslations321782266.files.wordpress.com/2020/08/p201.png</dc:source>
+    <dc:source id="id.image0014">https://cgtranslations321782266.files.wordpress.com/2020/07/3-7ckrux2.png</dc:source>
+    <dc:source id="id.image0005">https://cgtranslations321782266.files.wordpress.com/2020/07/p5.jpg</dc:source>
+    <dc:source id="id.image0006">https://cgtranslations321782266.files.wordpress.com/2020/07/contenten.png</dc:source>
+    <dc:source id="id.image0020">https://cgtranslations321782266.files.wordpress.com/2020/08/p222-p223.png</dc:source>
+    <dc:source id="id.image0007">https://cgtranslations321782266.files.wordpress.com/2020/07/become_a_patron_button-2.png?w=289&amp;h=68</dc:source>
+    <dc:source id="id.xhtml0000">https://cgtranslations.me/2020/07/15/konosuba-volume-17-splash-pages/</dc:source>
+    <dc:source id="id.xhtml0001">https://cgtranslations.me/2020/07/18/konosuba-volume-17-chapter-1/</dc:source>
+    <dc:source id="id.xhtml0002">https://cgtranslations.me/2020/07/25/konosuba-volume-17-chapter-2/</dc:source>
+    <dc:source id="id.xhtml0003">https://cgtranslations.me/?p=6037</dc:source>
+    <dc:source id="id.xhtml0004">https://cgtranslations.me/?p=6056</dc:source>
+    <dc:source id="id.xhtml0005">https://cgtranslations.me/2020/05/06/extra-special-bonus-vol-17-gamers-short-story/</dc:source>
+  </metadata>
+  <manifest>
+    <item href="Images/0000_p1alt2en.png" id="cover-image" media-type="image/png"/>
+    <item href="Images/0008_ch2.png" id="image0008" media-type="image/png"/>
+    <item href="Images/0011_ch1.png" id="image0011" media-type="image/png"/>
+    <item href="Images/0015_ch3.png" id="image0015" media-type="image/png"/>
+    <item href="Images/0002_p2eng.png" id="image0002" media-type="image/png"/>
+    <item href="Images/0017_ch4.png" id="image0017" media-type="image/png"/>
+    <item href="Images/0009_p085.png" id="image0009" media-type="image/png"/>
+    <item href="Images/0012_1-e7q4xru.png" id="image0012" media-type="image/png"/>
+    <item href="Images/0003_typeset.jpg" id="image0003" media-type="image/jpeg"/>
+    <item href="Images/0016_p143.png" id="image0016" media-type="image/png"/>
+    <item href="Images/0018_p197.png" id="image0018" media-type="image/png"/>
+    <item href="Images/0010_p099.png" id="image0010" media-type="image/png"/>
+    <item href="Images/0013_2-jbpltcq.png" id="image0013" media-type="image/png"/>
+    <item href="Images/0004_p4clean.png" id="image0004" media-type="image/png"/>
+    <item href="Images/0019_p201.png" id="image0019" media-type="image/png"/>
+    <item href="Images/0014_3-7ckrux2.png" id="image0014" media-type="image/png"/>
+    <item href="Images/0005_p5.jpg" id="image0005" media-type="image/jpeg"/>
+    <item href="Images/0006_contenten.png" id="image0006" media-type="image/png"/>
+    <item href="Images/0020_p222-p223.png" id="image0020" media-type="image/png"/>
+    <item href="Images/0007.png" id="image0007" media-type="image/png"/>
+    <item href="Text/0000_Splash_pages.xhtml" id="xhtml0000" media-type="application/xhtml+xml"/>
+    <item href="Text/0001_Chapter_1.xhtml" id="xhtml0001" media-type="application/xhtml+xml"/>
+    <item href="Text/0002_Chapter_2.xhtml" id="xhtml0002" media-type="application/xhtml+xml"/>
+    <item href="Text/0003_Chapter_3.xhtml" id="xhtml0003" media-type="application/xhtml+xml"/>
+    <item href="Text/0004_Chapter_4.xhtml" id="xhtml0004" media-type="application/xhtml+xml"/>
+    <item href="Text/0005_Today_I_win_again.xhtml" id="xhtml0005" media-type="application/xhtml+xml"/>
+    <item href="Styles/stylesheet.css" id="stylesheet" media-type="text/css"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="Text/Cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover"/>
+    <itemref idref="xhtml0000"/>
+    <itemref idref="xhtml0001"/>
+    <itemref idref="xhtml0002"/>
+    <itemref idref="xhtml0003"/>
+    <itemref idref="xhtml0004"/>
+    <itemref idref="xhtml0005"/>
+  </spine>
+  <guide>
+    <reference href="Text/Cover.xhtml" title="Cover" type="cover"/>
+  </guide>
+</package>

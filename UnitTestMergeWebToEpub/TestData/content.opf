@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="BookId">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>Cultivation Chat Group</dc:title>
+    <dc:language>en_US</dc:language>
+    <dc:date>2020-08-02T00:31:01.231Z</dc:date>
+    <dc:creator opf:file-as="Legend of the Paladin" opf:role="aut">Legend of the Paladin</dc:creator>
+    <dc:identifier id="BookId" opf:scheme="URI">https://vipnovel.com/vipnovel/cultivation-chat-group/</dc:identifier>
+    <dc:contributor opf:role="bkp">[https://github.com/dteviot/WebToEpub] (ver. 0.0.0.115)</dc:contributor>
+    <dc:source id="id.xhtml0000">https://vipnovel.com/vipnovel/cultivation-chat-group/</dc:source>
+    <dc:source id="id.xhtml0001">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1313</dc:source>
+    <dc:source id="id.xhtml0002">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1314</dc:source>
+    <dc:source id="id.xhtml0003">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1315</dc:source>
+    <dc:source id="id.xhtml0004">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1316</dc:source>
+    <dc:source id="id.xhtml0005">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1317</dc:source>
+    <dc:source id="id.xhtml0006">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1318</dc:source>
+    <dc:source id="id.xhtml0007">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1319</dc:source>
+    <dc:source id="id.xhtml0008">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1320</dc:source>
+    <dc:source id="id.xhtml0009">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1321</dc:source>
+    <dc:source id="id.xhtml0010">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1322</dc:source>
+    <dc:source id="id.xhtml0011">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1323</dc:source>
+    <dc:source id="id.xhtml0012">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1324</dc:source>
+    <dc:source id="id.xhtml0013">https://vipnovel.com/vipnovel/cultivation-chat-group/chapter-1325</dc:source>
+  </metadata>
+  <manifest>
+    <item href="Text/0000_Information.xhtml" id="xhtml0000" media-type="application/xhtml+xml"/>
+    <item href="Text/0001_Chapter_1313_-_Im_truly_amazing.xhtml" id="xhtml0001" media-type="application/xhtml+xml"/>
+    <item href="Text/0002_Chapter_1314_-_In_this_life_I_only_want_to_meet_you_again.xhtml" id="xhtml0002" media-type="application/xhtml+xml"/>
+    <item href="Text/0003_Chapter_1315_-_Impregnating_gaze.xhtml" id="xhtml0003" media-type="application/xhtml+xml"/>
+    <item href="Text/0004_Chapter_1316_-_Shut_your_mouth_or_else_you_might_receive_a_curse.xhtml" id="xhtml0004" media-type="application/xhtml+xml"/>
+    <item href="Text/0005_Chapter_1317_-_Xuan_Nu_Sects_Skylark_randomly_entering_the_fray.xhtml" id="xhtml0005" media-type="application/xhtml+xml"/>
+    <item href="Text/0006_Chapter_1318_-_Tremble_and_become_pregnant_you_foolish_fake_deities.xhtml" id="xhtml0006" media-type="application/xhtml+xml"/>
+    <item href="Text/0007_Chapter_1319_-_Tremble_under_the_power_of_maternal_love.xhtml" id="xhtml0007" media-type="application/xhtml+xml"/>
+    <item href="Text/0008_Chapter_1320_-_Great_experts_really_like_to_pluck_out_their_eyes.xhtml" id="xhtml0008" media-type="application/xhtml+xml"/>
+    <item href="Text/0009_Chapter_1321_-_The_light_that_you_see_leaping_everywhere_is_a_blessing_for_the_infertile.xhtml" id="xhtml0009" media-type="application/xhtml+xml"/>
+    <item href="Text/0010_Chapter_1322_-_Big_shots_stealing_the_limeligh.xhtml" id="xhtml0010" media-type="application/xhtml+xml"/>
+    <item href="Text/0011_Chapter_1323_-_The_small_black_room_of_the_Heavens_Will.xhtml" id="xhtml0011" media-type="application/xhtml+xml"/>
+    <item href="Text/0012_Chapter_1324_-_Like_getting_sho.xhtml" id="xhtml0012" media-type="application/xhtml+xml"/>
+    <item href="Text/0013_Chapter_1325_-_Song_Stupid.xhtml" id="xhtml0013" media-type="application/xhtml+xml"/>
+    <item href="Styles/stylesheet.css" id="stylesheet" media-type="text/css"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="xhtml0000"/>
+    <itemref idref="xhtml0001"/>
+    <itemref idref="xhtml0002"/>
+    <itemref idref="xhtml0003"/>
+    <itemref idref="xhtml0004"/>
+    <itemref idref="xhtml0005"/>
+    <itemref idref="xhtml0006"/>
+    <itemref idref="xhtml0007"/>
+    <itemref idref="xhtml0008"/>
+    <itemref idref="xhtml0009"/>
+    <itemref idref="xhtml0010"/>
+    <itemref idref="xhtml0011"/>
+    <itemref idref="xhtml0012"/>
+    <itemref idref="xhtml0013"/>
+  </spine>
+</package>

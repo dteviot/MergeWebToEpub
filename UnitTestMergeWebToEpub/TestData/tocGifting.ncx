@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en_US">
+  <head>
+    <meta content="https://cgtranslations.me/konosuba/" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Main directory: Gifting this Wonderful World with Blessings!</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="body0001" playOrder="1">
+      <navLabel>
+        <text>Splash pages</text>
+      </navLabel>
+      <content src="Text/0000_Splash_pages.xhtml"/>
+    </navPoint>
+    <navPoint id="body0002" playOrder="2">
+      <navLabel>
+        <text>Main Story</text>
+      </navLabel>
+      <content src="Text/0001_Chapter_1.xhtml"/>
+      <navPoint id="body0003" playOrder="3">
+        <navLabel>
+          <text>Chapter 1</text>
+        </navLabel>
+        <content src="Text/0001_Chapter_1.xhtml"/>
+      </navPoint>
+      <navPoint id="body0004" playOrder="4">
+        <navLabel>
+          <text>Chapter 2</text>
+        </navLabel>
+        <content src="Text/0002_Chapter_2.xhtml"/>
+      </navPoint>
+      <navPoint id="body0005" playOrder="5">
+        <navLabel>
+          <text>Chapter 3</text>
+        </navLabel>
+        <content src="Text/0003_Chapter_3.xhtml"/>
+      </navPoint>
+      <navPoint id="body0006" playOrder="6">
+        <navLabel>
+          <text>Chapter 4</text>
+        </navLabel>
+        <content src="Text/0004_Chapter_4.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0007" playOrder="7">
+      <navLabel>
+        <text>Short Stories</text>
+      </navLabel>
+      <content src="Text/0005_Today_I_win_again.xhtml"/>
+      <navPoint id="body0008" playOrder="8">
+        <navLabel>
+          <text>Today, I win again!</text>
+        </navLabel>
+        <content src="Text/0005_Today_I_win_again.xhtml"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

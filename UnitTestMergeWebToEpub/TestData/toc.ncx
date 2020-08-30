@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+  <head>
+    <meta content="https://www.baka-tsuki.org/project/index.php?title=BlazBlue:Phase_0" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>BlazBlue:Phase 0</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="body0001" playOrder="1">
+      <navLabel>
+        <text>Novel Illustrations</text>
+      </navLabel>
+      <content src="index_split_0000.html"/>
+    </navPoint>
+    <navPoint id="body0002" playOrder="2">
+      <navLabel>
+        <text>Prologue</text>
+      </navLabel>
+      <content src="index_split_0001.html"/>
+    </navPoint>
+    <navPoint id="body0003" playOrder="3">
+      <navLabel>
+        <text>Chapter 1: Lost White</text>
+      </navLabel>
+      <content src="index_split_0002.html"/>
+      <navPoint id="body0004" playOrder="4">
+        <navLabel>
+          <text>Part 1</text>
+        </navLabel>
+        <content src="index_split_0003.html"/>
+      </navPoint>
+      <navPoint id="body0005" playOrder="5">
+        <navLabel>
+          <text>Part 2</text>
+        </navLabel>
+        <content src="index_split_0004.html"/>
+      </navPoint>
+      <navPoint id="body0006" playOrder="6">
+        <navLabel>
+          <text>Part 3</text>
+        </navLabel>
+        <content src="index_split_0005.html"/>
+      </navPoint>
+      <navPoint id="body0007" playOrder="7">
+        <navLabel>
+          <text>Part 4</text>
+        </navLabel>
+        <content src="index_split_0006.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0008" playOrder="8">
+      <navLabel>
+        <text>Chapter 2: Destructive Black</text>
+      </navLabel>
+      <content src="index_split_0007.html"/>
+      <navPoint id="body0009" playOrder="9">
+        <navLabel>
+          <text>Part 1</text>
+        </navLabel>
+        <content src="index_split_0008.html"/>
+      </navPoint>
+      <navPoint id="body0010" playOrder="10">
+        <navLabel>
+          <text>Part 2</text>
+        </navLabel>
+        <content src="index_split_0009.html"/>
+      </navPoint>
+      <navPoint id="body0011" playOrder="11">
+        <navLabel>
+          <text>Part 3</text>
+        </navLabel>
+        <content src="index_split_0010.html"/>
+      </navPoint>
+      <navPoint id="body0012" playOrder="12">
+        <navLabel>
+          <text>Part 4</text>
+        </navLabel>
+        <content src="index_split_0011.html"/>
+      </navPoint>
+      <navPoint id="body0013" playOrder="13">
+        <navLabel>
+          <text>Part 5</text>
+        </navLabel>
+        <content src="index_split_0012.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0014" playOrder="14">
+      <navLabel>
+        <text>Chapter 3: Reality's Red</text>
+      </navLabel>
+      <content src="index_split_0013.html"/>
+      <navPoint id="body0015" playOrder="15">
+        <navLabel>
+          <text>Part 1</text>
+        </navLabel>
+        <content src="index_split_0014.html"/>
+      </navPoint>
+      <navPoint id="body0016" playOrder="16">
+        <navLabel>
+          <text>Part 2</text>
+        </navLabel>
+        <content src="index_split_0015.html"/>
+      </navPoint>
+      <navPoint id="body0017" playOrder="17">
+        <navLabel>
+          <text>Part 3</text>
+        </navLabel>
+        <content src="index_split_0016.html"/>
+      </navPoint>
+      <navPoint id="body0018" playOrder="18">
+        <navLabel>
+          <text>Part 4</text>
+        </navLabel>
+        <content src="index_split_0017.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0019" playOrder="19">
+      <navLabel>
+        <text>Chapter 4: Chance-met Silver</text>
+      </navLabel>
+      <content src="index_split_0018.html"/>
+      <navPoint id="body0020" playOrder="20">
+        <navLabel>
+          <text>Part 1</text>
+        </navLabel>
+        <content src="index_split_0019.html"/>
+      </navPoint>
+      <navPoint id="body0021" playOrder="21">
+        <navLabel>
+          <text>Part 2</text>
+        </navLabel>
+        <content src="index_split_0020.html"/>
+      </navPoint>
+      <navPoint id="body0022" playOrder="22">
+        <navLabel>
+          <text>Part 3</text>
+        </navLabel>
+        <content src="index_split_0021.html"/>
+      </navPoint>
+      <navPoint id="body0023" playOrder="23">
+        <navLabel>
+          <text>Part 4</text>
+        </navLabel>
+        <content src="index_split_0022.html"/>
+      </navPoint>
+      <navPoint id="body0024" playOrder="24">
+        <navLabel>
+          <text>Part 5</text>
+        </navLabel>
+        <content src="index_split_0023.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0025" playOrder="25">
+      <navLabel>
+        <text>Chapter 5: Sealed Green</text>
+      </navLabel>
+      <content src="index_split_0024.html"/>
+      <navPoint id="body0026" playOrder="26">
+        <navLabel>
+          <text>Part 1</text>
+        </navLabel>
+        <content src="index_split_0025.html"/>
+      </navPoint>
+      <navPoint id="body0027" playOrder="27">
+        <navLabel>
+          <text>Part 2</text>
+        </navLabel>
+        <content src="index_split_0026.html"/>
+      </navPoint>
+      <navPoint id="body0028" playOrder="28">
+        <navLabel>
+          <text>Part 3</text>
+        </navLabel>
+        <content src="index_split_0027.html"/>
+      </navPoint>
+      <navPoint id="body0029" playOrder="29">
+        <navLabel>
+          <text>Part 4</text>
+        </navLabel>
+        <content src="index_split_0028.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0030" playOrder="30">
+      <navLabel>
+        <text>Chapter 6: Promised Azure</text>
+      </navLabel>
+      <content src="index_split_0029.html"/>
+      <navPoint id="body0031" playOrder="31">
+        <navLabel>
+          <text>Part 1</text>
+        </navLabel>
+        <content src="index_split_0029.html"/>
+      </navPoint>
+      <navPoint id="body0032" playOrder="32">
+        <navLabel>
+          <text>Part 2</text>
+        </navLabel>
+        <content src="index_split_0030.html"/>
+      </navPoint>
+      <navPoint id="body0033" playOrder="33">
+        <navLabel>
+          <text>Part 3</text>
+        </navLabel>
+        <content src="index_split_0031.html"/>
+      </navPoint>
+      <navPoint id="body0034" playOrder="34">
+        <navLabel>
+          <text>Part 4</text>
+        </navLabel>
+        <content src="index_split_0032.html"/>
+      </navPoint>
+      <navPoint id="body0035" playOrder="35">
+        <navLabel>
+          <text>Part 5</text>
+        </navLabel>
+        <content src="index_split_0033.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0036" playOrder="36">
+      <navLabel>
+        <text>Epilogue</text>
+      </navLabel>
+      <content src="index_split_0034.html"/>
+    </navPoint>
+    <navPoint id="body0037" playOrder="37">
+      <navLabel>
+        <text>Afterword</text>
+      </navLabel>
+      <content src="index_split_0035.html"/>
+    </navPoint>
+  </navMap>
+</ncx>

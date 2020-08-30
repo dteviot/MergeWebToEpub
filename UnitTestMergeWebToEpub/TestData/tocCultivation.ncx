@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en_US">
+  <head>
+    <meta content="https://vipnovel.com/vipnovel/cultivation-chat-group/" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Cultivation Chat Group</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="body0001" playOrder="1">
+      <navLabel>
+        <text>Information</text>
+      </navLabel>
+      <content src="Text/0000_Information.xhtml"/>
+    </navPoint>
+    <navPoint id="body0002" playOrder="2">
+      <navLabel>
+        <text>Chapter 1313 - I’m truly amazing</text>
+      </navLabel>
+      <content src="Text/0001_Chapter_1313_-_Im_truly_amazing.xhtml"/>
+    </navPoint>
+    <navPoint id="body0003" playOrder="3">
+      <navLabel>
+        <text>Chapter 1314 - In this life, I only want to meet you again</text>
+      </navLabel>
+      <content src="Text/0002_Chapter_1314_-_In_this_life_I_only_want_to_meet_you_again.xhtml"/>
+    </navPoint>
+    <navPoint id="body0004" playOrder="4">
+      <navLabel>
+        <text>Chapter 1315 - Impregnating gaze</text>
+      </navLabel>
+      <content src="Text/0003_Chapter_1315_-_Impregnating_gaze.xhtml"/>
+    </navPoint>
+    <navPoint id="body0005" playOrder="5">
+      <navLabel>
+        <text>Chapter 1316 - Shut your mouth, or else you might receive a curse</text>
+      </navLabel>
+      <content src="Text/0004_Chapter_1316_-_Shut_your_mouth_or_else_you_might_receive_a_curse.xhtml"/>
+    </navPoint>
+    <navPoint id="body0006" playOrder="6">
+      <navLabel>
+        <text>Chapter 1317 - Xuan Nu Sect’s Skylark randomly entering the fray</text>
+      </navLabel>
+      <content src="Text/0005_Chapter_1317_-_Xuan_Nu_Sects_Skylark_randomly_entering_the_fray.xhtml"/>
+    </navPoint>
+    <navPoint id="body0007" playOrder="7">
+      <navLabel>
+        <text>Chapter 1318 - Tremble and become pregnant, you foolish fake deities</text>
+      </navLabel>
+      <content src="Text/0006_Chapter_1318_-_Tremble_and_become_pregnant_you_foolish_fake_deities.xhtml"/>
+    </navPoint>
+    <navPoint id="body0008" playOrder="8">
+      <navLabel>
+        <text>Chapter 1319 - Tremble under the power of maternal love!</text>
+      </navLabel>
+      <content src="Text/0007_Chapter_1319_-_Tremble_under_the_power_of_maternal_love.xhtml"/>
+    </navPoint>
+    <navPoint id="body0009" playOrder="9">
+      <navLabel>
+        <text>Chapter 1320 - Great experts really like to pluck out their eyes</text>
+      </navLabel>
+      <content src="Text/0008_Chapter_1320_-_Great_experts_really_like_to_pluck_out_their_eyes.xhtml"/>
+    </navPoint>
+    <navPoint id="body0010" playOrder="10">
+      <navLabel>
+        <text>Chapter 1321 - The light that you see leaping everywhere is a blessing for the infertile</text>
+      </navLabel>
+      <content src="Text/0009_Chapter_1321_-_The_light_that_you_see_leaping_everywhere_is_a_blessing_for_the_infertile.xhtml"/>
+    </navPoint>
+    <navPoint id="body0011" playOrder="11">
+      <navLabel>
+        <text>Chapter 1322 - Big shots stealing the limeligh</text>
+      </navLabel>
+      <content src="Text/0010_Chapter_1322_-_Big_shots_stealing_the_limeligh.xhtml"/>
+    </navPoint>
+    <navPoint id="body0012" playOrder="12">
+      <navLabel>
+        <text>Chapter 1323 - The small black room of the Heaven’s Will</text>
+      </navLabel>
+      <content src="Text/0011_Chapter_1323_-_The_small_black_room_of_the_Heavens_Will.xhtml"/>
+    </navPoint>
+    <navPoint id="body0013" playOrder="13">
+      <navLabel>
+        <text>Chapter 1324 - Like getting sho</text>
+      </navLabel>
+      <content src="Text/0012_Chapter_1324_-_Like_getting_sho.xhtml"/>
+    </navPoint>
+    <navPoint id="body0014" playOrder="14">
+      <navLabel>
+        <text>Chapter 1325 - Song~ Stupid~</text>
+      </navLabel>
+      <content src="Text/0013_Chapter_1325_-_Song_Stupid.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>
