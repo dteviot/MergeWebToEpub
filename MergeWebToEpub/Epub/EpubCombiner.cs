@@ -34,6 +34,9 @@ namespace MergeWebToEpub
             Don't bother copying stylesheet
              */
 
+            NewAbsolutePaths.Clear();
+            NewItemIds.Clear();
+
             CalculateNewPathsAndIds();
             foreach (var item in ToAppend.Opf.Manifest)
             {

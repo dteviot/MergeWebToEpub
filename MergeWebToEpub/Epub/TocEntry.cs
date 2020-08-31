@@ -66,5 +66,28 @@ namespace MergeWebToEpub
             }
             return depth;
         }
+
+        public static void AddToScrToTileMap(Dictionary<string, string> map, List<TocEntry> entries)
+        {
+            foreach(var entry in entries)
+            {
+                entry.AddToScrToTileMap(map);
+            }
+        }
+
+        public void AddToScrToTileMap(Dictionary<string, string> map)
+        {
+            string title = null;
+            if (map.TryGetValue(ContentSrc, out title))
+            {
+                map[ContentSrc] = title + ": " + Title;
+            }
+            else
+            {
+                map.Add(ContentSrc, Title);
+            }
+            AddToScrToTileMap(map, Children);
+        }
+
     }
 }

@@ -135,6 +135,20 @@ namespace UnitTestMergeWebToEpub
             Assert.AreEqual("OEPBS/Text/0017_Chapter_2.xhtml", newToc[1].Children[1].ContentSrc);
         }
 
+        [TestMethod]
+        public void TestAdd_CallMultipleTimes()
+        {
+            var combiner = new EpubCombiner(MockEpub1());
+            var manifest = combiner.InitialEpub.Opf.Manifest;
+            Assert.AreEqual(16, manifest.Count);
+
+            var epub2 = MockEpub2();
+            combiner.Add(epub2);
+            Assert.AreEqual(43, manifest.Count);
+
+            combiner.Add(epub2);
+            Assert.AreEqual(70, manifest.Count);
+        }
 
         public EpubCombiner MakeCombiner()
         {

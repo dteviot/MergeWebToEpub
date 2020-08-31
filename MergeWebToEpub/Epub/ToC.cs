@@ -101,6 +101,13 @@ namespace MergeWebToEpub
             return navMap;
         }
 
+        public Dictionary<string, string> BuildScrToTitleMap()
+        {
+            var map = new Dictionary<string, string>();
+            TocEntry.AddToScrToTileMap(map, Entries);
+            return map;
+        }
+
         public string Uid { get; set; }
 
         public string Version { get; set; }

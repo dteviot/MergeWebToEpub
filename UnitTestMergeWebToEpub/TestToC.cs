@@ -32,5 +32,18 @@ namespace UnitTestMergeWebToEpub
             toc.Entries[2].Children[0].Children.Add(new TocEntry());
             Assert.AreEqual(3, toc.CalcNavMapDepth());
         }
+
+        [TestMethod]
+        public void TestBuildScrToTitleMap()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
+            var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
+            var toc = new ToC(doc, mockNcxItem);
+            var actual = toc.BuildScrToTitleMap();
+            Assert.AreEqual(6, actual.Count);
+            Assert.AreEqual("Splash pages", actual["OEPBS/Text/0000_Splash_pages.xhtml"]);
+            Assert.AreEqual("Main Story: Chapter 1", actual["OEPBS/Text/0001_Chapter_1.xhtml"]);
+            Assert.AreEqual("Chapter 3", actual["OEPBS/Text/0003_Chapter_3.xhtml"]);
+        }
     }
 }
