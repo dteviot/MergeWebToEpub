@@ -43,7 +43,7 @@ namespace UnitTestMergeWebToEpub
                 .Elements(Epub.DaisyNs + "source")
                 .Select(e => new Tuple<string, string>(e.Attribute("id").Value, e.Value))
                 .ToList();
-            Assert.AreEqual(41, sources.Count);
+            Assert.AreEqual(40, sources.Count);
             Assert.AreEqual(new Tuple<string, string>("id.cover-image0002", "https://cgtranslations321782266.files.wordpress.com/2020/07/p1alt2en.png"), sources[14]);
             Assert.AreEqual(new Tuple<string, string>("id.image0010", "https://cgtranslations321782266.files.wordpress.com/2020/07/ch2.png"), sources[15]);
         }

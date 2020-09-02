@@ -15,8 +15,25 @@ namespace MergeWebToEpub
 
         public Metadata(XElement element)
         {
-            MetadataElement = element;
-            foreach(var e in element.Elements(Epub.DaisyNs + "source"))
+            Title = element.Element(Epub.DaisyNs + "title").Value;
+            Language = element.Element(Epub.DaisyNs + "language").Value;
+            Date = element.Element(Epub.DaisyNs + "date").Value;
+
+            var creatorElement = element.Element(Epub.DaisyNs + "creator");
+            CreatorFileAs = creatorElement.Attribute(Epub.PackageNs + "file-as").Value;
+            Creator = creatorElement.Value;
+
+            var identifierElement = element.Element(Epub.DaisyNs + "identifier");
+            IdentifierId = identifierElement.Attribute("id").Value;
+            Identifier = identifierElement.Value;
+
+            var contributorElement = element.Element(Epub.DaisyNs + "contributor");
+            ContributorRole = contributorElement.Attribute(Epub.PackageNs + "role").Value;
+            Contributor = contributorElement.Value;
+
+            CoverImageId = FindCoverImageId(element);
+
+            foreach (var e in element.Elements(Epub.DaisyNs + "source"))
             {
                 Sources.Add(e.Attribute("id").Value, e.Value);
             }
@@ -24,32 +41,83 @@ namespace MergeWebToEpub
 
         public XElement ToXElement()
         {
-            // ToDo: should generate this from Metadata info
-            return MetadataElement;
+            var element = new XElement(Epub.PackageNs + "metadata",
+                new XAttribute(XNamespace.Xmlns + "dc", Epub.DaisyNs.NamespaceName),
+                new XAttribute(XNamespace.Xmlns + "opf", Epub.PackageNs.NamespaceName),
+                new XElement(Epub.DaisyNs + "title", Title),
+                new XElement(Epub.DaisyNs + "language", Language),
+                new XElement(Epub.DaisyNs + "date", Date),
+                new XElement(Epub.DaisyNs + "creator",
+                    new XAttribute(Epub.PackageNs + "file-as", CreatorFileAs),
+                    new XAttribute(Epub.PackageNs + "role", "aut"),
+                    Creator
+                ),
+                new XElement(Epub.DaisyNs + "identifier",
+                    new XAttribute("id", IdentifierId),
+                    new XAttribute(Epub.PackageNs + "scheme", "URI"),
+                    Identifier
+                ),
+                new XElement(Epub.DaisyNs + "contributor",
+                    new XAttribute(Epub.PackageNs + "role", ContributorRole),
+                    Contributor
+                )
+            );
+
+            if (CoverImageId != null)
+            {
+                element.Add(new XElement(Epub.PackageNs + "meta",
+                    new XAttribute("content", CoverImageId),
+                    new XAttribute("name", "cover")
+                ));
+            }
+
+            foreach (var e in Sources)
+            {
+                element.Add(new XElement(Epub.DaisyNs + "source",
+                    new XAttribute("id", e.Key),
+                    e.Value
+                ));
+            }
+            return element;
         }
 
         public void AddSource(string id, string source)
         {
-            Sources.Add(id, source);
-            MetadataElement.Add(
-                new XElement(Epub.DaisyNs + "source",
-                    new XAttribute("id", id),
-                    source
-                )
-            );
+            if (source != null)
+            {
+                Sources.Add(id, source);
+            }
         }
 
-        public string CoverImageId()
+        public void RemoveSource(string id)
         {
-            return MetadataElement
+            Sources.Remove(id);
+        }
+
+        public string FindCoverImageId(XElement metadata)
+        {
+            return metadata
                 .Elements(Epub.PackageNs + "meta")
                 .Where(e => e.Attribute("name")?.Value == "cover")
                 .Select(e => e.Attribute("content")?.Value)
                 .FirstOrDefault();
         }
 
-        public Dictionary<string, string> Sources { get; set; } = new Dictionary<string, string>();
 
-        private XElement MetadataElement { get; set; }
+
+        public string Title { get; set; }
+        public string Language { get; set; }
+        public string Date { get; set; }
+
+        public string CreatorFileAs { get; set; }
+        public string Creator { get; set; }
+        public string IdentifierId { get; set; }
+        public string Identifier { get; set; }
+        public string ContributorRole { get; set; }
+        public string Contributor { get; set; }
+
+        public string CoverImageId { get; set; }
+
+        public Dictionary<string, string> Sources { get; set; } = new Dictionary<string, string>();
     }
 }

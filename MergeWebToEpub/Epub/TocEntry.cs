@@ -89,5 +89,22 @@ namespace MergeWebToEpub
             AddToScrToTileMap(map, Children);
         }
 
+        public static (List<TocEntry> entries, int index) FindTocEntry(List<TocEntry> entries, string src)
+        {
+            for(int i = 0; i < entries.Count; ++i)
+            {
+                var entry = entries[i];
+                if (entry.ContentSrc == src)
+                {
+                    return (entries, i);
+                }
+                var possible = FindTocEntry(entry.Children, src);
+                if (possible.entries != null)
+                {
+                    return possible;
+                }
+            }
+            return (null, 0);
+        }
     }
 }

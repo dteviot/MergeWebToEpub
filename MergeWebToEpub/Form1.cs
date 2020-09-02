@@ -33,6 +33,11 @@ namespace MergeWebToEpub
             RunTrappingExceptions(SaveToFile);
         }
 
+        private void deleteCheckedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunTrappingExceptions(DeleteCheckedItems);
+        }
+
         private void CreateCombiner()
         {
             var epub = BrowseForEpub();
@@ -85,6 +90,17 @@ namespace MergeWebToEpub
             }
         }
 
+        private void DeleteCheckedItems()
+        {
+            foreach(ListViewItem item in listViewEpubItems.Items)
+            {
+                if (item.Checked)
+                {
+                    combiner.InitialEpub.DeleteItem(item.Tag as EpubItem);
+                }
+            }
+            PopulateListView();
+        }
 
         private void RunTrappingExceptions(Action action)
         {
@@ -125,7 +141,10 @@ namespace MergeWebToEpub
                 {
                     title = "<none>";
                 }
-                var listItem = new ListViewItem(new string[4] { epubItem.Id, zipName, title, null });
+                var listItem = new ListViewItem(new string[] { epubItem.Id, zipName, title })
+                {
+                    Tag = epubItem
+                };
                 listViewEpubItems.Items.Add(listItem);
             }
             listViewEpubItems.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);

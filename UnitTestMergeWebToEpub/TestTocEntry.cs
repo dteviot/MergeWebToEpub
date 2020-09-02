@@ -11,11 +11,7 @@ namespace UnitTestMergeWebToEpub
         [TestMethod]
         public void RoundTripTocEntry()
         {
-            XDocument doc = null;
-            using (var stream = Utils.ReadResource("UnitTestMergeWebToEpub.TestData.toc.ncx"))
-            {
-                doc = XDocument.Load(stream);
-            }
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.toc.ncx");
             var e1 = doc.Root.Element(Epub.ncxNs + "navMap")
                 .Element(Epub.ncxNs + "navPoint");
 

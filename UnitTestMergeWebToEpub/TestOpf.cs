@@ -74,5 +74,52 @@ namespace UnitTestMergeWebToEpub
             var items = opf.GetImageItems();
             Assert.AreEqual(20, items.Count);
         }
+
+        [TestMethod]
+        public void TestDeleteItem_InSpine()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.contentWithImages.opf");
+            var opf = new Opf(doc, "OEPBS/content.opf");
+
+            Assert.AreEqual(26, opf.Metadata.Sources.Count);
+            Assert.AreEqual(29, opf.Manifest.Count);
+            Assert.AreEqual("OEPBS/Text/Cover.xhtml", opf.Manifest[28].AbsolutePath);
+
+
+            Assert.AreEqual(7, opf.Spine.Count);
+            Assert.AreEqual("cover", opf.Spine[0]);
+
+            opf.DeleteItem(opf.Manifest[28]);
+
+            Assert.AreEqual(6, opf.Spine.Count);
+            Assert.AreEqual("xhtml0000", opf.Spine[0]);
+            Assert.AreEqual(28, opf.Manifest.Count);
+            Assert.AreEqual(26, opf.Metadata.Sources.Count);
+        }
+
+        [TestMethod]
+        public void TestDeleteItem_NotInSpine()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.contentWithImages.opf");
+            var opf = new Opf(doc, "OEPBS/content.opf");
+
+            Assert.AreEqual(26, opf.Metadata.Sources.Count);
+            Assert.IsTrue(opf.Metadata.Sources.ContainsKey("id.cover-image"));
+
+            Assert.AreEqual(29, opf.Manifest.Count);
+            Assert.AreEqual("OEPBS/Images/0000_p1alt2en.png", opf.Manifest[0].AbsolutePath);
+
+            Assert.AreEqual(7, opf.Spine.Count);
+
+            opf.DeleteItem(opf.Manifest[0]);
+
+            Assert.AreEqual(7, opf.Spine.Count);
+
+            Assert.AreEqual("OEPBS/Images/0008_ch2.png", opf.Manifest[0].AbsolutePath);
+            Assert.AreEqual(28, opf.Manifest.Count);
+
+            Assert.AreEqual(25, opf.Metadata.Sources.Count);
+            Assert.IsFalse(opf.Metadata.Sources.ContainsKey("id.cover-image"));
+        }
     }
 }

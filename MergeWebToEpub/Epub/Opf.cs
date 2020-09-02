@@ -98,7 +98,7 @@ namespace MergeWebToEpub
 
         private void FindSpecialPages()
         {
-            var coverImageId = Metadata.CoverImageId();
+            var coverImageId = Metadata.CoverImageId;
             if (coverImageId != null)
             {
                 CoverImage = IdIndex[coverImageId];
@@ -126,6 +126,15 @@ namespace MergeWebToEpub
             Manifest.Add(item);
             AbsolutePathIndex.Add(item.AbsolutePath, item);
             IdIndex.Add(item.Id, item);
+        }
+
+        public void DeleteItem(EpubItem item)
+        {
+            Metadata.RemoveSource(item.MetadataId);
+            Manifest.Remove(item);
+            AbsolutePathIndex.Remove(item.AbsolutePath);
+            IdIndex.Remove(item.Id);
+            Spine.Remove(item.Id);
         }
 
         public Metadata Metadata { get; set; }

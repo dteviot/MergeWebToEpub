@@ -108,6 +108,23 @@ namespace MergeWebToEpub
             return map;
         }
 
+        public void DeleteItem(EpubItem item)
+        {
+            // ToDo, better handling of case when item appears in ToC
+            // in multple places.  (Due to nested chapters)
+            var entryDetails = FindTocEntry(item.AbsolutePath);
+            while (entryDetails.entries != null)
+            {
+                entryDetails.entries.RemoveAt(entryDetails.index);
+                entryDetails = FindTocEntry(item.AbsolutePath);
+            }
+        }
+
+        public (List<TocEntry> entries, int index) FindTocEntry(string src)
+        {
+            return TocEntry.FindTocEntry(Entries, src);
+        }
+
         public string Uid { get; set; }
 
         public string Version { get; set; }

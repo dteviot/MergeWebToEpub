@@ -19,7 +19,7 @@ namespace MergeWebToEpub
             using (ZipFile zip = ZipFile.Read(fileName))
             {
                 Container = new Container(zip.ExtractXml(Epub.ContainerPath));
-                var containerPath = Container.FullPath();
+                var containerPath = Container.FullPath;
                 Opf = new Opf(zip.ExtractXml(containerPath), containerPath);
                 foreach (var item in Opf.Manifest)
                 {
@@ -52,6 +52,12 @@ namespace MergeWebToEpub
             zip.EmitTimesInWindowsFormatWhenSaving = false;
             zip.CompressionLevel = Ionic.Zlib.CompressionLevel.None;
             zip.AddEntry(Epub.MimeType, "application/epub+zip");
+        }
+
+        public void DeleteItem(EpubItem item)
+        {
+            Opf.DeleteItem(item);
+            ToC.DeleteItem(item);
         }
 
         public Container Container { get; set; }

@@ -17,20 +17,31 @@ namespace MergeWebToEpub
 
         public Container(XDocument doc)
         {
-            this.doc = doc;
-        }
-
-        public string FullPath()
-        {
-            return doc.Root.Descendants(Epub.containerNs + "rootfile").First().Attribute("full-path")?.Value;
+            this.FullPath = doc.Root.Descendants(Epub.containerNs + "rootfile").First().Attribute("full-path")?.Value;
         }
 
         public void WriteTo(ZipFile zipFile)
         {
-            // ToDo: should generate the XML from the FullPath value
-            zipFile.AddEntry(Epub.ContainerPath, doc.ToStream());
+            
+            zipFile.AddEntry(Epub.ContainerPath, ToXDocument().ToStream());
         }
 
-        private XDocument doc { get; set; }
+        public XDocument ToXDocument()
+        {
+            return new XDocument(
+                new XElement(Epub.containerNs + "container",
+                    new XAttribute("version", "1.0"),
+                    new XAttribute("xmlns", "urn:oasis:names:tc:opendocument:xmlns:container"),
+                    new XElement(Epub.containerNs + "rootfiles",
+                        new XElement(Epub.containerNs + "rootfile",
+                            new XAttribute("full-path", FullPath),
+                            new XAttribute("media-type", "application/oebps-package+xml")
+                        )
+                    )
+                )
+            );
+        }
+
+        public string FullPath { get; set; }
     }
 }

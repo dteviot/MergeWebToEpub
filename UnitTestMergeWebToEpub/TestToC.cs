@@ -45,5 +45,39 @@ namespace UnitTestMergeWebToEpub
             Assert.AreEqual("Main Story: Chapter 1", actual["OEPBS/Text/0001_Chapter_1.xhtml"]);
             Assert.AreEqual("Chapter 3", actual["OEPBS/Text/0003_Chapter_3.xhtml"]);
         }
+
+        [TestMethod]
+        public void TestFindTocEntry_Exists()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
+            var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
+            var toc = new ToC(doc, mockNcxItem);
+            var actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_2.xhtml");
+            Assert.IsNotNull(actual.entries);
+        }
+
+        [TestMethod]
+        public void TestFindTocEntry_DoesNotExist()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
+            var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
+            var toc = new ToC(doc, mockNcxItem);
+            var actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_A.xhtml");
+            Assert.IsNull(actual.entries);
+        }
+
+        [TestMethod]
+        public void TestDeleteItem_SimpleCase()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
+            var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
+            var toc = new ToC(doc, mockNcxItem);
+            var actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_2.xhtml");
+            Assert.IsNotNull(actual.entries);
+
+            toc.DeleteItem(new EpubItem() { AbsolutePath = "OEPBS/Text/0002_Chapter_2.xhtml" });
+            actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_2.xhtml");
+            Assert.IsNull(actual.entries);
+        }
     }
 }
