@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using MergeWebToEpub;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -141,13 +142,18 @@ namespace UnitTestMergeWebToEpub
             var combiner = new EpubCombiner(MockEpub1());
             var manifest = combiner.InitialEpub.Opf.Manifest;
             Assert.AreEqual(16, manifest.Count);
+            Assert.AreEqual(0, combiner.InitialEpub.Opf.GetImageItems().Count());
 
             var epub2 = MockEpub2();
             combiner.Add(epub2);
             Assert.AreEqual(43, manifest.Count);
+            Assert.AreEqual(20, combiner.InitialEpub.Opf.GetImageItems().Count());
 
             combiner.Add(epub2);
-            Assert.AreEqual(70, manifest.Count);
+            Assert.AreEqual(50, manifest.Count);
+            Assert.AreEqual(20, combiner.InitialEpub.Opf.GetImageItems().Count());
+            Assert.AreEqual(20, combiner.ImageHashes.Count);
+            Assert.AreEqual("OEPBS/Images/0002_p1alt2en.png", combiner.NewAbsolutePaths["OEPBS/Images/0000_p1alt2en.png"]);
         }
 
         public EpubCombiner MakeCombiner()
@@ -162,9 +168,11 @@ namespace UnitTestMergeWebToEpub
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.content.opf");
             XDocument toc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocCultivation.ncx");
 
+            var opf = new Opf(doc, "OEPBS/content.opf");
+            MockRawData(opf);
             return new Epub()
             {
-                Opf = new Opf(doc, "OEPBS/content.opf"),
+                Opf = opf,
                 ToC = new ToC(toc, MockTocEpubItem())
             };
         }
@@ -175,17 +183,26 @@ namespace UnitTestMergeWebToEpub
             XDocument toc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
 
             var opf = new Opf(doc, "OEPBS/content.opf");
-            foreach(var item in opf.Manifest)
+            MockRawData(opf);
+            return new Epub()
+            {
+                Opf = opf,
+                ToC = new ToC(toc, MockTocEpubItem())
+            };
+        }
+
+        public void MockRawData(Opf opf)
+        {
+            foreach (var item in opf.Manifest)
             {
                 if (item.IsXhtmlPage)
                 {
                     item.RawBytes = MakeDummyDoc();
                 }
-            };
-            return new Epub()
-            {
-                Opf = opf,
-                ToC = new ToC(toc, MockTocEpubItem())
+                else if (item.IsImage)
+                {
+                    item.RawBytes = MakeDummyImage(item);
+                }
             };
         }
 
@@ -210,6 +227,11 @@ namespace UnitTestMergeWebToEpub
                 "</div>");
             page.Root.Element(Epub.xhtmlNs + "body").Add(bodyElement);
             return page.ToStream().ToArray();
+        }
+
+        public byte[] MakeDummyImage(EpubItem item)
+        {
+            return Encoding.UTF8.GetBytes(item.AbsolutePath);
         }
     }
 }

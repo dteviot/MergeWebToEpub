@@ -33,17 +33,38 @@ namespace MergeWebToEpub
             There may be two table of contents if it's an epub 3
             Don't bother copying stylesheet
              */
-
-            NewAbsolutePaths.Clear();
-            NewItemIds.Clear();
-
-            CalculateNewPathsAndIds();
-            foreach (var item in ToAppend.Opf.Manifest)
+            PrepareForMerge();
+            foreach (var item in ToAppend.Opf.GetImageItems())
             {
-                CopyEpubItem(item);
+                CopyImageEpubItem(item);
+            }
+            foreach (var item in ToAppend.Opf.GetPageItems())
+            {
+                CopyPageEpubItem(item);
             }
             CopyTableOfContents();
             CopySpine();
+        }
+
+        private void PrepareForMerge()
+        {
+            NewAbsolutePaths.Clear();
+            NewItemIds.Clear();
+            ImageHashes.Clear();
+
+            CalculateNewPathsAndIds();
+            CalculateImageHashes();
+        }
+
+        public void CalculateImageHashes()
+        {
+            foreach (var p in InitialEpub.Opf.GetImageItems())
+            {
+                if (p.RawBytes.Length != 0)
+                {
+                    ImageHashes[p.RawBytes.ToHash()] = p.AbsolutePath;
+                }
+            }
         }
 
         public void CalculateNewPathsAndIds()
@@ -138,17 +159,27 @@ namespace MergeWebToEpub
                 : fileName;
         }
 
-        public void CopyEpubItem(EpubItem item)
+        public void CopyPageEpubItem(EpubItem item)
         {
-            if (item.IsXhtmlPage)
+            CopyEpubItem(item, (i) => UpdateXhtmlPage(i));
+        }
+
+        public void CopyImageEpubItem(EpubItem item)
+        {
+            var hash = item.RawBytes.ToHash();
+
+            // don't copy images that are already in epub
+            if (hash != null)
             {
-                CopyEpubItem(item, (i) => UpdateXhtmlPage(i));
+                string existingImage = null;
+                if (ImageHashes.TryGetValue(hash, out existingImage))
+                {
+                    NewAbsolutePaths[item.AbsolutePath] = existingImage;
+                    return;
+                }
             }
-            else if (item.IsImage)
-            {
-                CopyEpubItem(item, (i) => i.RawBytes);
-            }
-            // else don't copy
+
+            CopyEpubItem(item, (i) => i.RawBytes);
         }
 
         public void CopyEpubItem(EpubItem item, Func<EpubItem, byte[]>docUpdater)
@@ -264,5 +295,10 @@ namespace MergeWebToEpub
         /// Map Item's old IDs to new IDs
         /// </summary>
         public Dictionary<string, string> NewItemIds { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>
+        /// The hashes of images.  Used to eliminate duplicates
+        /// </summary>
+        public Dictionary<string, string> ImageHashes { get; set; } = new Dictionary<string, string>();
     }
 }

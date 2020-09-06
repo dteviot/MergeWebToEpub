@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -50,6 +51,18 @@ namespace MergeWebToEpub
             {
                 return XDocument.Load(ms);
             }
+        }
+
+        public static string ToHash(this byte[] rawBytes)
+        {
+            if (rawBytes.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            var sha = new SHA256Managed();
+            byte[] checksum = sha.ComputeHash(rawBytes);
+            return BitConverter.ToString(checksum).Replace("-", String.Empty);
         }
 
         public static string RelativePathToAbsolute(string originFolder, string relative)

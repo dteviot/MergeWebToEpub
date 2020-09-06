@@ -15,10 +15,15 @@
     <ul>
         <li>Multi-select files for "Add to End"</li>
         <li>Validate XML, give list of files that are not valid XHMTL</li>
-        <li>Remove duplicate images on merge</li>
+        <li>Remove duplicate images on merge. Note for missing images (0 size) use the source URL to check for uniqueness.</li>
         <li>Remove unused images</li>
         <li>Resize images</li>
-        <li>Hook point for automated batch edits</li>
+        <li>
+            Hook point for automated batch edits
+            <ul>
+                <li>May be able to automatically figure out which edit to run based on hostname, from source in metadata</li>
+            </ul>
+        </li>
         <li>Add tabs: Spine &amp; Table of Contents</li>
         <li>Insert new chapter</li>
         <li>Insert new chapter -> Summary from NovelUpdates</li>
