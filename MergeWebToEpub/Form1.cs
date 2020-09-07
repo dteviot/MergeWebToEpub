@@ -40,40 +40,44 @@ namespace MergeWebToEpub
 
         private void CreateCombiner()
         {
-            var epub = BrowseForEpub();
-            if (epub != null)
+            var epubs = BrowseForEpub(false);
+            if (epubs.Count == 1)
             {
-                combiner = new EpubCombiner(epub);
+                combiner = new EpubCombiner(epubs[0]);
                 PopulateListView();
             }
         }
 
         private void AddEpub()
         {
-            var epub = BrowseForEpub();
-            if (epub != null)
+            var epubs = BrowseForEpub(true);
+            foreach (var epub in epubs)
             {
                 combiner.Add(epub);
-                PopulateListView();
             }
+            PopulateListView();
         }
 
-        private Epub BrowseForEpub()
+        private List<Epub> BrowseForEpub(bool multiselect)
         {
-            Epub epub = null;
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            var epubs = new List<Epub>();
+            using (var ofd = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = lastEpubFileName;
-                openFileDialog.Filter = "Epub files (*.epub)|*.epub|All files (*.*)|*.*";
+                ofd.InitialDirectory = lastEpubFileName;
+                ofd.Filter = "Epub files (*.epub)|*.epub|All files (*.*)|*.*";
+                ofd.Multiselect = multiselect;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    lastEpubFileName = openFileDialog.FileName;
-                    epub = new Epub();
-                    epub.ReadFile(openFileDialog.FileName);
+                    foreach (var f in ofd.FileNames)
+                    {
+                        var epub = new Epub();
+                        epub.ReadFile(f);
+                        epubs.Add(epub);
+                    }
                 }
             }
-            return epub;
+            return epubs;
         }
 
         private void SaveToFile()
