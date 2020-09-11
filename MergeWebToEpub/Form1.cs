@@ -69,12 +69,7 @@ namespace MergeWebToEpub
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    foreach (var f in ofd.FileNames)
-                    {
-                        var epub = new Epub();
-                        epub.ReadFile(f);
-                        epubs.Add(epub);
-                    }
+                    epubs = ofd.FileNames.Select(LoadEpub).ToList();
                 }
             }
             return epubs;
@@ -92,6 +87,24 @@ namespace MergeWebToEpub
                     combiner.InitialEpub.WriteFile(saveFileDialog.FileName);
                 }
             }
+        }
+
+        private Epub LoadEpub(string fileName)
+        {
+            var epub = new Epub();
+            epub.ReadFile(fileName);
+            var errors = epub.ValidateXhtml();
+            if (0 < errors.Count)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine($"Epub file '{fileName}' has the following errors:");
+                foreach(var error in errors)
+                {
+                    sb.AppendLine(error);
+                }
+                throw new Exception(sb.ToString());
+            }
+            return epub;
         }
 
         private void DeleteCheckedItems()

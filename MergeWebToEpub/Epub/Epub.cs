@@ -60,6 +60,16 @@ namespace MergeWebToEpub
             ToC.DeleteItem(item);
         }
 
+        public List<string> ValidateXhtml()
+        {
+            var errors = new List<string>();
+            foreach(var item in Opf.Manifest)
+            {
+                errors.AddRange(item.ValidateXhtml());
+            }
+            return errors;
+        }
+
         public Container Container { get; set; }
         public Opf Opf { get; set; }
         public ToC ToC { get; set; }

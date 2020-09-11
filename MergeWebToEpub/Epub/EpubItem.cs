@@ -44,6 +44,23 @@ namespace MergeWebToEpub
             );
         }
 
+        public List<string> ValidateXhtml()
+        {
+            var errors = new List<string>();
+            if (this.IsXhtmlPage)
+            {
+                try
+                {
+                    RawBytes.ToXhtml();
+                }
+                catch(Exception e)
+                {
+                    errors.Add($"Chapter '{AbsolutePath}' has error:  {e.Message}");
+                }
+            }
+            return errors;
+        }
+
         public string Id { get; set; }
 
         public string MetadataId { get { return "id." + Id; } }
