@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Mime;
 using System.Xml.Linq;
 using MergeWebToEpub;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,8 +15,9 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.toc.ncx");
             var mockNcxItem = new EpubItem() { AbsolutePath = "toc.ncx" };
+            var api = Utils.FakeAbsolutePathIndex(doc, "toc.ncx");
 
-            var toc = new ToC(doc, mockNcxItem);
+            var toc = new ToC(doc, mockNcxItem, api);
             var doc2 = toc.ToXDocument();
             var delta = XmlCompare.ElementSame(doc.Root, doc2.Root);
             Assert.IsTrue(delta.AreSame);
@@ -25,8 +28,9 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.toc.ncx");
             var mockNcxItem = new EpubItem() { AbsolutePath = "toc.ncx" };
+            var api = Utils.FakeAbsolutePathIndex(doc, "toc.ncx");
 
-            var toc = new ToC(doc, mockNcxItem);
+            var toc = new ToC(doc, mockNcxItem, api);
             Assert.AreEqual(2, toc.CalcNavMapDepth());
 
             toc.Entries[2].Children[0].Children.Add(new TocEntry());
@@ -38,7 +42,8 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
             var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
-            var toc = new ToC(doc, mockNcxItem);
+            var api = Utils.FakeAbsolutePathIndex(doc, "OEPBS/toc.ncx");
+            var toc = new ToC(doc, mockNcxItem, api);
             var actual = toc.BuildScrToTitleMap();
             Assert.AreEqual(6, actual.Count);
             Assert.AreEqual("Splash pages", actual["OEPBS/Text/0000_Splash_pages.xhtml"]);
@@ -51,7 +56,8 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
             var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
-            var toc = new ToC(doc, mockNcxItem);
+            var api = Utils.FakeAbsolutePathIndex(doc, "OEPBS/toc.ncx");
+            var toc = new ToC(doc, mockNcxItem, api);
             var actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_2.xhtml");
             Assert.IsNotNull(actual.entries);
         }
@@ -61,7 +67,8 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
             var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
-            var toc = new ToC(doc, mockNcxItem);
+            var api = Utils.FakeAbsolutePathIndex(doc, "OEPBS/toc.ncx");
+            var toc = new ToC(doc, mockNcxItem, api);
             var actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_A.xhtml");
             Assert.IsNull(actual.entries);
         }
@@ -71,7 +78,8 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocGifting.ncx");
             var mockNcxItem = new EpubItem() { AbsolutePath = "OEPBS/toc.ncx" };
-            var toc = new ToC(doc, mockNcxItem);
+            var api = Utils.FakeAbsolutePathIndex(doc, "OEPBS/toc.ncx");
+            var toc = new ToC(doc, mockNcxItem, api);
             var actual = toc.FindTocEntry("OEPBS/Text/0002_Chapter_2.xhtml");
             Assert.IsNotNull(actual.entries);
 

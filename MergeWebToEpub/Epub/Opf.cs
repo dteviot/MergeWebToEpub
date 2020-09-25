@@ -22,12 +22,12 @@ namespace MergeWebToEpub
             this.Metadata = new Metadata(doc.Root.Element(Epub.PackageNs + "metadata"));
             var opfFolder = OpfFileName.GetZipPath();
             ParseManifest(doc.Root.Element(Epub.PackageNs + "manifest"), opfFolder);
-            ParseSpine(doc.Root.Element(Epub.PackageNs + "spine"));
             foreach (var item in Manifest)
             {
                 AbsolutePathIndex.Add(item.AbsolutePath, item);
                 IdIndex.Add(item.Id, item);
             }
+            ParseSpine(doc.Root.Element(Epub.PackageNs + "spine"));
             FindSpecialPages();
         }
 
@@ -67,7 +67,7 @@ namespace MergeWebToEpub
         private void ParseSpine(XElement spineElement)
         {
             Spine = spineElement.Elements(Epub.PackageNs + "itemref")
-                .Select(e => e.Attribute("idref").Value).ToList();
+                .Select(e => IdIndex[e.Attribute("idref").Value]).ToList();
             TocId = spineElement.Attribute("toc")?.Value;
         }
 
@@ -90,7 +90,7 @@ namespace MergeWebToEpub
             foreach (var item in Spine)
             {
                 root.Add(new XElement(Epub.PackageNs + "itemref",
-                    new XAttribute("idref", item)
+                    new XAttribute("idref", item.Id)
                 ));
             }
             return root;
@@ -134,13 +134,13 @@ namespace MergeWebToEpub
             Manifest.Remove(item);
             AbsolutePathIndex.Remove(item.AbsolutePath);
             IdIndex.Remove(item.Id);
-            Spine.Remove(item.Id);
+            Spine.Remove(item);
         }
 
         public Metadata Metadata { get; set; }
 
         public List<EpubItem> Manifest { get; set; }
-        public List<string> Spine { get; set; }
+        public List<EpubItem> Spine { get; set; }
 
         public string TocId { get; set; }
 

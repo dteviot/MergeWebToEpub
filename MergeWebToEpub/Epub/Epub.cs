@@ -26,7 +26,7 @@ namespace MergeWebToEpub
                     item.AddRawDataToItem(zip);
                 }
                 var ncxItem = Opf.NcxItem;
-                ToC = new ToC(zip.ExtractXml(ncxItem.AbsolutePath), ncxItem);
+                ToC = new ToC(zip.ExtractXml(ncxItem.AbsolutePath), ncxItem, Opf.AbsolutePathIndex);
             }
         }
 

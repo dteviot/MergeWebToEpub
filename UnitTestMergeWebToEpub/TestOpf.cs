@@ -87,12 +87,12 @@ namespace UnitTestMergeWebToEpub
 
 
             Assert.AreEqual(7, opf.Spine.Count);
-            Assert.AreEqual("cover", opf.Spine[0]);
+            Assert.AreEqual("cover", opf.Spine[0].Id);
 
             opf.DeleteItem(opf.Manifest[28]);
 
             Assert.AreEqual(6, opf.Spine.Count);
-            Assert.AreEqual("xhtml0000", opf.Spine[0]);
+            Assert.AreEqual("xhtml0000", opf.Spine[0].Id);
             Assert.AreEqual(28, opf.Manifest.Count);
             Assert.AreEqual(26, opf.Metadata.Sources.Count);
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MergeWebToEpub;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,5 +32,17 @@ namespace UnitTestMergeWebToEpub
             Assert.IsTrue(XNode.DeepEquals(e1, e2));
         }
 
+        public static Dictionary<string, EpubItem> FakeAbsolutePathIndex(XDocument doc, string ncxFileName)
+        {
+            var index = new Dictionary<string, EpubItem>();
+            string ncxFolder = ncxFileName.GetZipPath();
+            foreach (var e in doc.Root.Descendants(Epub.ncxNs + "content"))
+            {
+                string relativePath = e.Attribute("src").Value;
+                string absolute = ZipUtils.RelativePathToAbsolute(ncxFolder, relativePath);
+                index[absolute] = new EpubItem() { AbsolutePath = absolute };
+            }
+            return index;
+        }
     }
 }

@@ -17,22 +17,25 @@ namespace MergeWebToEpub
 
         }
 
-        public TocEntry(XElement element, string ncxPath)
+        public TocEntry(XElement element, string ncxFolder, Dictionary<string, EpubItem> absolutePathIndex)
         {
             Title = element.Element(Epub.ncxNs + "navLabel").Element(Epub.ncxNs + "text").Value;
             string src = element.Element(Epub.ncxNs + "content").Attribute("src").Value;
-            ContentSrc = ZipUtils.RelativePathToAbsolute(ncxPath, src);
+            Item = absolutePathIndex[ZipUtils.RelativePathToAbsolute(ncxFolder, src)];
             Children = element.Elements(Epub.ncxNs + "navPoint")
-                .Select(e => new TocEntry(e, ncxPath))
+                .Select(e => new TocEntry(e, ncxFolder, absolutePathIndex))
                 .ToList();
         }
 
         public string Title { get; set; }
-        public string ContentSrc { get; set; }
+
+        public string ContentSrc { get { return Item.AbsolutePath; } }
+
+        public EpubItem Item { get; set; }
 
         public List<TocEntry> Children { get; set; } = new List<TocEntry>();
 
-        public XElement ToNavPoint(ref int playOrder, string ncxPath)
+        public XElement ToNavPoint(ref int playOrder, string ncxFolder)
         {
             ++playOrder;
             var navPoint = new XElement(Epub.ncxNs + "navPoint",
@@ -42,12 +45,12 @@ namespace MergeWebToEpub
                     new XElement(Epub.ncxNs + "text", Title)
                 ),
                 new XElement(Epub.ncxNs + "content",
-                    new XAttribute("src", ZipUtils.AbsolutePathToRelative(ncxPath, ContentSrc))
+                    new XAttribute("src", ZipUtils.AbsolutePathToRelative(ncxFolder, ContentSrc))
                 )
             );
             foreach(var e in Children)
             {
-                navPoint.Add(e.ToNavPoint(ref playOrder, ncxPath));
+                navPoint.Add(e.ToNavPoint(ref playOrder, ncxFolder));
             }
             return navPoint;
         }

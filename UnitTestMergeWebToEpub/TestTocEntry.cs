@@ -16,9 +16,11 @@ namespace UnitTestMergeWebToEpub
                 .Element(Epub.ncxNs + "navPoint");
 
             string ncxPath = "OEPBS/content.opf";
-            var tocEntry = new TocEntry(e1, ncxPath);
+            string ncxFolder = ncxPath.GetZipPath();
+            var api = Utils.FakeAbsolutePathIndex(doc, ncxPath);
+            var tocEntry = new TocEntry(e1, ncxFolder, api);
             int playOrder = 0;
-            var e2 = tocEntry.ToNavPoint(ref playOrder, ncxPath);
+            var e2 = tocEntry.ToNavPoint(ref playOrder, ncxFolder);
             Assert.IsTrue(XNode.DeepEquals(e1, e2));
         }
     }

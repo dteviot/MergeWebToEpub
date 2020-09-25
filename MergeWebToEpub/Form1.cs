@@ -33,9 +33,9 @@ namespace MergeWebToEpub
             RunTrappingExceptions(SaveToFile);
         }
 
-        private void deleteCheckedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RunTrappingExceptions(DeleteCheckedItems);
+            RunTrappingExceptions(DeleteSelectedItems);
         }
 
         private void CreateCombiner()
@@ -107,14 +107,20 @@ namespace MergeWebToEpub
             return epub;
         }
 
-        private void DeleteCheckedItems()
+        private void DeleteSelectedItems()
         {
-            foreach(ListViewItem item in listViewEpubItems.Items)
+            List<int> indices = new List<int>();
+            foreach (int index in listViewEpubItems.SelectedIndices)
             {
-                if (item.Checked)
-                {
-                    combiner.InitialEpub.DeleteItem(item.Tag as EpubItem);
-                }
+                indices.Add(index);
+            }
+            indices.Sort();
+            indices.Reverse();
+            listViewEpubItems.SelectedIndices.Clear();
+            var spine = combiner.InitialEpub.Opf.Spine;
+            foreach (var index in indices)
+            {
+                combiner.InitialEpub.DeleteItem(spine[index]);
             }
             PopulateListView();
         }
@@ -135,41 +141,56 @@ namespace MergeWebToEpub
         private void InitListView()
         {
             var cols = listViewEpubItems.Columns;
-            cols.Add("ID", 100);
-            cols.Add("Zip Name", 100);
-            cols.Add("Title", 100);
-            listViewEpubItems.CheckBoxes = true;
+            cols.Add("ID", -2);
+            cols.Add("Title", -2);
+            cols.Add("Zip Name", -2);
+            listViewEpubItems.FullRowSelect = true;
             listViewEpubItems.View = View.Details;
             listViewEpubItems.GridLines = true;
+            listViewEpubItems.VirtualMode = true;
         }
 
         private void PopulateListView()
         {
-            listViewEpubItems.BeginUpdate();
-            listViewEpubItems.Items.Clear();
-            var opf = combiner.InitialEpub.Opf;
+            listViewEpubItems.VirtualListSize = combiner.InitialEpub.Opf.Spine.Count;
+        }
+
+        private void listViewEpubItems_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            var epubItem = combiner.InitialEpub.Opf.Spine[e.ItemIndex];
             var titlesMap = combiner.InitialEpub.ToC.BuildScrToTitleMap();
-            foreach (var s in opf.Spine)
+            var zipName = epubItem.AbsolutePath;
+            string title = null;
+            if (!titlesMap.TryGetValue(zipName, out title))
             {
-                var epubItem = opf.IdIndex[s];
-                var zipName = epubItem.AbsolutePath;
-                string title = null;
-                if (!titlesMap.TryGetValue(zipName, out title))
-                {
-                    title = "<none>";
-                }
-                var listItem = new ListViewItem(new string[] { epubItem.Id, zipName, title })
-                {
-                    Tag = epubItem
-                };
-                listViewEpubItems.Items.Add(listItem);
+                title = "<none>";
             }
-            listViewEpubItems.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            listViewEpubItems.EndUpdate();
+            e.Item = new ListViewItem(new string[] { epubItem.Id, title, zipName });
         }
 
         private static string lastEpubFileName;
         private static EpubCombiner combiner;
 
+        private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedItems();
+        }
+
+        private void contextMenuStripSpine_Opening(object sender, CancelEventArgs e)
+        {
+            EnableMenuBasedOnSelection();
+        }
+
+        private void EnableMenuBasedOnSelection()
+        {
+            int selectedCount = listViewEpubItems.SelectedIndices.Count;
+            deleteItemToolStripMenuItem.Enabled = (0 < selectedCount);
+            insertAfterSelectedToolStripMenuItem.Enabled = (selectedCount == 1);
+        }
+
+        private void insertAfterSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not yet implemented");
+        }
     }
 }

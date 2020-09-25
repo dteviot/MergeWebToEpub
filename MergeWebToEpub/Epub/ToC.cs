@@ -15,7 +15,7 @@ namespace MergeWebToEpub
         {
         }
 
-        public ToC(XDocument doc, EpubItem ncxItem)
+        public ToC(XDocument doc, EpubItem ncxItem, Dictionary<string, EpubItem> absolutePathIndex)
         {
             NcxItem = ncxItem;
             Version = doc.Root.Attribute("version").Value;
@@ -34,7 +34,7 @@ namespace MergeWebToEpub
             var map = doc.Root.Element(Epub.ncxNs + "navMap");
             string ncxPath = NcxFileName.GetZipPath();
             Entries = map.Elements(Epub.ncxNs + "navPoint")
-                .Select(e => new TocEntry(e, ncxPath))
+                .Select(e => new TocEntry(e, ncxPath, absolutePathIndex))
                 .ToList();
         }
 
@@ -93,7 +93,7 @@ namespace MergeWebToEpub
         {
             var navMap = new XElement(Epub.ncxNs + "navMap");
             int i = 0;
-            string ncxPath = ZipUtils.GetZipPath(NcxFileName);
+            string ncxPath = NcxFileName.GetZipPath();
             foreach(var e in Entries)
             {
                 navMap.Add(e.ToNavPoint(ref i, ncxPath));

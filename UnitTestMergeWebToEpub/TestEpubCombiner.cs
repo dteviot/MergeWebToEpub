@@ -55,8 +55,8 @@ namespace UnitTestMergeWebToEpub
             var combiner = MakeCombiner();
             var spine = combiner.InitialEpub.Opf.Spine;
             Assert.AreEqual(21, spine.Count);
-            Assert.AreEqual("cover0014", spine[14]);
-            Assert.AreEqual("xhtml0015", spine[15]);
+            Assert.AreEqual("cover0014", spine[14].Id);
+            Assert.AreEqual("xhtml0015", spine[15].Id);
         }
 
         [TestMethod]
@@ -124,8 +124,9 @@ namespace UnitTestMergeWebToEpub
             var combiner = new EpubCombiner(MockEpub1());
             combiner.ToAppend = MockEpub2();
 
-            combiner.CalculateNewPathsAndIds();
-            var newToc = combiner.CopyTocEntries(combiner.ToAppend.ToC.Entries);
+            var initialTocLength = combiner.InitialEpub.ToC.Entries.Count;
+            combiner.Combine();
+            var newToc = combiner.InitialEpub.ToC.Entries.Skip(initialTocLength).ToList();
 
             Assert.AreEqual(3, newToc.Count);
             Assert.AreEqual(0, newToc[0].Children.Count);
@@ -173,7 +174,7 @@ namespace UnitTestMergeWebToEpub
             return new Epub()
             {
                 Opf = opf,
-                ToC = new ToC(toc, MockTocEpubItem())
+                ToC = new ToC(toc, MockTocEpubItem(), opf.AbsolutePathIndex)
             };
         }
 
@@ -187,7 +188,7 @@ namespace UnitTestMergeWebToEpub
             return new Epub()
             {
                 Opf = opf,
-                ToC = new ToC(toc, MockTocEpubItem())
+                ToC = new ToC(toc, MockTocEpubItem(), opf.AbsolutePathIndex)
             };
         }
 

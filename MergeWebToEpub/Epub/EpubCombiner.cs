@@ -271,16 +271,23 @@ namespace MergeWebToEpub
             return new TocEntry()
             {
                 Title = entry.Title,
-                ContentSrc = NewAbsolutePaths[entry.ContentSrc],
+                Item = GetUpdatedItem(entry.Item),
                 Children = CopyTocEntries(entry.Children)
             };
         }
 
         public void CopySpine()
         {
-            InitialEpub.Opf.Spine.AddRange(
-                ToAppend.Opf.Spine.Select(s => NewItemIds[s])
-            );
+            foreach(var item in ToAppend.Opf.Spine)
+            {
+                InitialEpub.Opf.Spine.Add(GetUpdatedItem(item));
+            }
+        }
+
+        public EpubItem GetUpdatedItem(EpubItem item)
+        {
+            var newId = NewItemIds[item.Id];
+            return InitialEpub.Opf.IdIndex[newId];
         }
 
         public Epub InitialEpub { get; set; }
