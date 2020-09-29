@@ -158,14 +158,31 @@ namespace MergeWebToEpub
         private void listViewEpubItems_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             var epubItem = combiner.InitialEpub.Opf.Spine[e.ItemIndex];
-            var titlesMap = combiner.InitialEpub.ToC.BuildScrToTitleMap();
             var zipName = epubItem.AbsolutePath;
             string title = null;
-            if (!titlesMap.TryGetValue(zipName, out title))
+            if (!combiner.ScrToTitleMap.TryGetValue(zipName, out title))
             {
                 title = "<none>";
             }
             e.Item = new ListViewItem(new string[] { epubItem.Id, title, zipName });
+            if (e.ItemIndex % 10 == 0)
+            {
+                e.Item.BackColor = Color.LightGreen;
+            }
+            HighlighItemChapterOutOfSequence(e.ItemIndex, epubItem, e.Item);
+        }
+
+        private void HighlighItemChapterOutOfSequence(int itemIndex, EpubItem item, ListViewItem viewItem)
+        {
+            if (0 < itemIndex)
+            {
+                int previous = combiner.ExtractProbableChapterNumber(combiner.InitialEpub.Opf.Spine[itemIndex - 1]);
+                int current = combiner.ExtractProbableChapterNumber(item);
+                if (current != (previous + 1))
+                {
+                    viewItem.BackColor = Color.LightPink;
+                }
+            }
         }
 
         private static string lastEpubFileName;

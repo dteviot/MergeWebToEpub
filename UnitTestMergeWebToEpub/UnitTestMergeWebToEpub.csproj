@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="TestContainer.cs" />
     <Compile Include="TestEpubCombiner.cs" />
+    <Compile Include="TestEpubUtils.cs" />
     <Compile Include="TestOpf.cs" />
     <Compile Include="TestOpfMetadata.cs" />
     <Compile Include="TestToC.cs" />

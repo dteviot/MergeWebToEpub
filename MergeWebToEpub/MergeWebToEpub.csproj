@@ -52,6 +52,7 @@
     <Compile Include="Epub\Epub.Constants.cs" />
     <Compile Include="Epub\Epub.cs" />
     <Compile Include="Epub\EpubItem.cs" />
+    <Compile Include="Epub\EpubUtils.cs" />
     <Compile Include="Epub\Opf.cs" />
     <Compile Include="Epub\Opf.Metadata.cs" />
     <Compile Include="Epub\ToC.cs" />

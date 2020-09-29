@@ -14,7 +14,8 @@ namespace MergeWebToEpub
     {
         public EpubCombiner(Epub initial)
         {
-            this.InitialEpub = initial;
+            InitialEpub = initial;
+            ScrToTitleMap = initial.ToC.BuildScrToTitleMap();
         }
 
         public void Add(Epub toAppend)
@@ -44,6 +45,7 @@ namespace MergeWebToEpub
             }
             CopyTableOfContents();
             CopySpine();
+            this.ScrToTitleMap = InitialEpub.ToC.BuildScrToTitleMap();
         }
 
         private void PrepareForMerge()
@@ -290,6 +292,16 @@ namespace MergeWebToEpub
             return InitialEpub.Opf.IdIndex[newId];
         }
 
+        public int ExtractProbableChapterNumber(EpubItem item)
+        {
+            string title = null;
+            var zipName = item.AbsolutePath;
+            return (ScrToTitleMap.TryGetValue(zipName, out title))
+                ? title.ExtractProbableChapterNumber()
+                : -1;
+        }
+
+
         public Epub InitialEpub { get; set; }
         public Epub ToAppend { get; set; }
 
@@ -307,5 +319,7 @@ namespace MergeWebToEpub
         /// The hashes of images.  Used to eliminate duplicates
         /// </summary>
         public Dictionary<string, string> ImageHashes { get; set; } = new Dictionary<string, string>();
+
+        public Dictionary<string, string> ScrToTitleMap { get; set; } = new Dictionary<string, string>();
     }
 }
