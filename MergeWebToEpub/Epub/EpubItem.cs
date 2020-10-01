@@ -79,6 +79,29 @@ namespace MergeWebToEpub
             }
             return errors;
         }
+        public int PrefixAsInt()
+        {
+            return PrefixAsInt(AbsolutePath);
+        }
+
+        public static int PrefixAsInt(string absolutePath)
+        {
+            string prefixString = ExtractPrefixFromFileName(absolutePath);
+            return string.IsNullOrEmpty(prefixString) ? 0 : Convert.ToInt32(prefixString);
+        }
+
+        /// <summary>
+        /// Assumes file has a four digit numeric prefix, followed by an underscore
+        /// </summary>
+        /// <param name="absolutePath"></param>
+        /// <returns></returns>
+        public static string ExtractPrefixFromFileName(string absolutePath)
+        {
+            var fileName = absolutePath.getZipFileName();
+            return ((5 < fileName.Length) && (fileName[4] == '_'))
+                ? fileName.Substring(0, 4)
+                : null;
+        }
 
         public string Id { get; set; }
 
@@ -92,9 +115,20 @@ namespace MergeWebToEpub
         public bool IsXhtmlPage { get { return MediaType == Epub.XhtmlMedia; } }
 
         public bool IsImage { get { return MediaType.IndexOf("image/") == 0; } }
-        public XElement ToManifestItem()
+
+        /// <summary>
+        /// URI for where item was originally obtained from
+        /// </summary>
+        public string Source { get; set; }
+
+        public XElement SourceAsXml()
         {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(Source)
+                ? null
+                : new XElement(Epub.DaisyNs + "source",
+                    new XAttribute("id", MetadataId),
+                    Source
+                );
         }
     }
 }

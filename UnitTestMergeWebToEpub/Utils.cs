@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace UnitTestMergeWebToEpub
 {
-    class Utils
+    static class Utils
     {
         public static Stream ReadResource(string resourceName)
         {
@@ -43,6 +43,27 @@ namespace UnitTestMergeWebToEpub
                 index[absolute] = new EpubItem() { AbsolutePath = absolute };
             }
             return index;
+        }
+
+        public static Dictionary<string, EpubItem> FakeItems(XDocument doc)
+        {
+            var dic = new Dictionary<string, EpubItem>();
+            foreach (var e in doc.Root.Descendants(Epub.DaisyNs + "source"))
+            {
+                var id = e.Attribute("id").Value.Substring(3);
+                dic.Add(id, new EpubItem() { Id = id });
+            }
+            return dic;
+        }
+
+        public static Dictionary<string, string> ExtractSources(this List<EpubItem> items)
+        {
+            var dic = new Dictionary<string, string>();
+            foreach (var item in items.Where(i => !string.IsNullOrEmpty(i.Source)))
+            {
+                dic.Add(item.MetadataId, item.Source);
+            }
+            return dic;
         }
     }
 }

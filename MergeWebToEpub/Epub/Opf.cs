@@ -19,7 +19,6 @@ namespace MergeWebToEpub
         public Opf(XDocument doc, string OpfFileName)
         {
             this.OpfFileName = OpfFileName;
-            this.Metadata = new Metadata(doc.Root.Element(Epub.PackageNs + "metadata"));
             var opfFolder = OpfFileName.GetZipPath();
             ParseManifest(doc.Root.Element(Epub.PackageNs + "manifest"), opfFolder);
             foreach (var item in Manifest)
@@ -27,6 +26,7 @@ namespace MergeWebToEpub
                 AbsolutePathIndex.Add(item.AbsolutePath, item);
                 IdIndex.Add(item.Id, item);
             }
+            this.Metadata = new Metadata(doc.Root.Element(Epub.PackageNs + "metadata"), IdIndex);
             ParseSpine(doc.Root.Element(Epub.PackageNs + "spine"));
             FindSpecialPages();
         }
@@ -51,7 +51,7 @@ namespace MergeWebToEpub
                     new XAttribute("xmlns", "http://www.idpf.org/2007/opf"),
                     new XAttribute("version", "2.0"),
                     new XAttribute("unique-identifier", "BookId"),
-                    Metadata.ToXElement(),
+                    Metadata.ToXElement(Manifest),
                     ManifestToXElement(),
                     SpineToXElement()
                 )
@@ -120,9 +120,8 @@ namespace MergeWebToEpub
             return Manifest.Where(filter).ToList();
         }
 
-        public void AppendItem(EpubItem item, string source)
+        public void AppendItem(EpubItem item)
         {
-            Metadata.AddSource(item.MetadataId, source);
             Manifest.Add(item);
             AbsolutePathIndex.Add(item.AbsolutePath, item);
             IdIndex.Add(item.Id, item);
@@ -130,11 +129,32 @@ namespace MergeWebToEpub
 
         public void DeleteItem(EpubItem item)
         {
-            Metadata.RemoveSource(item.MetadataId);
             Manifest.Remove(item);
             AbsolutePathIndex.Remove(item.AbsolutePath);
             IdIndex.Remove(item.Id);
             Spine.Remove(item);
+        }
+
+        public void InsertChapter(EpubItem chapter, EpubItem preceedingItem)
+        {
+            for (int i = 0; i < Manifest.Count; ++i)
+            {
+                if (preceedingItem == Manifest[i])
+                {
+                    Manifest.Insert(i + 1, chapter);
+                    break;
+                }
+            }
+            for (int i = 0; i < Spine.Count; ++i)
+            {
+                if (preceedingItem == Spine[i])
+                {
+                    Spine.Insert(i + 1, chapter);
+                    break;
+                }
+            }
+            AbsolutePathIndex.Add(chapter.AbsolutePath, chapter);
+            IdIndex.Add(chapter.Id, chapter);
         }
 
         public Metadata Metadata { get; set; }

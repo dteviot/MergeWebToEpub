@@ -15,7 +15,15 @@ namespace MergeWebToEpub
         public EpubCombiner(Epub initial)
         {
             InitialEpub = initial;
-            ScrToTitleMap = initial.ToC.BuildScrToTitleMap();
+            RefreshInternalIndexs();
+        }
+
+        /// <summary>
+        /// Call if modify InitialEpub externally
+        /// </summary>
+        public void RefreshInternalIndexs()
+        {
+            ScrToTitleMap = InitialEpub.ToC.BuildScrToTitleMap();
         }
 
         public void Add(Epub toAppend)
@@ -91,7 +99,7 @@ namespace MergeWebToEpub
             int maxPrefix = 0;
             foreach(var item in items)
             {
-                var prefix = PrefixAsInt(item.AbsolutePath);
+                var prefix = item.PrefixAsInt();
                 maxPrefix = Math.Max(maxPrefix, Convert.ToInt32(prefix));
             }
             return maxPrefix;
@@ -100,9 +108,9 @@ namespace MergeWebToEpub
         public void CalcNewPathAndID(EpubItem item, int offset)
         {
             string oldAbsolutePath = item.AbsolutePath;
-            var olfFileName = oldAbsolutePath.getZipFileName();
-            var oldprefix = PrefixAsInt(olfFileName);
-            var fileName = StripPrefixFromFileName(olfFileName);
+            var oldFileName = oldAbsolutePath.getZipFileName();
+            var oldprefix = EpubItem.PrefixAsInt(oldFileName);
+            var fileName = StripPrefixFromFileName(oldFileName);
             var path = oldAbsolutePath.GetZipPath();
             if (!string.IsNullOrEmpty(path))
             {
@@ -112,7 +120,7 @@ namespace MergeWebToEpub
             // note possible conflict as "cover" does not have a prefix
             // which might conflict if there was also a page with 0000_cover.xhtml
             // So, if page has a prefix, bump offest by one.
-            var bump = ExtractPrefixFromFileName(olfFileName) == null ? 0 : 1;
+            var bump = EpubItem.ExtractPrefixFromFileName(oldFileName) == null ? 0 : 1;
 
             var newPrefix = (oldprefix + offset + bump).ToString("D4");
             var newAbsolutePath = $"{path}{newPrefix}_{fileName}";
@@ -133,25 +141,6 @@ namespace MergeWebToEpub
                 }
             }
             return prefix.ToString();
-        }
-
-        public int PrefixAsInt(string absolutePath)
-        {
-            string prefixString = ExtractPrefixFromFileName(absolutePath);
-            return string.IsNullOrEmpty(prefixString) ? 0 : Convert.ToInt32(prefixString);
-        }
-
-        /// <summary>
-        /// Assumes file has a four digit numeric prefix, followed by an underscore
-        /// </summary>
-        /// <param name="absolutePath"></param>
-        /// <returns></returns>
-        public string ExtractPrefixFromFileName(string absolutePath)
-        {
-            var fileName = absolutePath.getZipFileName();
-            return ((5 < fileName.Length) && (fileName[4] == '_'))
-                ? fileName.Substring(0, 4)
-                : null;
         }
 
         public string StripPrefixFromFileName(string fileName)
@@ -191,11 +180,10 @@ namespace MergeWebToEpub
                 Id = NewItemIds[item.Id],
                 AbsolutePath = NewAbsolutePaths[item.AbsolutePath],
                 MediaType = item.MediaType,
-                RawBytes = docUpdater(item)
+                RawBytes = docUpdater(item),
+                Source = item.Source
             };
-            string source = null;
-            ToAppend.Opf.Metadata.Sources.TryGetValue(item.MetadataId, out source);
-            InitialEpub.Opf.AppendItem(newItem, source);
+            InitialEpub.Opf.AppendItem(newItem);
         }
 
         public byte[] UpdateXhtmlPage(EpubItem item)

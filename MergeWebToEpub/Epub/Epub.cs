@@ -70,6 +70,12 @@ namespace MergeWebToEpub
             return errors;
         }
 
+        public void InsertChapter(EpubItem chapter, TocEntry tocEntry, EpubItem preceedingItem)
+        {
+            Opf.InsertChapter(chapter, preceedingItem);
+            ToC.InsertChapter(tocEntry, preceedingItem);
+        }
+
         public Container Container { get; set; }
         public Opf Opf { get; set; }
         public ToC ToC { get; set; }

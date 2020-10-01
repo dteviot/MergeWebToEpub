@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddChapterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddChapterForm.Designer.cs">
+      <DependentUpon>AddChapterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Epub\Container.cs" />
     <Compile Include="Epub\EpubCombiner.cs" />
     <Compile Include="Epub\Epub.Constants.cs" />
@@ -68,6 +74,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZipUtils.cs" />
+    <EmbeddedResource Include="AddChapterForm.resx">
+      <DependentUpon>AddChapterForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

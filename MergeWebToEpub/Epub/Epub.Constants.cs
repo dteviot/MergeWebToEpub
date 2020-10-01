@@ -23,5 +23,7 @@ namespace MergeWebToEpub
         public static readonly XNamespace xhtmlNs = "http://www.w3.org/1999/xhtml";
         public static readonly XNamespace xlinkNs = "http://www.w3.org/1999/xlink";
         public static readonly XNamespace svgNs = "http://www.w3.org/2000/svg";
+
+        public const string EmptyXhtmlDoc = "<?xml version=\"1.0\" encoding=\"utf-8\"?><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title></title><link href=\"../Styles/stylesheet.css\" type=\"text/css\" rel=\"stylesheet\" /></head><body></body></html>";
     }
 }

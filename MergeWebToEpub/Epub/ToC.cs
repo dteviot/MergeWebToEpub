@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace MergeWebToEpub
@@ -104,8 +105,19 @@ namespace MergeWebToEpub
         public Dictionary<string, string> BuildScrToTitleMap()
         {
             var map = new Dictionary<string, string>();
-            TocEntry.AddToScrToTileMap(map, Entries);
+            TocEntry.AddToScrToTitleMap(map, Entries);
             return map;
+        }
+
+        public void InsertChapter(TocEntry tocEntry, EpubItem preceedingItem)
+        {
+            var entryDetails = FindTocEntry(preceedingItem.AbsolutePath);
+            if (entryDetails.entries == null)
+            {
+                MessageBox.Show("Preceeding ToC entry not found, inserting at start");
+                entryDetails.entries = Entries;
+            };
+            entryDetails.entries.Insert(entryDetails.index + 1, tocEntry);
         }
 
         public void DeleteItem(EpubItem item)

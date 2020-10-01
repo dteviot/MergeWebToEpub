@@ -13,7 +13,7 @@ namespace MergeWebToEpub
         {
         }
 
-        public Metadata(XElement element)
+        public Metadata(XElement element, Dictionary<string, EpubItem> idIndex)
         {
             Title = element.Element(Epub.DaisyNs + "title").Value;
             Language = element.Element(Epub.DaisyNs + "language").Value;
@@ -35,11 +35,12 @@ namespace MergeWebToEpub
 
             foreach (var e in element.Elements(Epub.DaisyNs + "source"))
             {
-                Sources.Add(e.Attribute("id").Value, e.Value);
+                var id = e.Attribute("id").Value.Substring(3);
+                idIndex[id].Source = e.Value;
             }
         }
 
-        public XElement ToXElement()
+        public XElement ToXElement(List<EpubItem> items)
         {
             var element = new XElement(Epub.PackageNs + "metadata",
                 new XAttribute(XNamespace.Xmlns + "dc", Epub.DaisyNs.NamespaceName),
@@ -71,27 +72,11 @@ namespace MergeWebToEpub
                 ));
             }
 
-            foreach (var e in Sources)
+            foreach (var xml in items.Select(i => i.SourceAsXml()).Where(i => i != null))
             {
-                element.Add(new XElement(Epub.DaisyNs + "source",
-                    new XAttribute("id", e.Key),
-                    e.Value
-                ));
+                element.Add(xml);
             }
             return element;
-        }
-
-        public void AddSource(string id, string source)
-        {
-            if (source != null)
-            {
-                Sources.Add(id, source);
-            }
-        }
-
-        public void RemoveSource(string id)
-        {
-            Sources.Remove(id);
         }
 
         public string FindCoverImageId(XElement metadata)
@@ -102,8 +87,6 @@ namespace MergeWebToEpub
                 .Select(e => e.Attribute("content")?.Value)
                 .FirstOrDefault();
         }
-
-
 
         public string Title { get; set; }
         public string Language { get; set; }
@@ -117,7 +100,5 @@ namespace MergeWebToEpub
         public string Contributor { get; set; }
 
         public string CoverImageId { get; set; }
-
-        public Dictionary<string, string> Sources { get; set; } = new Dictionary<string, string>();
     }
 }

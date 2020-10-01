@@ -70,15 +70,15 @@ namespace MergeWebToEpub
             return depth;
         }
 
-        public static void AddToScrToTileMap(Dictionary<string, string> map, List<TocEntry> entries)
+        public static void AddToScrToTitleMap(Dictionary<string, string> map, List<TocEntry> entries)
         {
             foreach(var entry in entries)
             {
-                entry.AddToScrToTileMap(map);
+                entry.AddToScrToTitleMap(map);
             }
         }
 
-        public void AddToScrToTileMap(Dictionary<string, string> map)
+        public void AddToScrToTitleMap(Dictionary<string, string> map)
         {
             string title = null;
             if (map.TryGetValue(ContentSrc, out title))
@@ -89,7 +89,7 @@ namespace MergeWebToEpub
             {
                 map.Add(ContentSrc, Title);
             }
-            AddToScrToTileMap(map, Children);
+            AddToScrToTitleMap(map, Children);
         }
 
         public static (List<TocEntry> entries, int index) FindTocEntry(List<TocEntry> entries, string src)

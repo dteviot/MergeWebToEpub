@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 using MergeWebToEpub;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,9 +25,10 @@ namespace UnitTestMergeWebToEpub
         {
             XDocument doc = Utils.ReadXmlResource(resourceName);
             var element = doc.Root.Element(Epub.PackageNs + "metadata");
-            var metadata = new Metadata(element);
+            var fakeItems = Utils.FakeItems(doc);
+            var metadata = new Metadata(element, fakeItems);
 
-            var element2 = metadata.ToXElement();
+            var element2 = metadata.ToXElement(fakeItems.Values.ToList());
             var delta = XmlCompare.ElementSame(element, element2);
             Assert.IsTrue(delta.AreSame);
         }

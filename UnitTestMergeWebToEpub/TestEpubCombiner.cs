@@ -40,7 +40,7 @@ namespace UnitTestMergeWebToEpub
         public void TestMetadata()
         {
             var combiner = MakeCombiner();
-            var sources = combiner.InitialEpub.Opf.Metadata.ToXElement()
+            var sources = combiner.InitialEpub.Opf.Metadata.ToXElement(combiner.InitialEpub.Opf.Manifest)
                 .Elements(Epub.DaisyNs + "source")
                 .Select(e => new Tuple<string, string>(e.Attribute("id").Value, e.Value))
                 .ToList();

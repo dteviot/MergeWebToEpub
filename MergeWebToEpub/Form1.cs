@@ -69,6 +69,11 @@ namespace MergeWebToEpub
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
+                    if (!multiselect)
+                    {
+                        this.Text = ofd.FileName;
+                    }
+
                     epubs = ofd.FileNames.Select(LoadEpub).ToList();
                 }
             }
@@ -152,6 +157,7 @@ namespace MergeWebToEpub
 
         private void PopulateListView()
         {
+            listViewEpubItems.SelectedIndices.Clear();
             listViewEpubItems.VirtualListSize = combiner.InitialEpub.Opf.Spine.Count;
         }
 
@@ -178,7 +184,7 @@ namespace MergeWebToEpub
             {
                 int previous = combiner.ExtractProbableChapterNumber(combiner.InitialEpub.Opf.Spine[itemIndex - 1]);
                 int current = combiner.ExtractProbableChapterNumber(item);
-                if (current != (previous + 1))
+                if ((current != -1) && (previous != -1) && (current != (previous + 1)))
                 {
                     viewItem.BackColor = Color.LightPink;
                 }
@@ -207,7 +213,14 @@ namespace MergeWebToEpub
 
         private void insertAfterSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not yet implemented");
+            var form = new AddChapterForm();
+            form.PopulateControls(combiner,
+                combiner.InitialEpub.Opf.Spine[listViewEpubItems.SelectedIndices[0]]
+            );
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                PopulateListView();
+            }
         }
     }
 }
