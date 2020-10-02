@@ -89,7 +89,7 @@ namespace MergeWebToEpub
             string oldAbsolutePath = item.AbsolutePath;
             var oldFileName = oldAbsolutePath.getZipFileName();
             var oldprefix = EpubItem.PrefixAsInt(oldFileName);
-            var fileName = StripPrefixFromFileName(oldFileName);
+            var fileName = oldFileName.StripPrefixFromFileName();
             var path = oldAbsolutePath.GetZipPath();
             if (!string.IsNullOrEmpty(path))
             {
@@ -105,28 +105,8 @@ namespace MergeWebToEpub
             var newAbsolutePath = $"{path}{newPrefix}_{fileName}";
             NewAbsolutePaths.Add(oldAbsolutePath, newAbsolutePath);
 
-            string newId = StripDigits(item.Id) + newPrefix;
+            string newId = item.Id.StripDigits() + newPrefix;
             NewItemIds.Add(item.Id, newId);
-        }
-
-        public string StripDigits(string oldId)
-        {
-            var prefix = new StringBuilder();
-            foreach (var c in oldId)
-            {
-                if (!Char.IsDigit(c))
-                {
-                    prefix.Append(c);
-                }
-            }
-            return prefix.ToString();
-        }
-
-        public string StripPrefixFromFileName(string fileName)
-        {
-            return ((5 < fileName.Length) && (fileName[4] == '_'))
-                ? fileName.Substring(5, fileName.Length - 5)
-                : fileName;
         }
 
         public void CopyPageEpubItem(EpubItem item)

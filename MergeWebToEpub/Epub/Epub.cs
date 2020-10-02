@@ -85,6 +85,11 @@ namespace MergeWebToEpub
             ToC.InsertChapter(tocEntries, preceedingItem);
         }
 
+        public void RenumberItemIds(int index)
+        {
+            Opf.RenumberItemIds(index);
+        }
+
         public Container Container { get; set; }
         public Opf Opf { get; set; }
         public ToC ToC { get; set; }

@@ -79,6 +79,20 @@ namespace MergeWebToEpub
             }
             return errors;
         }
+
+        public void RenumberItemId(int newIdNum)
+        {
+            var fileName = AbsolutePath.getZipFileName().StripPrefixFromFileName();
+            var path = AbsolutePath.GetZipPath();
+            if (!string.IsNullOrEmpty(path))
+            {
+                path += '/';
+            }
+            var newPrefix = newIdNum.ToString("D4");
+            AbsolutePath = $"{path}{newPrefix}_{fileName}";
+            Id = Id.StripDigits() + newPrefix;
+        }
+
         public int PrefixAsInt()
         {
             return PrefixAsInt(AbsolutePath);

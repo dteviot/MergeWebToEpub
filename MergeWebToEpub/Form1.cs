@@ -63,7 +63,6 @@ namespace MergeWebToEpub
             var epubs = BrowseForEpub(false);
             if (epubs.Count == 1)
             {
-                listViewEpubItems.VirtualListSize = 0;
                 epub = epubs[0];
                 PopulateListView();
             }
@@ -187,6 +186,7 @@ namespace MergeWebToEpub
                 previousChapterNumber = currentChapterNumber;
             }
             listViewEpubItems.VirtualListSize = rows.Count;
+            Refresh();
         }
 
         private void listViewEpubItems_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
@@ -220,6 +220,7 @@ namespace MergeWebToEpub
             deleteItemToolStripMenuItem.Enabled = (0 < selectedCount);
             insertAfterSelectedToolStripMenuItem.Enabled = (selectedCount == 1);
             pasteItemssToolStripMenuItem.Enabled = (0 < cutItems.Count) && (selectedCount == 1);
+            renumberIDsToolStripMenuItem.Enabled = (selectedCount == 1);
         }
 
         private void insertAfterSelectedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,6 +243,11 @@ namespace MergeWebToEpub
         private void pasteItemssToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PasteAfterSelectedItem();
+        }
+
+        private void renumberIDsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RenumberItemIdsStartingAtSelectedItem();
         }
 
         private void CutSelectedItems()
@@ -271,6 +277,13 @@ namespace MergeWebToEpub
             var tocEntries = cutItems.Select(row => row.ToTocEntry()).ToList();
             epub.InsertChapters(chapters, tocEntries, preceedingItem);
             cutItems.Clear();
+            PopulateListView();
+        }
+
+        public void RenumberItemIdsStartingAtSelectedItem()
+        {
+            var index = listViewEpubItems.SelectedIndices[0];
+            epub.RenumberItemIds(index);
             PopulateListView();
         }
 

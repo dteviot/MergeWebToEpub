@@ -43,5 +43,25 @@ namespace MergeWebToEpub
             }
             return maxPrefix;
         }
+
+        public static string StripDigits(this string oldId)
+        {
+            var prefix = new StringBuilder();
+            foreach (var c in oldId)
+            {
+                if (!Char.IsDigit(c))
+                {
+                    prefix.Append(c);
+                }
+            }
+            return prefix.ToString();
+        }
+
+        public static string StripPrefixFromFileName(this string fileName)
+        {
+            return ((5 < fileName.Length) && (fileName[4] == '_'))
+                ? fileName.Substring(5, fileName.Length - 5)
+                : fileName;
+        }
     }
 }

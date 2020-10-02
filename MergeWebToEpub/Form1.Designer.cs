@@ -46,6 +46,7 @@
             this.tabPageImages = new System.Windows.Forms.TabPage();
             this.cutItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteItemssToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renumberIDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -128,9 +129,10 @@
             this.cutItemsToolStripMenuItem,
             this.pasteItemssToolStripMenuItem,
             this.deleteItemToolStripMenuItem,
-            this.insertAfterSelectedToolStripMenuItem});
+            this.insertAfterSelectedToolStripMenuItem,
+            this.renumberIDsToolStripMenuItem});
             this.contextMenuStripSpine.Name = "contextMenuStripSpine";
-            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 136);
             this.contextMenuStripSpine.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripSpine_Opening);
             // 
             // deleteItemToolStripMenuItem
@@ -205,6 +207,13 @@
             this.pasteItemssToolStripMenuItem.Text = "Paste Items(s)";
             this.pasteItemssToolStripMenuItem.Click += new System.EventHandler(this.pasteItemssToolStripMenuItem_Click);
             // 
+            // renumberIDsToolStripMenuItem
+            // 
+            this.renumberIDsToolStripMenuItem.Name = "renumberIDsToolStripMenuItem";
+            this.renumberIDsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renumberIDsToolStripMenuItem.Text = "Renumber IDs";
+            this.renumberIDsToolStripMenuItem.Click += new System.EventHandler(this.renumberIDsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,6 +253,7 @@
         private System.Windows.Forms.ToolStripMenuItem insertAfterSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cutItemsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteItemssToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem renumberIDsToolStripMenuItem;
     }
 }
 

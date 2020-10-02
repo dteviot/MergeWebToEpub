@@ -21,14 +21,21 @@ namespace MergeWebToEpub
             this.OpfFileName = OpfFileName;
             var opfFolder = OpfFileName.GetZipPath();
             ParseManifest(doc.Root.Element(Epub.PackageNs + "manifest"), opfFolder);
+            RebuildIndexes();
+            this.Metadata = new Metadata(doc.Root.Element(Epub.PackageNs + "metadata"), IdIndex);
+            ParseSpine(doc.Root.Element(Epub.PackageNs + "spine"));
+            FindSpecialPages();
+        }
+
+        public void RebuildIndexes()
+        {
+            AbsolutePathIndex.Clear();
+            IdIndex.Clear();
             foreach (var item in Manifest)
             {
                 AbsolutePathIndex.Add(item.AbsolutePath, item);
                 IdIndex.Add(item.Id, item);
             }
-            this.Metadata = new Metadata(doc.Root.Element(Epub.PackageNs + "metadata"), IdIndex);
-            ParseSpine(doc.Root.Element(Epub.PackageNs + "spine"));
-            FindSpecialPages();
         }
 
         public void WriteTo(ZipFile zipFile)
@@ -165,6 +172,16 @@ namespace MergeWebToEpub
                 AbsolutePathIndex.Add(chapter.AbsolutePath, chapter);
                 IdIndex.Add(chapter.Id, chapter);
             }
+        }
+
+        public void RenumberItemIds(int index)
+        {
+            int start = Spine[index].PrefixAsInt();
+            for(int offset = 1; index + offset < Spine.Count; ++offset)
+            {
+                Spine[index + offset].RenumberItemId(start + offset);
+            }
+            RebuildIndexes();
         }
 
         public Metadata Metadata { get; set; }
