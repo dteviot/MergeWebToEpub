@@ -135,13 +135,16 @@ namespace MergeWebToEpub
             Spine.Remove(item);
         }
 
-        public void InsertChapter(EpubItem chapter, EpubItem preceedingItem)
+        public void InsertChapter(List<EpubItem> chapters, EpubItem preceedingItem)
         {
             for (int i = 0; i < Manifest.Count; ++i)
             {
                 if (preceedingItem == Manifest[i])
                 {
-                    Manifest.Insert(i + 1, chapter);
+                    for(int j = 0; j < chapters.Count; ++j)
+                    {
+                        Manifest.Insert(i + j + 1, chapters[j]);
+                    }
                     break;
                 }
             }
@@ -149,12 +152,19 @@ namespace MergeWebToEpub
             {
                 if (preceedingItem == Spine[i])
                 {
-                    Spine.Insert(i + 1, chapter);
+                    for (int j = 0; j < chapters.Count; ++j)
+                    {
+                        Spine.Insert(i + j + 1, chapters[j]);
+                    }
                     break;
                 }
             }
-            AbsolutePathIndex.Add(chapter.AbsolutePath, chapter);
-            IdIndex.Add(chapter.Id, chapter);
+            for (int j = 0; j < chapters.Count; ++j)
+            {
+                var chapter = chapters[j];
+                AbsolutePathIndex.Add(chapter.AbsolutePath, chapter);
+                IdIndex.Add(chapter.Id, chapter);
+            }
         }
 
         public Metadata Metadata { get; set; }

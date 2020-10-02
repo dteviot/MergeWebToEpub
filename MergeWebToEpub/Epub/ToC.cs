@@ -109,7 +109,7 @@ namespace MergeWebToEpub
             return map;
         }
 
-        public void InsertChapter(TocEntry tocEntry, EpubItem preceedingItem)
+        public void InsertChapter(List<TocEntry> tocEntries, EpubItem preceedingItem)
         {
             var entryDetails = FindTocEntry(preceedingItem.AbsolutePath);
             if (entryDetails.entries == null)
@@ -117,7 +117,11 @@ namespace MergeWebToEpub
                 MessageBox.Show("Preceeding ToC entry not found, inserting at start");
                 entryDetails.entries = Entries;
             };
-            entryDetails.entries.Insert(entryDetails.index + 1, tocEntry);
+            for (int j = 0; j < tocEntries.Count; ++j)
+            {
+
+                entryDetails.entries.Insert(entryDetails.index + j + 1, tocEntries[j]);
+            }
         }
 
         public void DeleteItem(EpubItem item)

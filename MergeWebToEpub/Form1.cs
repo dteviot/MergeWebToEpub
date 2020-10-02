@@ -25,6 +25,11 @@ namespace MergeWebToEpub
             {
                 return new ListViewItem(new string[] { Item.Id, Title ?? "<none>", Item.AbsolutePath });
             }
+
+            public TocEntry ToTocEntry()
+            {
+                return new TocEntry() { Item = Item, Title = Title };
+            }
         }
 
     public Form1()
@@ -58,6 +63,7 @@ namespace MergeWebToEpub
             var epubs = BrowseForEpub(false);
             if (epubs.Count == 1)
             {
+                listViewEpubItems.VirtualListSize = 0;
                 epub = epubs[0];
                 PopulateListView();
             }
@@ -128,16 +134,9 @@ namespace MergeWebToEpub
 
         private void DeleteSelectedItems()
         {
-            List<int> indices = new List<int>();
-            foreach (int index in listViewEpubItems.SelectedIndices)
-            {
-                indices.Add(index);
-            }
-            indices.Sort();
+            var indices = GetSelecctedIndices();
             indices.Reverse();
-            listViewEpubItems.SelectedIndices.Clear();
-            var spine = epub.Opf.Spine;
-            epub.DeleteItems(indices.Select(index => spine[index]).ToList());
+            epub.DeleteItems(indices.Select(index => rows[index].Item).ToList());
             PopulateListView();
         }
 
@@ -187,7 +186,7 @@ namespace MergeWebToEpub
                 });
                 previousChapterNumber = currentChapterNumber;
             }
-            listViewEpubItems.VirtualListSize = epub.Opf.Spine.Count;
+            listViewEpubItems.VirtualListSize = rows.Count;
         }
 
         private void listViewEpubItems_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
@@ -205,9 +204,6 @@ namespace MergeWebToEpub
             }
         }
 
-        private Epub epub;
-        private List<ListRow> rows = new List<ListRow>();
-
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteSelectedItems();
@@ -223,6 +219,7 @@ namespace MergeWebToEpub
             int selectedCount = listViewEpubItems.SelectedIndices.Count;
             deleteItemToolStripMenuItem.Enabled = (0 < selectedCount);
             insertAfterSelectedToolStripMenuItem.Enabled = (selectedCount == 1);
+            pasteItemssToolStripMenuItem.Enabled = (0 < cutItems.Count) && (selectedCount == 1);
         }
 
         private void insertAfterSelectedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -236,5 +233,49 @@ namespace MergeWebToEpub
                 PopulateListView();
             }
         }
+
+        private void cutItemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CutSelectedItems();
+        }
+
+        private void pasteItemssToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PasteAfterSelectedItem();
+        }
+
+        private void CutSelectedItems()
+        {
+            var indices = GetSelecctedIndices();
+            cutItems = indices.Select(index => rows[index]).ToList();
+            var deleteOrder = cutItems.Select(row => row.Item).Reverse().ToList();
+            epub.DeleteItems(deleteOrder);
+            PopulateListView();
+        }
+
+        private List<int> GetSelecctedIndices()
+        {
+            List<int> indices = new List<int>();
+            foreach (int index in listViewEpubItems.SelectedIndices)
+            {
+                indices.Add(index);
+            }
+            indices.Sort();
+            return indices;
+        }
+
+        private void PasteAfterSelectedItem()
+        {
+            var preceedingItem = rows[listViewEpubItems.SelectedIndices[0]].Item;
+            var chapters = cutItems.Select(row => row.Item).ToList();
+            var tocEntries = cutItems.Select(row => row.ToTocEntry()).ToList();
+            epub.InsertChapters(chapters, tocEntries, preceedingItem);
+            cutItems.Clear();
+            PopulateListView();
+        }
+
+        private Epub epub;
+        private List<ListRow> rows = new List<ListRow>();
+        private List<ListRow> cutItems = new List<ListRow>();
     }
 }

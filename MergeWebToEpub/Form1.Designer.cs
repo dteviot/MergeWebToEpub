@@ -37,17 +37,19 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteCheckedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewEpubItems = new System.Windows.Forms.ListView();
+            this.contextMenuStripSpine = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertAfterSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSpine = new System.Windows.Forms.TabPage();
             this.tabPageToC = new System.Windows.Forms.TabPage();
             this.tabPageImages = new System.Windows.Forms.TabPage();
-            this.contextMenuStripSpine = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.insertAfterSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteItemssToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageSpine.SuspendLayout();
-            this.contextMenuStripSpine.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem
@@ -63,21 +65,21 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // appendToEndToolStripMenuItem
             // 
             this.appendToEndToolStripMenuItem.Name = "appendToEndToolStripMenuItem";
-            this.appendToEndToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.appendToEndToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.appendToEndToolStripMenuItem.Text = "Append to End";
             this.appendToEndToolStripMenuItem.Click += new System.EventHandler(this.appendToEndToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -119,6 +121,31 @@
             this.listViewEpubItems.TabIndex = 2;
             this.listViewEpubItems.UseCompatibleStateImageBehavior = false;
             this.listViewEpubItems.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listViewEpubItems_RetrieveVirtualItem);
+            // 
+            // contextMenuStripSpine
+            // 
+            this.contextMenuStripSpine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cutItemsToolStripMenuItem,
+            this.pasteItemssToolStripMenuItem,
+            this.deleteItemToolStripMenuItem,
+            this.insertAfterSelectedToolStripMenuItem});
+            this.contextMenuStripSpine.Name = "contextMenuStripSpine";
+            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStripSpine.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripSpine_Opening);
+            // 
+            // deleteItemToolStripMenuItem
+            // 
+            this.deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
+            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteItemToolStripMenuItem.Text = "Delete Item";
+            this.deleteItemToolStripMenuItem.Click += new System.EventHandler(this.deleteItemToolStripMenuItem_Click);
+            // 
+            // insertAfterSelectedToolStripMenuItem
+            // 
+            this.insertAfterSelectedToolStripMenuItem.Name = "insertAfterSelectedToolStripMenuItem";
+            this.insertAfterSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertAfterSelectedToolStripMenuItem.Text = "Insert After Selected";
+            this.insertAfterSelectedToolStripMenuItem.Click += new System.EventHandler(this.insertAfterSelectedToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -164,28 +191,19 @@
             this.tabPageImages.Text = "Images";
             this.tabPageImages.UseVisualStyleBackColor = true;
             // 
-            // contextMenuStripSpine
+            // cutItemsToolStripMenuItem
             // 
-            this.contextMenuStripSpine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteItemToolStripMenuItem,
-            this.insertAfterSelectedToolStripMenuItem});
-            this.contextMenuStripSpine.Name = "contextMenuStripSpine";
-            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 70);
-            this.contextMenuStripSpine.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripSpine_Opening);
+            this.cutItemsToolStripMenuItem.Name = "cutItemsToolStripMenuItem";
+            this.cutItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cutItemsToolStripMenuItem.Text = "Cut Item(s)";
+            this.cutItemsToolStripMenuItem.Click += new System.EventHandler(this.cutItemsToolStripMenuItem_Click);
             // 
-            // deleteItemToolStripMenuItem
+            // pasteItemssToolStripMenuItem
             // 
-            this.deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteItemToolStripMenuItem.Text = "Delete Item";
-            this.deleteItemToolStripMenuItem.Click += new System.EventHandler(this.deleteItemToolStripMenuItem_Click);
-            // 
-            // insertAfterSelectedToolStripMenuItem
-            // 
-            this.insertAfterSelectedToolStripMenuItem.Name = "insertAfterSelectedToolStripMenuItem";
-            this.insertAfterSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.insertAfterSelectedToolStripMenuItem.Text = "Insert After Selected";
-            this.insertAfterSelectedToolStripMenuItem.Click += new System.EventHandler(this.insertAfterSelectedToolStripMenuItem_Click);
+            this.pasteItemssToolStripMenuItem.Name = "pasteItemssToolStripMenuItem";
+            this.pasteItemssToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pasteItemssToolStripMenuItem.Text = "Paste Items(s)";
+            this.pasteItemssToolStripMenuItem.Click += new System.EventHandler(this.pasteItemssToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -199,9 +217,9 @@
             this.Text = "Merge WebToEpub";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.contextMenuStripSpine.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPageSpine.ResumeLayout(false);
-            this.contextMenuStripSpine.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +242,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripSpine;
         private System.Windows.Forms.ToolStripMenuItem deleteItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem insertAfterSelectedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cutItemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteItemssToolStripMenuItem;
     }
 }
 

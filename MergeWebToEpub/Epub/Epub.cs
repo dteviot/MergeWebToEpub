@@ -75,8 +75,14 @@ namespace MergeWebToEpub
 
         public void InsertChapter(EpubItem chapter, TocEntry tocEntry, EpubItem preceedingItem)
         {
-            Opf.InsertChapter(chapter, preceedingItem);
-            ToC.InsertChapter(tocEntry, preceedingItem);
+            Opf.InsertChapter(new List<EpubItem>() { chapter }, preceedingItem);
+            ToC.InsertChapter(new List<TocEntry>() { tocEntry }, preceedingItem);
+        }
+
+        public void InsertChapters(List<EpubItem> chapters, List<TocEntry> tocEntries, EpubItem preceedingItem)
+        {
+            Opf.InsertChapter(chapters, preceedingItem);
+            ToC.InsertChapter(tocEntries, preceedingItem);
         }
 
         public Container Container { get; set; }
