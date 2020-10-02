@@ -15,15 +15,6 @@ namespace MergeWebToEpub
         public EpubCombiner(Epub initial)
         {
             InitialEpub = initial;
-            RefreshInternalIndexs();
-        }
-
-        /// <summary>
-        /// Call if modify InitialEpub externally
-        /// </summary>
-        public void RefreshInternalIndexs()
-        {
-            ScrToTitleMap = InitialEpub.ToC.BuildScrToTitleMap();
         }
 
         public void Add(Epub toAppend)
@@ -53,7 +44,6 @@ namespace MergeWebToEpub
             }
             CopyTableOfContents();
             CopySpine();
-            this.ScrToTitleMap = InitialEpub.ToC.BuildScrToTitleMap();
         }
 
         private void PrepareForMerge()
@@ -80,29 +70,18 @@ namespace MergeWebToEpub
         public void CalculateNewPathsAndIds()
         {
             var pages = InitialEpub.Opf.GetPageItems();
-            int maxPrefix = GetMaxPrefix(pages);
+            int maxPrefix = pages.GetMaxPrefix();
             foreach(var p in ToAppend.Opf.GetPageItems())
             {
                 CalcNewPathAndID(p, maxPrefix + 1);
             }
 
             var images = InitialEpub.Opf.GetImageItems();
-            maxPrefix = GetMaxPrefix(images);
+            maxPrefix = images.GetMaxPrefix();
             foreach (var i in ToAppend.Opf.GetImageItems())
             {
                 CalcNewPathAndID(i, maxPrefix + 1);
             }
-        }
-
-        public int GetMaxPrefix(List<EpubItem> items)
-        {
-            int maxPrefix = 0;
-            foreach(var item in items)
-            {
-                var prefix = item.PrefixAsInt();
-                maxPrefix = Math.Max(maxPrefix, Convert.ToInt32(prefix));
-            }
-            return maxPrefix;
         }
 
         public void CalcNewPathAndID(EpubItem item, int offset)
@@ -280,16 +259,6 @@ namespace MergeWebToEpub
             return InitialEpub.Opf.IdIndex[newId];
         }
 
-        public int ExtractProbableChapterNumber(EpubItem item)
-        {
-            string title = null;
-            var zipName = item.AbsolutePath;
-            return (ScrToTitleMap.TryGetValue(zipName, out title))
-                ? title.ExtractProbableChapterNumber()
-                : -1;
-        }
-
-
         public Epub InitialEpub { get; set; }
         public Epub ToAppend { get; set; }
 
@@ -307,7 +276,5 @@ namespace MergeWebToEpub
         /// The hashes of images.  Used to eliminate duplicates
         /// </summary>
         public Dictionary<string, string> ImageHashes { get; set; } = new Dictionary<string, string>();
-
-        public Dictionary<string, string> ScrToTitleMap { get; set; } = new Dictionary<string, string>();
     }
 }

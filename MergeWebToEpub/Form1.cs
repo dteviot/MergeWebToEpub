@@ -12,7 +12,22 @@ namespace MergeWebToEpub
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        /// <summary>
+        /// Track information for each row in List View
+        /// </summary>
+        public class ListRow
+        {
+            public EpubItem Item { get; set; }
+            public string Title { get; set; }
+            public bool MissingChapter { get; set; }
+
+            public ListViewItem ToListViewItem()
+            {
+                return new ListViewItem(new string[] { Item.Id, Title ?? "<none>", Item.AbsolutePath });
+            }
+        }
+
+    public Form1()
         {
             InitializeComponent();
             InitListView();
@@ -20,7 +35,7 @@ namespace MergeWebToEpub
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RunTrappingExceptions(CreateCombiner);
+            RunTrappingExceptions(LoadEpub);
         }
 
         private void appendToEndToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,12 +53,12 @@ namespace MergeWebToEpub
             RunTrappingExceptions(DeleteSelectedItems);
         }
 
-        private void CreateCombiner()
+        private void LoadEpub()
         {
             var epubs = BrowseForEpub(false);
             if (epubs.Count == 1)
             {
-                combiner = new EpubCombiner(epubs[0]);
+                epub = epubs[0];
                 PopulateListView();
             }
         }
@@ -51,6 +66,7 @@ namespace MergeWebToEpub
         private void AddEpub()
         {
             var epubs = BrowseForEpub(true);
+            var combiner = new EpubCombiner(epub);
             foreach (var epub in epubs)
             {
                 combiner.Add(epub);
@@ -63,7 +79,6 @@ namespace MergeWebToEpub
             var epubs = new List<Epub>();
             using (var ofd = new OpenFileDialog())
             {
-                ofd.InitialDirectory = lastEpubFileName;
                 ofd.Filter = "Epub files (*.epub)|*.epub|All files (*.*)|*.*";
                 ofd.Multiselect = multiselect;
 
@@ -84,12 +99,11 @@ namespace MergeWebToEpub
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.InitialDirectory = lastEpubFileName + "(2)";
                 saveFileDialog.Filter = "Epub files (*.epub)|*.epub|All files (*.*)|*.*";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    combiner.InitialEpub.WriteFile(saveFileDialog.FileName);
+                    epub.WriteFile(saveFileDialog.FileName);
                 }
             }
         }
@@ -122,11 +136,8 @@ namespace MergeWebToEpub
             indices.Sort();
             indices.Reverse();
             listViewEpubItems.SelectedIndices.Clear();
-            var spine = combiner.InitialEpub.Opf.Spine;
-            foreach (var index in indices)
-            {
-                combiner.InitialEpub.DeleteItem(spine[index]);
-            }
+            var spine = epub.Opf.Spine;
+            epub.DeleteItems(indices.Select(index => spine[index]).ToList());
             PopulateListView();
         }
 
@@ -158,41 +169,44 @@ namespace MergeWebToEpub
         private void PopulateListView()
         {
             listViewEpubItems.SelectedIndices.Clear();
-            listViewEpubItems.VirtualListSize = combiner.InitialEpub.Opf.Spine.Count;
+            var srcToTitle = epub.ToC.BuildScrToTitleMap();
+            int previousChapterNumber = Epub.NoChapterNum;
+            rows.Clear();
+            foreach (var item in epub.Opf.Spine)
+            {
+                string title = null;
+                srcToTitle.TryGetValue(item.AbsolutePath, out title);
+                int currentChapterNumber = title.ExtractProbableChapterNumber();
+                rows.Add(new ListRow()
+                {
+                    Item = item,
+                    Title = title,
+                    MissingChapter = ((currentChapterNumber != Epub.NoChapterNum) 
+                        && (previousChapterNumber != Epub.NoChapterNum) 
+                        && (currentChapterNumber != (previousChapterNumber + 1)))
+                });
+                previousChapterNumber = currentChapterNumber;
+            }
+            listViewEpubItems.VirtualListSize = epub.Opf.Spine.Count;
         }
 
         private void listViewEpubItems_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            var epubItem = combiner.InitialEpub.Opf.Spine[e.ItemIndex];
-            var zipName = epubItem.AbsolutePath;
-            string title = null;
-            if (!combiner.ScrToTitleMap.TryGetValue(zipName, out title))
-            {
-                title = "<none>";
-            }
-            e.Item = new ListViewItem(new string[] { epubItem.Id, title, zipName });
-            if (e.ItemIndex % 10 == 0)
-            {
-                e.Item.BackColor = Color.LightGreen;
-            }
-            HighlighItemChapterOutOfSequence(e.ItemIndex, epubItem, e.Item);
+            var row = rows[e.ItemIndex];
+            e.Item = row.ToListViewItem();
+            HighlighItemChapterOutOfSequence(row, e.Item);
         }
 
-        private void HighlighItemChapterOutOfSequence(int itemIndex, EpubItem item, ListViewItem viewItem)
+        private void HighlighItemChapterOutOfSequence(ListRow row, ListViewItem viewItem)
         {
-            if (0 < itemIndex)
+            if (row.MissingChapter)
             {
-                int previous = combiner.ExtractProbableChapterNumber(combiner.InitialEpub.Opf.Spine[itemIndex - 1]);
-                int current = combiner.ExtractProbableChapterNumber(item);
-                if ((current != -1) && (previous != -1) && (current != (previous + 1)))
-                {
-                    viewItem.BackColor = Color.LightPink;
-                }
+                viewItem.BackColor = Color.LightPink;
             }
         }
 
-        private static string lastEpubFileName;
-        private static EpubCombiner combiner;
+        private Epub epub;
+        private List<ListRow> rows = new List<ListRow>();
 
         private void deleteItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -214,9 +228,9 @@ namespace MergeWebToEpub
         private void insertAfterSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new AddChapterForm();
-            form.PopulateControls(combiner,
-                combiner.InitialEpub.Opf.Spine[listViewEpubItems.SelectedIndices[0]]
-            );
+            var index = listViewEpubItems.SelectedIndices[0];
+            var row = rows[index];
+            form.PopulateControls(epub, row.Item, row.Title.ExtractProbableChapterNumber() + 1);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 PopulateListView();

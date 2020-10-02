@@ -54,10 +54,13 @@ namespace MergeWebToEpub
             zip.AddEntry(Epub.MimeType, "application/epub+zip");
         }
 
-        public void DeleteItem(EpubItem item)
+        public void DeleteItems(List<EpubItem> items)
         {
-            Opf.DeleteItem(item);
-            ToC.DeleteItem(item);
+            foreach (var item in items)
+            {
+                Opf.DeleteItem(item);
+                ToC.DeleteItem(item);
+            }
         }
 
         public List<string> ValidateXhtml()

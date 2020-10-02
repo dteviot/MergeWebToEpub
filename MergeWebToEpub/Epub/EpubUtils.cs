@@ -10,6 +10,10 @@ namespace MergeWebToEpub
     {
         public static int ExtractProbableChapterNumber(this string title)
         {
+            if (string.IsNullOrEmpty(title))
+            {
+                return Epub.NoChapterNum;
+            }
             var digits = new StringBuilder();
             bool foundDigit = false;
             foreach (var c in title)
@@ -26,7 +30,18 @@ namespace MergeWebToEpub
             }
             return (0 < digits.Length)
                 ? Convert.ToInt32(digits.ToString())
-                : -1;
+                : Epub.NoChapterNum;
+        }
+
+        public static int GetMaxPrefix(this List<EpubItem> items)
+        {
+            int maxPrefix = 0;
+            foreach (var item in items)
+            {
+                var prefix = item.PrefixAsInt();
+                maxPrefix = Math.Max(maxPrefix, Convert.ToInt32(prefix));
+            }
+            return maxPrefix;
         }
     }
 }

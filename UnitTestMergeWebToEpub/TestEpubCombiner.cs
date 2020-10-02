@@ -16,7 +16,7 @@ namespace UnitTestMergeWebToEpub
             var combiner = new EpubCombiner(MockEpub1());
             combiner.ToAppend = MockEpub2();
 
-            int actual = combiner.GetMaxPrefix(combiner.InitialEpub.Opf.GetPageItems());
+            int actual = combiner.InitialEpub.Opf.GetPageItems().GetMaxPrefix();
             Assert.AreEqual(13, actual);
         }
 
