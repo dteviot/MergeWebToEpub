@@ -12,6 +12,8 @@ namespace MergeWebToEpub
         public const string ContainerPath = "META-INF/container.xml";
         public const string MimeType = "mimetype";
         public const string XhtmlMedia = "application/xhtml+xml";
+        public const string webpMedia = "image/webp";
+        public const string jpegMedia = "image/jpeg";
         public const string CoverPageId = "cover";                 // Magic "Number".
 
         public static readonly XNamespace containerNs = "urn:oasis:names:tc:opendocument:xmlns:container";

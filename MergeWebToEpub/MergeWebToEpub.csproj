@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\WebP-wrapper\WebPTest\WebPWrapper.cs">
+      <Link>WebpWrapper\WebPWrapper.cs</Link>
+    </Compile>
     <Compile Include="AddChapterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +74,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZipUtils.cs" />
@@ -110,6 +114,18 @@
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.11.3</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="..\WebP-wrapper\WebPTest\libwebp_x64.dll">
+      <Link>WebpWrapper\libwebp_x64.dll</Link>
+      <TargetPath>libwebp_x64.dll</TargetPath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="..\WebP-wrapper\WebPTest\libwebp_x86.dll">
+      <Link>WebpWrapper\libwebp_x86.dll</Link>
+      <TargetPath>libwebp_x86.dll</TargetPath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ContentWithTargetPath>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

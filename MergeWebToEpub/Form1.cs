@@ -65,6 +65,7 @@ namespace MergeWebToEpub
             {
                 epub = epubs[0];
                 PopulateListView();
+                PopulateThumbnails();
             }
         }
 
@@ -117,7 +118,7 @@ namespace MergeWebToEpub
         {
             var epub = new Epub();
             epub.ReadFile(fileName);
-            var errors = epub.ValidateXhtml();
+            var errors = epub.Validate();
             if (0 < errors.Count)
             {
                 var sb = new StringBuilder();
@@ -126,7 +127,8 @@ namespace MergeWebToEpub
                 {
                     sb.AppendLine(error);
                 }
-                throw new Exception(sb.ToString());
+                System.Diagnostics.Trace.WriteLine(sb.ToString());
+                MessageBox.Show(sb.ToString());
             }
             return epub;
         }
@@ -287,8 +289,32 @@ namespace MergeWebToEpub
             PopulateListView();
         }
 
+        public void PopulateThumbnails()
+        {
+            imageListThumbs.Images.Clear();
+            imageListThumbs.ImageSize = new Size(ThumbnailDimension, ThumbnailDimension);
+            listViewThumbs.Clear();
+
+            var imageItems = epub.Opf.GetImageItems();
+            for (int i = 0; i < imageItems.Count; ++i)
+            {
+                var item = imageItems[i];
+                var img = item.ExtractImage();
+                imageListThumbs.Images.Add(img.MakeThumbnail(ThumbnailDimension));
+                listViewThumbs.Items.Add(item.AbsolutePath, i);
+            }
+        }
+
         private Epub epub;
         private List<ListRow> rows = new List<ListRow>();
         private List<ListRow> cutItems = new List<ListRow>();
+
+        private const int ThumbnailDimension = 80;
+
+        private void changeWebpToJpegToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            epub.ConvertWebpImagesToJpeg();
+            PopulateThumbnails();
+        }
     }
 }

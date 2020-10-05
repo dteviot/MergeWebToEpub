@@ -1,0 +1,3 @@
+[submodule "WebP-wrapper"]
+	path = WebP-wrapper
+	url = git@github.com:JosePineiro/WebP-wrapper.git

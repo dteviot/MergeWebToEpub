@@ -111,7 +111,7 @@ namespace MergeWebToEpub
 
         public void CopyPageEpubItem(EpubItem item)
         {
-            CopyEpubItem(item, (i) => UpdateXhtmlPage(i));
+            CopyEpubItem(item, (i) => EpubUtils.UpdateXhtmlPage(i, NewAbsolutePaths));
         }
 
         public void CopyImageEpubItem(EpubItem item)
@@ -145,61 +145,9 @@ namespace MergeWebToEpub
             InitialEpub.Opf.AppendItem(newItem);
         }
 
-        public byte[] UpdateXhtmlPage(EpubItem item)
-        {
-            System.Diagnostics.Trace.WriteLine($"Fixing up page {item.AbsolutePath}");
-            var xhtml = item.RawBytes.ToXhtml();
-            var itemPath = item.AbsolutePath.GetZipPath();
-            FixupReferences(xhtml, itemPath);
-            return xhtml.ToStream().ToArray();
-        }
-
-        public void FixupReferences(XDocument doc, string itemPath)
-        {
-            FixupReferences(doc, Epub.svgNs + "image", Epub.xlinkNs + "href", itemPath);
-            FixupReferences(doc, Epub.xhtmlNs + "img", "src", itemPath);
-            FixupReferences(doc, Epub.xhtmlNs + "a", "href", itemPath);
-            // ToDo, <link> tags
-        }
-
-        public void FixupReferences(XDocument doc, XName element, XName attributeName, string itemPath)
-        {
-            foreach(var e in doc.Root.Descendants(element))
-            {
-                var attrib = e.Attribute(attributeName);
-                if (attrib != null)
-                {
-                    attrib.Value = FixupUrl(attrib.Value, itemPath);
-                }
-            }
-        }
-
         public string FixupUrl(string uri, string itemPath)
         {
-            // special case, it's a link to anchor on same page
-            if (uri[0] == '#')
-            {
-                return uri;
-            }
-
-            // internal URLs are relative, so, if not relative
-            // leave it alone
-            Uri testUrl = null;
-            if (!Uri.TryCreate(uri, UriKind.Relative, out testUrl))
-            {
-                return uri;
-            }
-
-            var fragments = uri.Split(new char[] { '#' });
-            var path = fragments[0];
-            var urlAbsolutePath = ZipUtils.RelativePathToAbsolute(itemPath, path);
-            var newAbsolutePath = NewAbsolutePaths[urlAbsolutePath];
-            var newRelativePath = ZipUtils.AbsolutePathToRelative(itemPath, newAbsolutePath);
-            if (2 == fragments.Length)
-            {
-                newRelativePath += "#" + fragments[1];
-            }
-            return newRelativePath;
+            return EpubUtils.FixupUrl(uri, itemPath, NewAbsolutePaths);
         }
 
         public void CopyTableOfContents()

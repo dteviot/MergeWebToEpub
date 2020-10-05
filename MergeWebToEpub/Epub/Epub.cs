@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,6 +62,21 @@ namespace MergeWebToEpub
                 Opf.DeleteItem(item);
                 ToC.DeleteItem(item);
             }
+        }
+
+        public List<string> Validate()
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateImages());
+            errors.AddRange(ValidateXhtml());
+            return errors;
+        }
+
+        public IEnumerable<string> ValidateImages()
+        {
+            return Opf.GetImageItems()
+                .Where(EpubUtils.IsWebp)
+                .Select(item => $"Image '{item.AbsolutePath}' is Webp. Convert to jpeg");
         }
 
         public List<string> ValidateXhtml()

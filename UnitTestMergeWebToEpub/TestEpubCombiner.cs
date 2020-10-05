@@ -104,7 +104,7 @@ namespace UnitTestMergeWebToEpub
         {
             var combiner = MakeCombiner();
             var item = combiner.ToAppend.Opf.Manifest.Where(i => i.Id == "cover").First();
-            var actual = combiner.UpdateXhtmlPage(item).ToXhtml();
+            var actual = EpubUtils.UpdateXhtmlPage(item, combiner.NewAbsolutePaths).ToXhtml();
             var element = actual.Root.Descendants(Epub.svgNs + "image").First();
             Assert.AreEqual("../Images/0002_p1alt2en.png", element.Attribute(Epub.xlinkNs + "href").Value);
 
