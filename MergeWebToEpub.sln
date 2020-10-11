@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeWebToEpub", "MergeWebT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestMergeWebToEpub", "UnitTestMergeWebToEpub\UnitTestMergeWebToEpub.csproj", "{9E9CF0B0-1D80-4C82-843B-1379570E24A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchCheckEpubs", "BatchCheckEpubs\BatchCheckEpubs.csproj", "{D8BF19D5-83BE-46BB-8A8F-424A471ACEFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9E9CF0B0-1D80-4C82-843B-1379570E24A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E9CF0B0-1D80-4C82-843B-1379570E24A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E9CF0B0-1D80-4C82-843B-1379570E24A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BF19D5-83BE-46BB-8A8F-424A471ACEFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BF19D5-83BE-46BB-8A8F-424A471ACEFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BF19D5-83BE-46BB-8A8F-424A471ACEFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BF19D5-83BE-46BB-8A8F-424A471ACEFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
