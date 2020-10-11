@@ -20,7 +20,7 @@ namespace MergeWebToEpub
         {
             NcxItem = ncxItem;
             Version = doc.Root.Attribute("version").Value;
-            Language = doc.Root.Attribute(Epub.xmlNs + "lang").Value;
+            Language = doc.Root.Attribute(Epub.xmlNs + "lang")?.Value;
 
             Uid = doc.Root.Element(Epub.ncxNs + "head")
                 .Elements(Epub.ncxNs + "meta")

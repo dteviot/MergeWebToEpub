@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -37,6 +38,10 @@ namespace MergeWebToEpub
         public static byte[] ExtractBytes(this ZipFile zip, string entryName)
         {
             ZipEntry e = zip[entryName];
+            if (e == null)
+            {
+                e = zip[WebUtility.UrlDecode(entryName)];
+            }
             using (var ms = new MemoryStream())
             {
                 e.Extract(ms);

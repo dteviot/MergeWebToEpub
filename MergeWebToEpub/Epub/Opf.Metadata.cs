@@ -17,26 +17,29 @@ namespace MergeWebToEpub
         {
             Title = element.Element(Epub.DaisyNs + "title").Value;
             Language = element.Element(Epub.DaisyNs + "language").Value;
-            Date = element.Element(Epub.DaisyNs + "date").Value;
+            Date = element.Element(Epub.DaisyNs + "date")?.Value;
 
             var creatorElement = element.Element(Epub.DaisyNs + "creator");
-            CreatorFileAs = creatorElement.Attribute(Epub.PackageNs + "file-as").Value;
-            Creator = creatorElement.Value;
+            CreatorFileAs = creatorElement?.Attribute(Epub.PackageNs + "file-as")?.Value;
+            Creator = creatorElement?.Value;
 
             var identifierElement = element.Element(Epub.DaisyNs + "identifier");
-            IdentifierId = identifierElement.Attribute("id").Value;
-            Identifier = identifierElement.Value;
+            IdentifierId = identifierElement?.Attribute("id")?.Value;
+            Identifier = identifierElement?.Value;
 
             var contributorElement = element.Element(Epub.DaisyNs + "contributor");
-            ContributorRole = contributorElement.Attribute(Epub.PackageNs + "role").Value;
-            Contributor = contributorElement.Value;
+            ContributorRole = contributorElement?.Attribute(Epub.PackageNs + "role")?.Value;
+            Contributor = contributorElement?.Value;
 
             CoverImageId = FindCoverImageId(element);
 
             foreach (var e in element.Elements(Epub.DaisyNs + "source"))
             {
-                var id = e.Attribute("id").Value.Substring(3);
-                idIndex[id].Source = e.Value;
+                var id = e.Attribute("id")?.Value?.Substring(3);
+                if (id != null)
+                {
+                    idIndex[id].Source = e.Value;
+                }
             }
         }
 

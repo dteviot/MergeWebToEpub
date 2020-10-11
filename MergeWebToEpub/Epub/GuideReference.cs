@@ -16,17 +16,21 @@ namespace MergeWebToEpub
         {
             string path =  ZipUtils.RelativePathToAbsolute(opfFolder, element.Attribute("href").Value);
             Item = absolutePathIndex[path];
-            Title = element.Attribute("title").Value;
+            Title = element.Attribute("title")?.Value;
             TypeName = element.Attribute("type").Value;
         }
 
         public XElement ToXElement(string opfFolder)
         {
-            return new XElement(Epub.PackageNs + "reference",
+            var element = new XElement(Epub.PackageNs + "reference",
                 new XAttribute("href", ZipUtils.AbsolutePathToRelative(opfFolder, Item.AbsolutePath)),
-                new XAttribute("title", Title),
                 new XAttribute("type", TypeName)
             );
+            if (Title != null)
+            {
+                element.Add(new XAttribute("title", Title));
+            }
+            return element;
         }
 
         public EpubItem Item { get; set; }
