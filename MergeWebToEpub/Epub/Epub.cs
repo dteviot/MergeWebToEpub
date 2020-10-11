@@ -89,6 +89,28 @@ namespace MergeWebToEpub
             return errors;
         }
 
+        public List<string> CheckForMissingChapters()
+        {
+            var srcToTitle = ToC.BuildScrToTitleMap();
+            var titles = new List<string>();
+            int previousChapterNumber = Epub.NoChapterNum;
+            foreach (var item in Opf.Spine)
+            {
+                string title = null;
+                srcToTitle.TryGetValue(item.AbsolutePath, out title);
+                int currentChapterNumber = title.ExtractProbableChapterNumber();
+                bool missing = ((currentChapterNumber != Epub.NoChapterNum)
+                        && (previousChapterNumber != Epub.NoChapterNum)
+                        && (currentChapterNumber != (previousChapterNumber + 1)));
+                previousChapterNumber = currentChapterNumber;
+                if (missing)
+                {
+                    titles.Add($"Might be a missing chapter before \"{title}\"");
+                }
+            }
+            return titles;
+        }
+
         public void InsertChapter(EpubItem chapter, TocEntry tocEntry, EpubItem preceedingItem)
         {
             Opf.InsertChapter(new List<EpubItem>() { chapter }, preceedingItem);
