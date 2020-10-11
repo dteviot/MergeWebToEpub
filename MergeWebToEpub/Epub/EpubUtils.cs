@@ -77,7 +77,8 @@ namespace MergeWebToEpub
         public static void ConvertToJpeg(this EpubItem item)
         {
             item.MediaType = Epub.jpegMedia;
-            item.AbsolutePath = item.AbsolutePath.Substring(0, item.AbsolutePath.Length - 4) + "jpeg";
+            int index = item.AbsolutePath.LastIndexOf(".");
+            item.AbsolutePath = item.AbsolutePath.Substring(0, index + 1) + "jpeg";
             var image = item.RawBytes.ExtractImage(true);
             item.RawBytes = image.ConvertToJpeg();
         }
@@ -130,7 +131,12 @@ namespace MergeWebToEpub
             var fragments = uri.Split(new char[] { '#' });
             var path = fragments[0];
             var urlAbsolutePath = ZipUtils.RelativePathToAbsolute(itemPath, path);
-            var newAbsolutePath = newAbsolutePaths[urlAbsolutePath];
+            string newAbsolutePath = null;
+            if (!newAbsolutePaths.TryGetValue(urlAbsolutePath, out newAbsolutePath))
+            {
+                // URL isn't in set to update
+                return uri;
+            }
             var newRelativePath = ZipUtils.AbsolutePathToRelative(itemPath, newAbsolutePath);
             if (2 == fragments.Length)
             {
@@ -149,7 +155,7 @@ namespace MergeWebToEpub
         {
             var imageItems = epub.Opf.GetImageItems().Where(EpubUtils.IsWebp);
             var newPaths = new Dictionary<string, string>();
-            foreach(var item in imageItems)
+            foreach(var item in imageItems.Where(IsWebp))
             {
                 var old = item.AbsolutePath;
                 item.ConvertToJpeg();
