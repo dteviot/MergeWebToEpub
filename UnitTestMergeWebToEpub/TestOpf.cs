@@ -121,5 +121,16 @@ namespace UnitTestMergeWebToEpub
             Assert.AreEqual(25, sources.Count);
             Assert.IsFalse(sources.ContainsKey("id.cover-image"));
         }
+
+        [TestMethod]
+        public void TestRoundTripParseOpfWithGuide()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.contentWithImages.opf");
+            var opf = new Opf(doc, "OEPBS/content.opf");
+            var doc2 = opf.ToXDocument();
+
+            var delta = XmlCompare.ElementSame(doc.Root, doc2.Root);
+            Assert.IsTrue(delta.AreSame);
+        }
     }
 }

@@ -24,6 +24,7 @@ namespace MergeWebToEpub
             RebuildIndexes();
             this.Metadata = new Metadata(doc.Root.Element(Epub.PackageNs + "metadata"), IdIndex);
             ParseSpine(doc.Root.Element(Epub.PackageNs + "spine"));
+            ParseGuide(doc.Root.Element(Epub.PackageNs + "guide"), opfFolder);
             FindSpecialPages();
         }
 
@@ -53,7 +54,7 @@ namespace MergeWebToEpub
 
         public XDocument ToXDocument()
         {
-            return new XDocument(
+            var doc = new XDocument(
                 new XElement(Epub.PackageNs + "package",
                     new XAttribute("xmlns", "http://www.idpf.org/2007/opf"),
                     new XAttribute("version", "2.0"),
@@ -63,6 +64,11 @@ namespace MergeWebToEpub
                     SpineToXElement()
                 )
             );
+            if (0 < Guide.Count)
+            {
+                doc.Root.Add(GuideToXElement());
+            }
+            return doc;
         }
 
         private void ParseManifest(XElement manifestElement, string opfFolder)
@@ -99,6 +105,25 @@ namespace MergeWebToEpub
                 root.Add(new XElement(Epub.PackageNs + "itemref",
                     new XAttribute("idref", item.Id)
                 ));
+            }
+            return root;
+        }
+
+        private void ParseGuide(XElement guideElement, string opfFolder)
+        {
+            Guide = (guideElement == null)
+                ? new List<GuideReference>()
+                : guideElement.Elements(Epub.PackageNs + "reference")
+                    .Select(e => new GuideReference(e, opfFolder, AbsolutePathIndex)).ToList();
+        }
+
+        private XElement GuideToXElement()
+        {
+            var root = new XElement(Epub.PackageNs + "guide");
+            var opfFolder = OpfFileName.GetZipPath();
+            foreach (var reference in Guide)
+            {
+                root.Add(reference.ToXElement(opfFolder));
             }
             return root;
         }
@@ -188,6 +213,8 @@ namespace MergeWebToEpub
 
         public List<EpubItem> Manifest { get; set; }
         public List<EpubItem> Spine { get; set; }
+
+        public List<GuideReference> Guide { get; set; }
 
         public string TocId { get; set; }
 
