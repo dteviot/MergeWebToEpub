@@ -25,6 +25,15 @@ namespace UnitTestMergeWebToEpub
             }
         }
 
+        public static string ReadStringResource(string resourceName)
+        {
+            using (var stream = Utils.ReadResource(resourceName))
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         public static void CompareDocPart(XDocument doc1, XDocument doc2, XNamespace ns, string elementName)
         {
             var e1 = doc1.Root.Element(ns + elementName);
