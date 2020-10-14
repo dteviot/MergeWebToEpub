@@ -24,6 +24,19 @@ namespace UnitTestMergeWebToEpub
         }
 
         [TestMethod]
+        public void TestRoundTripParseToCWithNesting()
+        {
+            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.tocWithNesting.ncx");
+            var mockNcxItem = new EpubItem() { AbsolutePath = "toc.ncx" };
+            var api = Utils.FakeAbsolutePathIndex(doc, "toc.ncx");
+
+            var toc = new ToC(doc, mockNcxItem, api);
+            var doc2 = toc.ToXDocument();
+            var delta = XmlCompare.ElementSame(doc.Root, doc2.Root);
+            Assert.IsTrue(delta.AreSame);
+        }
+
+        [TestMethod]
         public void TestCalcNavMapDepth_Expect2_ThenExpect3()
         {
             XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.toc.ncx");

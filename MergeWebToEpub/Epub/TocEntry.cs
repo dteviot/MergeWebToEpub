@@ -19,8 +19,17 @@ namespace MergeWebToEpub
 
         public TocEntry(XElement element, string ncxFolder, Dictionary<string, EpubItem> absolutePathIndex)
         {
+            System.Diagnostics.Trace.WriteLine(element.ToString());
             Title = element.Element(Epub.ncxNs + "navLabel").Element(Epub.ncxNs + "text").Value;
             string src = element.Element(Epub.ncxNs + "content").Attribute("src").Value;
+
+            int index = src.IndexOf("#");
+            if (0 < index)
+            {
+                Anchor = src.Substring(index);
+                src = src.Substring(0, index);
+            }
+
             Item = absolutePathIndex[ZipUtils.RelativePathToAbsolute(ncxFolder, src)];
             Children = element.Elements(Epub.ncxNs + "navPoint")
                 .Select(e => new TocEntry(e, ncxFolder, absolutePathIndex))
@@ -32,6 +41,8 @@ namespace MergeWebToEpub
         public string ContentSrc { get { return Item.AbsolutePath; } }
 
         public EpubItem Item { get; set; }
+
+        public string Anchor { get; set; } = string.Empty;
 
         public List<TocEntry> Children { get; set; } = new List<TocEntry>();
 
@@ -45,7 +56,7 @@ namespace MergeWebToEpub
                     new XElement(Epub.ncxNs + "text", Title)
                 ),
                 new XElement(Epub.ncxNs + "content",
-                    new XAttribute("src", ZipUtils.AbsolutePathToRelative(ncxFolder, ContentSrc))
+                    new XAttribute("src", ZipUtils.AbsolutePathToRelative(ncxFolder, ContentSrc) + Anchor)
                 )
             );
             foreach(var e in Children)

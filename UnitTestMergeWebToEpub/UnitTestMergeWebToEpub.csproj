@@ -92,6 +92,9 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\PrettyPrint.xhtml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\tocWithNesting.ncx" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

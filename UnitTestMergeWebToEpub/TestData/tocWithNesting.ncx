@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"
+ "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd"><ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/" xml:lang="en_US">
+  <head>
+    <meta content="urn:uuid:1712a241-b054-4bde-9c22-54f1bbdf04b7" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Dungeon Defense - Volume 01</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="body0001" playOrder="1">
+      <navLabel>
+        <text>Illustrations</text>
+      </navLabel>
+      <content src="Text/Illustrations.xhtml"/>
+    </navPoint>
+    <navPoint id="body0002" playOrder="2">
+      <navLabel>
+        <text>Chapter Zero</text>
+      </navLabel>
+      <content src="Text/Chapter_00.xhtml"/>
+    </navPoint>
+    <navPoint id="body0003" playOrder="3">
+      <navLabel>
+        <text>Prologue</text>
+      </navLabel>
+      <content src="Text/Prologue.xhtml"/>
+    </navPoint>
+    <navPoint id="body0004" playOrder="4">
+      <navLabel>
+        <text>Chapter One – 2 Years Ago</text>
+      </navLabel>
+      <content src="Text/Chapter_01.xhtml"/>
+    </navPoint>
+    <navPoint id="body0005" playOrder="5">
+      <navLabel>
+        <text>Chapter Two – A Devil Steps on Stage</text>
+      </navLabel>
+      <content src="Text/Chapter_02.xhtml"/>
+      <navPoint id="body0006" playOrder="6">
+        <navLabel>
+          <text>Part One</text>
+        </navLabel>
+        <content src="Text/Chapter_02.xhtml#sigil_toc_id_1"/>
+      </navPoint>
+      <navPoint id="body0007" playOrder="7">
+        <navLabel>
+          <text>Part Two</text>
+        </navLabel>
+        <content src="Text/Chapter_02.xhtml#sigil_toc_id_2"/>
+      </navPoint>
+      <navPoint id="body0008" playOrder="8">
+        <navLabel>
+          <text>Part Three</text>
+        </navLabel>
+        <content src="Text/Chapter_02.xhtml#sigil_toc_id_3"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0009" playOrder="9">
+      <navLabel>
+        <text>Chapter Three – Faceless Disease</text>
+      </navLabel>
+      <content src="Text/Chapter_03.xhtml"/>
+      <navPoint id="body0010" playOrder="10">
+        <navLabel>
+          <text>Part One</text>
+        </navLabel>
+        <content src="Text/Chapter_03.xhtml#sigil_toc_id_4"/>
+      </navPoint>
+      <navPoint id="body0011" playOrder="11">
+        <navLabel>
+          <text>Part Two</text>
+        </navLabel>
+        <content src="Text/Chapter_03.xhtml#sigil_toc_id_5"/>
+      </navPoint>
+      <navPoint id="body0012" playOrder="12">
+        <navLabel>
+          <text>Part Three</text>
+        </navLabel>
+        <content src="Text/Chapter_03.xhtml#sigil_toc_id_6"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0013" playOrder="13">
+      <navLabel>
+        <text>Chapter Four – Romantic Deceptive Tactics</text>
+      </navLabel>
+      <content src="Text/Chapter_04.xhtml"/>
+      <navPoint id="body0014" playOrder="14">
+        <navLabel>
+          <text>Part One</text>
+        </navLabel>
+        <content src="Text/Chapter_04.xhtml#sigil_toc_id_7"/>
+      </navPoint>
+      <navPoint id="body0015" playOrder="15">
+        <navLabel>
+          <text>Part Two</text>
+        </navLabel>
+        <content src="Text/Chapter_04.xhtml#sigil_toc_id_8"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0016" playOrder="16">
+      <navLabel>
+        <text>Chapter Five – The Most Extravagant Circus</text>
+      </navLabel>
+      <content src="Text/Chapter_05.xhtml"/>
+      <navPoint id="body0017" playOrder="17">
+        <navLabel>
+          <text>Part One</text>
+        </navLabel>
+        <content src="Text/Chapter_05.xhtml#sigil_toc_id_9"/>
+      </navPoint>
+      <navPoint id="body0018" playOrder="18">
+        <navLabel>
+          <text>Part Two</text>
+        </navLabel>
+        <content src="Text/Chapter_05.xhtml#sigil_toc_id_10"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="body0019" playOrder="19">
+      <navLabel>
+        <text>Intermission</text>
+      </navLabel>
+      <content src="Text/Intermission.xhtml"/>
+    </navPoint>
+    <navPoint id="body0020" playOrder="20">
+      <navLabel>
+        <text>Afterword</text>
+      </navLabel>
+      <content src="Text/Afterword.xhtml"/>
+    </navPoint>
+    <navPoint id="body0021" playOrder="21">
+      <navLabel>
+        <text>Credits</text>
+      </navLabel>
+      <content src="Text/Credits.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>
