@@ -167,26 +167,26 @@ namespace MergeWebToEpub
             Spine.Remove(item);
         }
 
-        public void InsertChapter(List<EpubItem> chapters, EpubItem preceedingItem)
+        public void InsertChapter(List<EpubItem> chapters, EpubItem insertAt)
         {
             for (int i = 0; i < Manifest.Count; ++i)
             {
-                if (preceedingItem == Manifest[i])
+                if (insertAt == Manifest[i])
                 {
                     for(int j = 0; j < chapters.Count; ++j)
                     {
-                        Manifest.Insert(i + j + 1, chapters[j]);
+                        Manifest.Insert(i + j, chapters[j]);
                     }
                     break;
                 }
             }
             for (int i = 0; i < Spine.Count; ++i)
             {
-                if (preceedingItem == Spine[i])
+                if (insertAt == Spine[i])
                 {
                     for (int j = 0; j < chapters.Count; ++j)
                     {
-                        Spine.Insert(i + j + 1, chapters[j]);
+                        Spine.Insert(i + j, chapters[j]);
                     }
                     break;
                 }

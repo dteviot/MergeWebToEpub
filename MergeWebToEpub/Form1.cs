@@ -244,7 +244,7 @@ namespace MergeWebToEpub
 
         private void pasteItemssToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PasteAfterSelectedItem();
+            PasteAtSelectedItem();
         }
 
         private void renumberIDsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -272,12 +272,12 @@ namespace MergeWebToEpub
             return indices;
         }
 
-        private void PasteAfterSelectedItem()
+        private void PasteAtSelectedItem()
         {
-            var preceedingItem = rows[listViewEpubItems.SelectedIndices[0]].Item;
+            var insertAt = rows[listViewEpubItems.SelectedIndices[0]].Item;
             var chapters = cutItems.Select(row => row.Item).ToList();
             var tocEntries = cutItems.Select(row => row.ToTocEntry()).ToList();
-            epub.InsertChapters(chapters, tocEntries, preceedingItem);
+            epub.InsertChapters(chapters, tocEntries, insertAt);
             cutItems.Clear();
             PopulateListView();
         }

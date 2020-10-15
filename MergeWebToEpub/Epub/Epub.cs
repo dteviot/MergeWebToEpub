@@ -117,10 +117,10 @@ namespace MergeWebToEpub
             ToC.InsertChapter(new List<TocEntry>() { tocEntry }, preceedingItem);
         }
 
-        public void InsertChapters(List<EpubItem> chapters, List<TocEntry> tocEntries, EpubItem preceedingItem)
+        public void InsertChapters(List<EpubItem> chapters, List<TocEntry> tocEntries, EpubItem insertAt)
         {
-            Opf.InsertChapter(chapters, preceedingItem);
-            ToC.InsertChapter(tocEntries, preceedingItem);
+            Opf.InsertChapter(chapters, insertAt);
+            ToC.InsertChapter(tocEntries, insertAt);
         }
 
         public void RenumberItemIds(int index)
