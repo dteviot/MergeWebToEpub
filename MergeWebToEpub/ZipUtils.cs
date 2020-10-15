@@ -52,10 +52,23 @@ namespace MergeWebToEpub
 
         public static XDocument ToXhtml(this byte[] bytes)
         {
-            using (var ms = new MemoryStream(bytes))
+            using (var ms = new MemoryStream(bytes.FixupNbsp()))
             {
                 return XDocument.Load(ms);
             }
+        }
+
+        /// <summary>
+        /// Ugly hack to deal with XmlReader faulting on &nbsp;
+        /// Ideally, would use XmlPreloadedResolver against xhtml11-flat.dtd
+        /// But that's too strict
+        /// </summary>
+        /// <param name="byutes"></param>
+        /// <returns></returns>
+        public static byte[] FixupNbsp(this byte[] bytes)
+        {
+            var s = Encoding.UTF8.GetString(bytes);
+            return Encoding.UTF8.GetBytes(s.Replace("&nbsp;", "&#160;"));
         }
 
         public static string ToHash(this byte[] rawBytes)

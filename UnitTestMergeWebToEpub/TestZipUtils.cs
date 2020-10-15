@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MergeWebToEpub;
+using System.Text;
 
 namespace UnitTestMergeWebToEpub
 {
@@ -90,5 +91,16 @@ namespace UnitTestMergeWebToEpub
             var actual = ZipUtils.RelativePathToAbsolute("OEBPS/Text", "../0000_Information.xhtml");
             Assert.AreEqual("OEBPS/0000_Information.xhtml", actual);
         }
+
+        [TestMethod]
+        public void TestToXhtmlWithNbsp()
+        {
+            var xml = Utils.ReadStringResource("UnitTestMergeWebToEpub.TestData.nbsp.xhtml");
+            var bytes = Encoding.UTF8.GetBytes(xml);
+
+            // should not throw
+            bytes.ToXhtml();
+        }
+
     }
 }
