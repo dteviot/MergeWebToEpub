@@ -40,9 +40,10 @@ namespace BatchCheckEpubs
             {
                 foreach (var fileName in Directory.EnumerateFiles(directory, "*.epub", SearchOption.AllDirectories))
                 {
-                    if (skipList.Contains(fileName))
+                    LogEntry entry = null;
+                    if (skipList.TryGetValue(fileName, out entry))
                     {
-                        logFile.LogResults(fileName, "Skipped", true);
+                        logFile.LogResults(entry);
                     }
                     else
                     {

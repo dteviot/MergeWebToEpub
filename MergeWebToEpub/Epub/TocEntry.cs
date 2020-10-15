@@ -19,7 +19,6 @@ namespace MergeWebToEpub
 
         public TocEntry(XElement element, string ncxFolder, Dictionary<string, EpubItem> absolutePathIndex)
         {
-            System.Diagnostics.Trace.WriteLine(element.ToString());
             Title = element.Element(Epub.ncxNs + "navLabel").Element(Epub.ncxNs + "text").Value;
             string src = element.Element(Epub.ncxNs + "content").Attribute("src").Value;
 

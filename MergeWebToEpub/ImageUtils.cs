@@ -63,6 +63,11 @@ namespace MergeWebToEpub
 
         public static Image ExtractImage(this byte[] rawBytes, bool isWebp)
         {
+            if (rawBytes.Length == 0)
+            {
+                // if no image, return a dummy image
+                return new Bitmap(1, 1);
+            }
             if (isWebp)
             {
                 using (var webp = new WebP())

@@ -8,6 +8,20 @@ using System.Xml;
 
 namespace BatchCheckEpubs
 {
+    public class LogEntry
+    {
+        public LogEntry(XmlReader reader)
+        {
+            FileName = reader.GetAttribute("fileName");
+            Ignore = Convert.ToBoolean(reader.GetAttribute("ignore").ToLower());
+            Error = reader.GetAttribute("error");
+        }
+
+        public string FileName { get; set; }
+        public string Error { get; set; }
+        public bool Ignore { get; set; }
+    }
+
     public class LogFile : IDisposable
     {
         public LogFile(string directory)
@@ -28,6 +42,10 @@ namespace BatchCheckEpubs
             writer.WriteStartElement("Epubs");
         }
 
+        public void LogResults(LogEntry entry)
+        {
+            LogResults(entry.FileName, entry.Error, entry.Ignore);
+        }
 
         public void LogResults(string fileName, string errorType, bool ignore)
         {
@@ -49,9 +67,9 @@ namespace BatchCheckEpubs
             }
         }
 
-        public static HashSet<string> GetSkipList(string directory)
+        public static Dictionary<string, LogEntry> GetSkipList(string directory)
         {
-            var skipList = new HashSet<string>();
+            var skipList = new Dictionary<string, LogEntry>();
             var logFile = Path.Combine(directory, LogFileName);
             if (File.Exists(logFile))
             {
@@ -59,10 +77,10 @@ namespace BatchCheckEpubs
                 {
                     while (reader.ReadToFollowing("epub"))
                     {
-                        var ignore = Convert.ToBoolean(reader.GetAttribute("ignore").ToLower());
-                        if (ignore)
+                        var result = new LogEntry(reader);
+                        if (result.Ignore)
                         {
-                            skipList.Add(reader.GetAttribute("fileName"));
+                            skipList.Add(result.FileName, result);
                         }
                     }
                 }
