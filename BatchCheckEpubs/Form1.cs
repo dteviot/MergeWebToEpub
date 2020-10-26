@@ -61,7 +61,16 @@ namespace BatchCheckEpubs
             var epub = new Epub();
             try
             {
-                epub.ReadFile(fileName);
+                try
+                {
+                    epub.ReadFile(fileName);
+                }
+                catch(Exception ex1)
+                {
+                    System.Diagnostics.Trace.WriteLine(ex1.Message);
+                    logFile.LogResults(fileName, "Failed to read EPUB", false);
+                    return;
+                }
                 var errors = epub.ValidateXhtml();
                 if (0 < errors.Count)
                 {
@@ -89,8 +98,9 @@ namespace BatchCheckEpubs
                     return;
                 }
             }
-            catch
+            catch (Exception ex2)
             {
+                System.Diagnostics.Trace.WriteLine(ex2.Message);
                 logFile.LogResults(fileName, "Threw exception", false);
                 return;
             }
@@ -106,7 +116,7 @@ namespace BatchCheckEpubs
                 var xml = Encoding.UTF8.GetString(item.RawBytes);
                 var fromAgility = HtmlAgilityPackUtils.PrettyPrintXhtml(xml);
                 XDocument agilityDoc = XDocument.Parse(fromAgility);
-                XDocument doc = XDocument.Parse(xml);
+                XDocument doc = Encoding.UTF8.GetBytes(xml).ToXhtml();
                 var delta = XmlCompare.ElementSame(agilityDoc.Root, doc.Root);
                 if (!delta.AreSame)
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Xml.Linq;
 using MergeWebToEpub;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,7 +30,18 @@ namespace UnitTestMergeWebToEpub
             string xml = Utils.ReadStringResource("UnitTestMergeWebToEpub.TestData.PrettyPrint.xhtml");
             var fromAgility = HtmlAgilityPackUtils.PrettyPrintXhtml(xml);
             XDocument agilityDoc = XDocument.Parse(fromAgility);
-            XDocument doc = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.PrettyPrint.xhtml");
+            XDocument doc = Encoding.UTF8.GetBytes(xml).ToXhtml();
+            var delta = XmlCompare.ElementSame(agilityDoc.Root, doc.Root);
+            Assert.IsTrue(delta.AreSame);
+        }
+
+        [TestMethod]
+        public void TestPrettyPrintCover()
+        {
+            string xml = Utils.ReadStringResource("UnitTestMergeWebToEpub.TestData.Cover.xhtml");
+            var fromAgility = HtmlAgilityPackUtils.PrettyPrintXhtml(xml);
+            XDocument agilityDoc = XDocument.Parse(fromAgility);
+            XDocument doc = doc = Encoding.UTF8.GetBytes(xml).ToXhtml();
             var delta = XmlCompare.ElementSame(agilityDoc.Root, doc.Root);
             Assert.IsTrue(delta.AreSame);
         }

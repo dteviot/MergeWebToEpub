@@ -102,5 +102,25 @@ namespace UnitTestMergeWebToEpub
             bytes.ToXhtml();
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(System.Xml.XmlException), "Name cannot begin with the '2' character, hexadecimal value 0x32. Line 1, position 546")]
+        public void TestToXhtmlWithInvalidXHTML()
+        {
+            var xml = Utils.ReadStringResource("UnitTestMergeWebToEpub.TestData.InvalidXHTML.xhtml");
+            var bytes = Encoding.UTF8.GetBytes(xml);
+
+            // should throw
+            bytes.ToXhtml();
+        }
+
+        [TestMethod]
+        public void TestToXhtmlWithSvg()
+        {
+            var xml = Utils.ReadStringResource("UnitTestMergeWebToEpub.TestData.Cover.xhtml");
+            var bytes = Encoding.UTF8.GetBytes(xml);
+
+            // should not throw
+            bytes.ToXhtml();
+        }
     }
 }

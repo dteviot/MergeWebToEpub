@@ -9,7 +9,10 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Resolvers;
+using System.Xml.Schema;
 
 namespace MergeWebToEpub
 {
@@ -52,23 +55,49 @@ namespace MergeWebToEpub
 
         public static XDocument ToXhtml(this byte[] bytes)
         {
-            using (var ms = new MemoryStream(bytes.FixupNbsp()))
+            using (var ms = new MemoryStream(bytes))
+            using (var reader = XmlReader.Create(ms, GetXmlReaderSettings()))
             {
-                return XDocument.Load(ms);
+                return XDocument.Load(reader);
             }
         }
 
-        /// <summary>
-        /// Ugly hack to deal with XmlReader faulting on &nbsp;
-        /// Ideally, would use XmlPreloadedResolver against xhtml11-flat.dtd
-        /// But that's too strict
-        /// </summary>
-        /// <param name="byutes"></param>
-        /// <returns></returns>
-        public static byte[] FixupNbsp(this byte[] bytes)
+        static XmlReaderSettings xmlReaderSettings = null;
+
+        private static XmlReaderSettings GetXmlReaderSettings()
         {
-            var s = Encoding.UTF8.GetString(bytes);
-            return Encoding.UTF8.GetBytes(s.Replace("&nbsp;", "&#160;"));
+            if (xmlReaderSettings == null)
+            {
+                var resolver = new XmlPreloadedResolver();
+                resolver.AddDTD("http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd", "MergeWebToEpub.Resources.xhtml11-flat.dtd");
+
+                xmlReaderSettings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Parse,
+                    ValidationType = ValidationType.DTD,
+                    XmlResolver = resolver,
+                };
+                xmlReaderSettings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
+            }
+            return xmlReaderSettings;
+        }
+
+        private static void AddDTD(this XmlPreloadedResolver resolver, string url, string resourceName)
+        {
+            using (var stream = ReadResource(resourceName))
+            {
+                resolver.Add(new Uri(url), stream);
+            }
+        }
+
+        public static Stream ReadResource(string resourceName)
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+        }
+
+        private static void ValidationCallBack(object sender, ValidationEventArgs args)
+        {
+            // ignore all
         }
 
         public static string ToHash(this byte[] rawBytes)

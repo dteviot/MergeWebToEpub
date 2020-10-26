@@ -70,9 +70,9 @@ namespace UnitTestMergeWebToEpub
                 return new Delta($"Element '{lhs.Name}' has no children");
             }
 
-            if (!lhs.HasElements && (lhs.Value != rhs.Value))
+            if (!lhs.HasElements && (lhs.Value.Trim() != rhs.Value.Trim()))
             {
-                return new Delta($"Element '{lhs.Name}' does not match on value '{lhs.Value}' vs '{rhs.Value}'");
+                return new Delta($"Element '{lhs.Name}' does not match on value '{lhs.Value.Trim()}' vs '{rhs.Value.Trim()}'");
             }
             return new Delta();
         }
