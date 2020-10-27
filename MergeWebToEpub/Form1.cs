@@ -323,6 +323,12 @@ namespace MergeWebToEpub
             ScrollToMissingChapter();
         }
 
+        private void sortChaptersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            epub.SortSpineByChapterNumber();
+            PopulateListView();
+        }
+
         private void ScrollToMissingChapter()
         {
             int topRow = listViewEpubItems.TopItem?.Index ?? 0;

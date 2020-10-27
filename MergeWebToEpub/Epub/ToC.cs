@@ -141,6 +141,23 @@ namespace MergeWebToEpub
             return TocEntry.FindTocEntry(Entries, src);
         }
 
+        public void GenerateToCFromChapters(List<EpubItem> chapters, Dictionary<string, string> srcToTitle)
+        {
+            Entries.Clear();
+            foreach(var chapter in chapters)
+            {
+                string title = null;
+                if (srcToTitle.TryGetValue(chapter.AbsolutePath, out title))
+                {
+                    Entries.Add(new TocEntry()
+                    {
+                        Title = title,
+                        Item = chapter
+                    });
+                }
+            }
+        }
+
         public string Uid { get; set; }
 
         public string Version { get; set; }

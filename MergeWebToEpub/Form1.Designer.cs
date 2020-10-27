@@ -51,6 +51,7 @@
             this.listViewThumbs = new System.Windows.Forms.ListView();
             this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
             this.nextMissingChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortChaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -107,6 +108,7 @@
             this.deleteCheckedToolStripMenuItem,
             this.changeWebpToJpegToolStripMenuItem,
             this.nextMissingChapterToolStripMenuItem,
+            this.sortChaptersToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -253,6 +255,12 @@
             this.nextMissingChapterToolStripMenuItem.Text = "Next Missing Chapter";
             this.nextMissingChapterToolStripMenuItem.Click += new System.EventHandler(this.nextMissingChapterToolStripMenuItem_Click);
             // 
+            // sortChaptersToolStripMenuItem
+            // 
+            this.sortChaptersToolStripMenuItem.Name = "sortChaptersToolStripMenuItem";
+            this.sortChaptersToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.sortChaptersToolStripMenuItem.Text = "Sort Chapters";
+            this.sortChaptersToolStripMenuItem.Click += new System.EventHandler(this.sortChaptersToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -299,6 +307,7 @@
         private System.Windows.Forms.ImageList imageListThumbs;
         private System.Windows.Forms.ToolStripMenuItem changeWebpToJpegToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextMissingChapterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sortChaptersToolStripMenuItem;
     }
 }
 

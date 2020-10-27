@@ -129,6 +129,23 @@ namespace MergeWebToEpub
             Opf.RenumberItemIds(index);
         }
 
+        public void SortSpineByChapterNumber()
+        {
+            var srcToTitle = ToC.BuildScrToTitleMap();
+            int Comparison(EpubItem x, EpubItem y)
+            {
+                string title = null;
+                srcToTitle.TryGetValue(x.AbsolutePath, out title);
+                int xChapterNumber = title.ExtractProbableChapterNumber();
+                title = null;
+                srcToTitle.TryGetValue(y.AbsolutePath, out title);
+                int yChapterNumber = title.ExtractProbableChapterNumber();
+                return xChapterNumber - yChapterNumber;
+            }
+            Opf.Spine.Sort(Comparison);
+            ToC.GenerateToCFromChapters(Opf.Spine, srcToTitle);
+        }
+
         public Container Container { get; set; }
         public Opf Opf { get; set; }
         public ToC ToC { get; set; }
