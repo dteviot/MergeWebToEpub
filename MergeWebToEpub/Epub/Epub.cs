@@ -17,7 +17,8 @@ namespace MergeWebToEpub
 
         public void ReadFile(string fileName)
         {
-            using (ZipFile zip = ZipFile.Read(fileName))
+            var options = new ReadOptions() { Encoding = System.Text.Encoding.UTF8 };
+            using (ZipFile zip = ZipFile.Read(fileName, options))
             {
                 Container = new Container(zip.ExtractXml(Epub.ContainerPath));
                 var containerPath = Container.FullPath;
@@ -33,7 +34,7 @@ namespace MergeWebToEpub
 
         public void WriteFile(string fileName)
         {
-            using (ZipFile zip = new ZipFile())
+            using (ZipFile zip = new ZipFile(System.Text.Encoding.UTF8))
             {
                 AddMimeType(zip);
                 zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
