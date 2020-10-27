@@ -78,6 +78,7 @@ namespace MergeWebToEpub
                 combiner.Add(epub);
             }
             PopulateListView();
+            PopulateThumbnails();
         }
 
         private List<Epub> BrowseForEpub(bool multiselect)
@@ -315,6 +316,24 @@ namespace MergeWebToEpub
         {
             epub.ConvertWebpImagesToJpeg();
             PopulateThumbnails();
+        }
+
+        private void nextMissingChapterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ScrollToMissingChapter();
+        }
+
+        private void ScrollToMissingChapter()
+        {
+            int topRow = listViewEpubItems.TopItem?.Index ?? 0;
+            for(int i = topRow + 1; i < rows.Count; ++i)
+            {
+                if (rows[i].MissingChapter)
+                {
+                    listViewEpubItems.TopItem = listViewEpubItems.Items[i];
+                    return;
+                }
+            }
         }
     }
 }

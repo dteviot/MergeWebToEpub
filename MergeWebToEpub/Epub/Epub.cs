@@ -69,6 +69,7 @@ namespace MergeWebToEpub
             var errors = new List<string>();
             errors.AddRange(ValidateImages());
             errors.AddRange(ValidateXhtml());
+            errors.AddRange(CheckForMissingChapters());
             return errors;
         }
 
