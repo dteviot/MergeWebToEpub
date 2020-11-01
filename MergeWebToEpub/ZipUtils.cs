@@ -20,7 +20,7 @@ namespace MergeWebToEpub
     {
         public static XDocument ExtractXml(this ZipFile zip, string entryName)
         {
-            ZipEntry e = zip[entryName];
+            ZipEntry e = GetEntry(zip, entryName);
             using (var ms = new MemoryStream())
             {
                 e.Extract(ms);
@@ -40,17 +40,25 @@ namespace MergeWebToEpub
 
         public static byte[] ExtractBytes(this ZipFile zip, string entryName)
         {
-            ZipEntry e = zip[entryName];
-            if (e == null)
-            {
-                e = zip[WebUtility.UrlDecode(entryName)];
-            }
+            ZipEntry e = GetEntry(zip, entryName);
             using (var ms = new MemoryStream())
             {
                 e.Extract(ms);
                 ms.Flush();
                 return ms.ToArray();
             }
+        }
+
+        public static ZipEntry GetEntry(this ZipFile zip, string entryName)
+        {
+            // Note that hrefs have the name UrlEncoded
+            // The filename in the ZIP is NOT UrlEncoded.
+            ZipEntry e = zip[entryName];
+            if (e == null)
+            {
+                e = zip[WebUtility.UrlDecode(entryName)];
+            }
+            return e;
         }
 
         public static XDocument ToXhtml(this byte[] bytes)
