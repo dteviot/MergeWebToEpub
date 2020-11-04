@@ -35,10 +35,10 @@ namespace MergeWebToEpub
 
             foreach (var e in element.Elements(Epub.DaisyNs + "source"))
             {
-                var id = e.Attribute("id")?.Value?.Substring(3);
-                if (id != null)
+                var id = e.Attribute("id")?.Value;
+                if ((id != null) && id.StartsWith("id."))
                 {
-                    idIndex[id].Source = e.Value;
+                    idIndex[id.Substring(3)].Source = e.Value;
                 }
             }
         }
