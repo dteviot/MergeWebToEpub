@@ -113,10 +113,10 @@ namespace BatchCheckEpubs
         {
             foreach (var item in epub.Opf.Spine)
             {
+                XDocument doc = item.RawBytes.ToXhtml();
                 var xml = Encoding.UTF8.GetString(item.RawBytes);
                 var fromAgility = HtmlAgilityPackUtils.PrettyPrintXhtml(xml);
-                XDocument agilityDoc = XDocument.Parse(fromAgility);
-                XDocument doc = Encoding.UTF8.GetBytes(xml).ToXhtml();
+                XDocument agilityDoc = Encoding.UTF8.GetBytes(fromAgility).ToXhtml();
                 var delta = XmlCompare.ElementSame(agilityDoc.Root, doc.Root);
                 if (!delta.AreSame)
                 {

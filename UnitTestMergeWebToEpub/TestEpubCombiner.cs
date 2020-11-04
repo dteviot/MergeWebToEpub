@@ -227,7 +227,7 @@ namespace UnitTestMergeWebToEpub
                     "<a href=\"https://cgtranslations.me/konosuba\" />" +
                 "</div>");
             page.Root.Element(Epub.xhtmlNs + "body").Add(bodyElement);
-            return page.ToStream().ToArray();
+            return page.ToSBytes();
         }
 
         public byte[] MakeDummyImage(EpubItem item)

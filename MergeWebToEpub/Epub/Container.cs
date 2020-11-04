@@ -23,7 +23,7 @@ namespace MergeWebToEpub
         public void WriteTo(ZipFile zipFile)
         {
             
-            zipFile.AddEntry(Epub.ContainerPath, ToXDocument().ToStream());
+            zipFile.AddEntry(Epub.ContainerPath, ToXDocument().ToSBytes());
         }
 
         public XDocument ToXDocument()

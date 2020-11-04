@@ -41,7 +41,7 @@ namespace MergeWebToEpub
 
         public void WriteTo(ZipFile zipFile)
         {
-            zipFile.AddEntry(OpfFileName, ToXDocument().ToStream());
+            zipFile.AddEntry(OpfFileName, ToXDocument().ToSBytes());
         }
 
         public void WriteManifestTo(ZipFile zipFile)

@@ -122,5 +122,13 @@ namespace UnitTestMergeWebToEpub
             // should not throw
             bytes.ToXhtml();
         }
+
+        [TestMethod]
+        public void TestToStreamNoBOM()
+        {
+            var xml = Utils.ReadXmlResource("UnitTestMergeWebToEpub.TestData.container.xml");
+            var bytes = xml.ToSBytes();
+            Assert.AreEqual(bytes[0], (byte)'<');
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace MergeWebToEpub
         {
             // Pack this into the ToC EpuhItem
             // so will be packed into the zip file
-            NcxItem.RawBytes = ToXDocument().ToStream().ToArray();
+            NcxItem.RawBytes = ToXDocument().ToSBytes();
         }
 
         public XDocument ToXDocument()

@@ -89,7 +89,7 @@ namespace MergeWebToEpub
             var xhtml = item.RawBytes.ToXhtml();
             var itemPath = item.AbsolutePath.GetZipPath();
             FixupReferences(xhtml, itemPath, newAbsolutePaths);
-            return xhtml.ToStream().ToArray();
+            return xhtml.ToSBytes();
         }
 
         public static void FixupReferences(XDocument doc, string itemPath, Dictionary<string, string> newAbsolutePaths)

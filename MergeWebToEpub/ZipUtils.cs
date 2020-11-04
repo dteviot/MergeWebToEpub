@@ -30,12 +30,20 @@ namespace MergeWebToEpub
             }
         }
 
-        public static MemoryStream ToStream(this XDocument doc)
+        public static byte[] ToSBytes(this XDocument doc)
         {
-            var ms = new MemoryStream();
-            doc.Save(ms);
-            ms.Position = 0;
-            return ms;
+            XmlWriterSettings settings = new XmlWriterSettings()
+            {
+                Encoding = new UTF8Encoding(false)
+            };
+            using (var ms = new MemoryStream())
+            using (XmlWriter writer = XmlWriter.Create(ms, settings))
+            {
+                doc.Save(writer);
+                writer.Flush();
+                ms.Position = 0;
+                return ms.ToArray();
+            }
         }
 
         public static byte[] ExtractBytes(this ZipFile zip, string entryName)
