@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -297,12 +298,16 @@ namespace MergeWebToEpub
             listViewThumbs.Clear();
 
             var imageItems = epub.Opf.GetImageItems();
-            for (int i = 0; i < imageItems.Count; ++i)
+            int i = 0;
+            foreach (var item in imageItems)
             {
-                var item = imageItems[i];
-                var img = item.ExtractImage();
-                imageListThumbs.Images.Add(img.MakeThumbnail(ThumbnailDimension));
-                listViewThumbs.Items.Add(item.AbsolutePath, i);
+                if (!Path.GetExtension(item.AbsolutePath).Equals(".svg", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var img = item.ExtractImage();
+                    imageListThumbs.Images.Add(img.MakeThumbnail(ThumbnailDimension));
+                    listViewThumbs.Items.Add(item.AbsolutePath, i);
+                    ++i;
+                }
             }
         }
 
