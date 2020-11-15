@@ -74,10 +74,11 @@ namespace MergeWebToEpub
         {
             var epubs = BrowseForEpub(true);
             var combiner = new EpubCombiner(epub);
-            foreach (var epub in epubs)
+            foreach (var e in epubs)
             {
-                combiner.Add(epub);
+                combiner.Add(e);
             }
+            epub.RebuildImageUseIndexes();
             PopulateListView();
             PopulateThumbnails();
         }
@@ -345,6 +346,55 @@ namespace MergeWebToEpub
                     return;
                 }
             }
+        }
+
+        private void contextMenuStripThumbs_Opening(object sender, CancelEventArgs e)
+        {
+            EnableThumbMenuBasedOnSelection();
+        }
+
+        private void informationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowInformationForImage();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RemoveImage();
+        }
+
+        private void EnableThumbMenuBasedOnSelection()
+        {
+            int selectedCount = listViewThumbs.SelectedItems.Count;
+            informationToolStripMenuItem.Enabled = (selectedCount == 1);
+            deleteToolStripMenuItem.Enabled = (selectedCount == 1);
+        }
+
+        private void ShowInformationForImage()
+        {
+            if (listViewThumbs.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            var image = listViewThumbs.SelectedItems[0];
+            var sb = new StringBuilder("This image is used by:\r\n");
+            foreach(var item in epub.ImagesUsedIndex[image.Text])
+            {
+                sb.AppendLine(item.AbsolutePath);
+            }
+            MessageBox.Show(sb.ToString());
+        }
+
+        private void RemoveImage()
+        {
+            if (listViewThumbs.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            var image = listViewThumbs.SelectedItems[0];
+            var images = new List<EpubItem>() { epub.Opf.AbsolutePathIndex[image.Text] };
+            epub.DeleteImages(images);
+            PopulateThumbnails();
         }
     }
 }

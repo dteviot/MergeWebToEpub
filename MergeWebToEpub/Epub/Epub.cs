@@ -10,6 +10,8 @@ namespace MergeWebToEpub
 {
     public partial class Epub
     {
+        public class ImageUseIndex : Dictionary<string, HashSet<EpubItem>> { }
+
         public Epub()
         {
 
@@ -27,6 +29,7 @@ namespace MergeWebToEpub
                 {
                     item.AddRawDataToItem(zip);
                 }
+                RebuildImageUseIndexes();
                 var ncxItem = Opf.NcxItem;
                 ToC = new ToC(zip.ExtractXml(ncxItem.AbsolutePath), ncxItem, Opf.AbsolutePathIndex);
             }
@@ -65,12 +68,30 @@ namespace MergeWebToEpub
             }
         }
 
+        public void DeleteImages(List<EpubItem> items)
+        {
+            foreach (var item in items)
+            {
+                HashSet<EpubItem> usedChapters = null;
+                if (ImagesUsedIndex.TryGetValue(item.AbsolutePath, out usedChapters))
+                {
+                    foreach(var chapter in usedChapters)
+                    {
+                        chapter.RemoveImageLink(item.AbsolutePath);
+                    }
+                }
+                ImagesUsedIndex.Remove(item.AbsolutePath);
+                Opf.DeleteImage(item);
+            }
+        }
+
         public List<string> Validate()
         {
             var errors = new List<string>();
             errors.AddRange(ValidateImages());
             errors.AddRange(ValidateXhtml());
             errors.AddRange(CheckForMissingChapters());
+            errors.AddRange(ValidateImageLinks());
             return errors;
         }
 
@@ -79,6 +100,13 @@ namespace MergeWebToEpub
             return Opf.GetImageItems()
                 .Where(EpubUtils.IsWebp)
                 .Select(item => $"Image '{item.AbsolutePath}' is Webp. Convert to jpeg");
+        }
+
+        public List<string> ValidateImageLinks()
+        {
+            var errors = new List<string>(UnusedImages.Select(item => $"Image '{item.AbsolutePath}' is not used"));
+            errors.AddRange(MissingImages.Select(item => $"Image '{item}' is missing"));
+            return errors;
         }
 
         public List<string> ValidateXhtml()
@@ -147,8 +175,33 @@ namespace MergeWebToEpub
             ToC.GenerateToCFromChapters(Opf.Spine, srcToTitle);
         }
 
+        public void RebuildImageUseIndexes()
+        {
+            UnusedImages.Clear();
+            ImagesUsedIndex.Clear();
+            foreach (var item in Opf.GetPageItems())
+            {
+                item.AddImagesTo(ImagesUsedIndex);
+            }
+            MissingImages = new HashSet<string>(ImagesUsedIndex.Keys);
+            foreach (var item in Opf.GetImageItems())
+            {
+                if (ImagesUsedIndex.ContainsKey(item.AbsolutePath))
+                {
+                    MissingImages.Remove(item.AbsolutePath);
+                }
+                else
+                {
+                    UnusedImages.Add(item);
+                }
+            }
+        }
+
         public Container Container { get; set; }
         public Opf Opf { get; set; }
         public ToC ToC { get; set; }
+        public ImageUseIndex ImagesUsedIndex { get; set; } = new ImageUseIndex();
+        public HashSet<EpubItem> UnusedImages { get; set; } = new HashSet<EpubItem>();
+        public HashSet<string> MissingImages { get; set; } = new HashSet<string>();
     }
 }

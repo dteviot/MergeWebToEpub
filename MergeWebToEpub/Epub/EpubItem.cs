@@ -117,6 +117,51 @@ namespace MergeWebToEpub
                 : null;
         }
 
+        public void RemoveImageLink(string absolutePath)
+        {
+            string relativePath = ZipUtils.AbsolutePathToRelative(AbsolutePath.GetZipPath(), absolutePath);
+            var doc = RawBytes.ToXhtml();
+            bool changed = false;
+            foreach (var element in FindImageElements(doc))
+            {
+                var href = element.GetImageHref();
+                if (relativePath == href)
+                {
+                    doc.RemoveImage(element);
+                    changed = true;
+                }
+            }
+            if (changed)
+            {
+                RawBytes = doc.ToSBytes();
+            }
+        }
+
+        public void AddImagesTo(Epub.ImageUseIndex index)
+        {
+            string itemPath = AbsolutePath.GetZipPath();
+            var doc = RawBytes.ToXhtml();
+            foreach (var element in FindImageElements(doc))
+            {
+                HashSet<EpubItem> set = null;
+                var href = element.GetImageHref();
+                var urlAbsolutePath = ZipUtils.RelativePathToAbsolute(itemPath, href);
+                if (!index.TryGetValue(urlAbsolutePath, out set))
+                {
+                    set = new HashSet<EpubItem>();
+                    index.Add(urlAbsolutePath, set);
+                }
+                set.Add(this);
+            }
+        }
+
+        public List<XElement> FindImageElements(XDocument doc)
+        {
+            var elements = doc.Root.Descendants(Epub.svgNs + "image").ToList();
+            elements.AddRange(doc.Root.Descendants(Epub.xhtmlNs + "img"));
+            return elements;
+        }
+
         public string Id { get; set; }
 
         public string MetadataId { get { return "id." + Id; } }

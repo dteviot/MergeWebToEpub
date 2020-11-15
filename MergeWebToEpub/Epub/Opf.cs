@@ -161,10 +161,19 @@ namespace MergeWebToEpub
 
         public void DeleteItem(EpubItem item)
         {
+            System.Diagnostics.Trace.Assert(item.IsXhtmlPage);
             Manifest.Remove(item);
             AbsolutePathIndex.Remove(item.AbsolutePath);
             IdIndex.Remove(item.Id);
             Spine.Remove(item);
+        }
+
+        public void DeleteImage(EpubItem item)
+        {
+            System.Diagnostics.Trace.Assert(item.IsImage);
+            Manifest.Remove(item);
+            AbsolutePathIndex.Remove(item.AbsolutePath);
+            IdIndex.Remove(item.Id);
         }
 
         public void InsertChapter(List<EpubItem> chapters, EpubItem insertAt)

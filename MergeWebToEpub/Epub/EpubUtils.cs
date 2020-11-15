@@ -167,5 +167,37 @@ namespace MergeWebToEpub
             }
             MessageBox.Show("Done");
         }
+
+        public static string GetImageHref(this XElement element)
+        {
+            if (element.Name == Epub.svgNs + "image")
+            {
+                return element.Attribute(Epub.xlinkNs + "href").Value;
+            }
+            else if (element.Name == Epub.xhtmlNs + "img")
+            {
+                return element.Attribute("src").Value;
+            }
+            else
+            {
+                throw new Exception("Element is not an <image> or <img>: " + element.ToString());
+            }
+        }
+
+        public static void RemoveImage(this XDocument doc, XElement element)
+        {
+            if (element.Name == Epub.svgNs + "image")
+            {
+                element.Parent.Remove();
+            }
+            else if (element.Name == Epub.xhtmlNs + "img")
+            {
+                element.Remove();
+            }
+            else
+            {
+                throw new Exception("Element is not an <image> or <img>: " + element.ToString());
+            }
+        }
     }
 }

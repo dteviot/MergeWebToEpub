@@ -37,6 +37,8 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteCheckedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changeWebpToJpegToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nextMissingChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortChaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewEpubItems = new System.Windows.Forms.ListView();
             this.contextMenuStripSpine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cutItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,14 +51,16 @@
             this.tabPageToC = new System.Windows.Forms.TabPage();
             this.tabPageImages = new System.Windows.Forms.TabPage();
             this.listViewThumbs = new System.Windows.Forms.ListView();
+            this.contextMenuStripThumbs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
-            this.nextMissingChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sortChaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageSpine.SuspendLayout();
             this.tabPageImages.SuspendLayout();
+            this.contextMenuStripThumbs.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem
@@ -98,7 +102,7 @@
             this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(204, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(84, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -116,16 +120,30 @@
             // deleteCheckedToolStripMenuItem
             // 
             this.deleteCheckedToolStripMenuItem.Name = "deleteCheckedToolStripMenuItem";
-            this.deleteCheckedToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.deleteCheckedToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.deleteCheckedToolStripMenuItem.Text = "Delete Selected";
             this.deleteCheckedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
             // changeWebpToJpegToolStripMenuItem
             // 
             this.changeWebpToJpegToolStripMenuItem.Name = "changeWebpToJpegToolStripMenuItem";
-            this.changeWebpToJpegToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.changeWebpToJpegToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.changeWebpToJpegToolStripMenuItem.Text = "Convert Webp to Jpeg";
             this.changeWebpToJpegToolStripMenuItem.Click += new System.EventHandler(this.changeWebpToJpegToolStripMenuItem_Click);
+            // 
+            // nextMissingChapterToolStripMenuItem
+            // 
+            this.nextMissingChapterToolStripMenuItem.Name = "nextMissingChapterToolStripMenuItem";
+            this.nextMissingChapterToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.nextMissingChapterToolStripMenuItem.Text = "Next Missing Chapter";
+            this.nextMissingChapterToolStripMenuItem.Click += new System.EventHandler(this.nextMissingChapterToolStripMenuItem_Click);
+            // 
+            // sortChaptersToolStripMenuItem
+            // 
+            this.sortChaptersToolStripMenuItem.Name = "sortChaptersToolStripMenuItem";
+            this.sortChaptersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.sortChaptersToolStripMenuItem.Text = "Sort Chapters";
+            this.sortChaptersToolStripMenuItem.Click += new System.EventHandler(this.sortChaptersToolStripMenuItem_Click);
             // 
             // listViewEpubItems
             // 
@@ -233,6 +251,7 @@
             // 
             // listViewThumbs
             // 
+            this.listViewThumbs.ContextMenuStrip = this.contextMenuStripThumbs;
             this.listViewThumbs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewThumbs.HideSelection = false;
             this.listViewThumbs.LargeImageList = this.imageListThumbs;
@@ -242,25 +261,34 @@
             this.listViewThumbs.TabIndex = 0;
             this.listViewThumbs.UseCompatibleStateImageBehavior = false;
             // 
+            // contextMenuStripThumbs
+            // 
+            this.contextMenuStripThumbs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.informationToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.contextMenuStripThumbs.Name = "contextMenuStripThumbs";
+            this.contextMenuStripThumbs.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStripThumbs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripThumbs_Opening);
+            // 
             // imageListThumbs
             // 
             this.imageListThumbs.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageListThumbs.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListThumbs.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // nextMissingChapterToolStripMenuItem
+            // informationToolStripMenuItem
             // 
-            this.nextMissingChapterToolStripMenuItem.Name = "nextMissingChapterToolStripMenuItem";
-            this.nextMissingChapterToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.nextMissingChapterToolStripMenuItem.Text = "Next Missing Chapter";
-            this.nextMissingChapterToolStripMenuItem.Click += new System.EventHandler(this.nextMissingChapterToolStripMenuItem_Click);
+            this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.informationToolStripMenuItem.Text = "Information";
+            this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
             // 
-            // sortChaptersToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.sortChaptersToolStripMenuItem.Name = "sortChaptersToolStripMenuItem";
-            this.sortChaptersToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.sortChaptersToolStripMenuItem.Text = "Sort Chapters";
-            this.sortChaptersToolStripMenuItem.Click += new System.EventHandler(this.sortChaptersToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -278,6 +306,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageSpine.ResumeLayout(false);
             this.tabPageImages.ResumeLayout(false);
+            this.contextMenuStripThumbs.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,6 +337,9 @@
         private System.Windows.Forms.ToolStripMenuItem changeWebpToJpegToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextMissingChapterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortChaptersToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripThumbs;
+        private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }
 
