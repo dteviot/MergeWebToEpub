@@ -110,7 +110,7 @@ namespace UnitTestMergeWebToEpub
 
             Assert.AreEqual(7, opf.Spine.Count);
 
-            opf.DeleteItem(opf.Manifest[0]);
+            opf.DeleteImage(opf.Manifest[0]);
 
             Assert.AreEqual(7, opf.Spine.Count);
 
