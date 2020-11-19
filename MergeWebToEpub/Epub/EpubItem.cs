@@ -140,7 +140,17 @@ namespace MergeWebToEpub
         public void AddImagesTo(Epub.ImageUseIndex index)
         {
             string itemPath = AbsolutePath.GetZipPath();
-            var doc = RawBytes.ToXhtml();
+            XDocument doc = null;
+            try
+            {
+                doc = RawBytes.ToXhtml();
+            }
+            catch
+            {
+                System.Diagnostics.Trace.WriteLine($"XML Error with file {AbsolutePath}");
+                return;
+            }
+
             foreach (var element in FindImageElements(doc))
             {
                 HashSet<EpubItem> set = null;
