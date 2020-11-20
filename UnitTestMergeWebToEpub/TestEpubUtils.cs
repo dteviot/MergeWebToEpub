@@ -20,5 +20,13 @@ namespace UnitTestMergeWebToEpub
             int actual = "Information".ExtractProbableChapterNumber();
             Assert.AreEqual(-1, actual);
         }
+
+        [TestMethod]
+        public void ExtractProbableChapterNumber_ForeignChars()
+        {
+            int actual = "１２年目の春と子猫".ExtractProbableChapterNumber();
+            Assert.AreEqual(12, actual);
+        }
+
     }
 }

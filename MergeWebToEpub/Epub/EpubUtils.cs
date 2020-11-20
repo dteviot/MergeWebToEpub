@@ -19,22 +19,22 @@ namespace MergeWebToEpub
             {
                 return Epub.NoChapterNum;
             }
-            var digits = new StringBuilder();
+            int sum = 0;
             bool foundDigit = false;
             foreach (var c in title)
             {
                 if (Char.IsDigit(c))
                 {
                     foundDigit = true;
-                    digits.Append(c);
+                    sum = (sum * 10) + (int)Char.GetNumericValue(c);
                 }
                 else if (foundDigit)
                 {
                     break;
                 }
             }
-            return (0 < digits.Length)
-                ? Convert.ToInt32(digits.ToString())
+            return foundDigit
+                ? sum
                 : Epub.NoChapterNum;
         }
 
