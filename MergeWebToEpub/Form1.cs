@@ -396,5 +396,11 @@ namespace MergeWebToEpub
             epub.DeleteImages(images);
             PopulateThumbnails();
         }
+
+        private void runCleanersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new CleanerEngine().Clean(epub);
+            MessageBox.Show("Done");
+        }
     }
 }

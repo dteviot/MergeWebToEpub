@@ -56,6 +56,10 @@
     <Compile Include="AddChapterForm.Designer.cs">
       <DependentUpon>AddChapterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cleaners\CleanderBase.cs" />
+    <Compile Include="Cleaners\CleanerEngine.cs" />
+    <Compile Include="Cleaners\NovelfullCleaner.cs" />
+    <Compile Include="Cleaners\ScriptCleaner.cs" />
     <Compile Include="Epub\Container.cs" />
     <Compile Include="Epub\EpubCombiner.cs" />
     <Compile Include="Epub\Epub.Constants.cs" />

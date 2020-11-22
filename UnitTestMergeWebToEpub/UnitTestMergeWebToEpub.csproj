@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestCleaner.cs" />
     <Compile Include="TestContainer.cs" />
     <Compile Include="TestEpubCombiner.cs" />
     <Compile Include="TestEpubUtils.cs" />
@@ -103,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\Cover.xhtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\0000_Chapter_1_I_Became_Like_This_After_Reincarnating.xhtml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

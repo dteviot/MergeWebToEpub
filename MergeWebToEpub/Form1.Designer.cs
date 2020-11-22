@@ -52,9 +52,10 @@
             this.tabPageImages = new System.Windows.Forms.TabPage();
             this.listViewThumbs = new System.Windows.Forms.ListView();
             this.contextMenuStripThumbs = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
             this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
+            this.runCleanersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -102,7 +103,7 @@
             this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(84, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(176, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -112,7 +113,8 @@
             this.deleteCheckedToolStripMenuItem,
             this.changeWebpToJpegToolStripMenuItem,
             this.nextMissingChapterToolStripMenuItem,
-            this.sortChaptersToolStripMenuItem});
+            this.sortChaptersToolStripMenuItem,
+            this.runCleanersToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -267,8 +269,22 @@
             this.informationToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.contextMenuStripThumbs.Name = "contextMenuStripThumbs";
-            this.contextMenuStripThumbs.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStripThumbs.Size = new System.Drawing.Size(138, 48);
             this.contextMenuStripThumbs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripThumbs_Opening);
+            // 
+            // informationToolStripMenuItem
+            // 
+            this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.informationToolStripMenuItem.Text = "Information";
+            this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // imageListThumbs
             // 
@@ -276,19 +292,12 @@
             this.imageListThumbs.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListThumbs.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // informationToolStripMenuItem
+            // runCleanersToolStripMenuItem
             // 
-            this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
-            this.informationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.informationToolStripMenuItem.Text = "Information";
-            this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.runCleanersToolStripMenuItem.Name = "runCleanersToolStripMenuItem";
+            this.runCleanersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.runCleanersToolStripMenuItem.Text = "Run Cleaners";
+            this.runCleanersToolStripMenuItem.Click += new System.EventHandler(this.runCleanersToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -340,6 +349,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripThumbs;
         private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runCleanersToolStripMenuItem;
     }
 }
 
