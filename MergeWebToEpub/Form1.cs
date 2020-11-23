@@ -399,8 +399,8 @@ namespace MergeWebToEpub
 
         private void runCleanersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new CleanerEngine().Clean(epub);
-            MessageBox.Show("Done");
+            var changed = new CleanerEngine().Clean(epub);
+            MessageBox.Show(changed ? "Save Changes" : "Nothing to Change" );
         }
     }
 }

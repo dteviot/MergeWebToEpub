@@ -19,6 +19,7 @@ namespace MergeWebToEpub
             var toDelete = GetTextNodes(doc).Where(ShouldRemoveTextNode).ToList();
             foreach(var node in toDelete)
             {
+                System.Diagnostics.Trace.WriteLine(node.Value);
                 node.Remove();
             }
             return 0 < toDelete.Count;

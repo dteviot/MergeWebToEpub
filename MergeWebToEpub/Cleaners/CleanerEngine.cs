@@ -13,19 +13,22 @@ namespace MergeWebToEpub
             Cleaners = new List<CleanderBase>()
             {
                 new NovelfullCleaner(),
-                new ScriptCleaner()
+                new ScriptCleaner(),
+                new VipnovelCleaner()
             };
         }
 
-        public void Clean(Epub epub)
+        public bool Clean(Epub epub)
         {
-            foreach(var item in epub.Opf.GetPageItems())
+            var changes = false;
+            foreach (var item in epub.Opf.GetPageItems())
             {
-                Clean(item);
+                changes |= Clean(item);
             }
+            return changes;
         }
 
-        public void Clean(EpubItem item)
+        public bool Clean(EpubItem item)
         {
             bool changed = false;
             var doc = item.RawBytes.ToXhtml();
@@ -37,6 +40,7 @@ namespace MergeWebToEpub
             {
                 item.RawBytes = doc.ToSBytes();
             }
+            return changed;
         }
 
         private List<CleanderBase> Cleaners { get; set; }
