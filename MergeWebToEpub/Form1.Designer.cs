@@ -137,7 +137,7 @@
             // 
             this.nextMissingChapterToolStripMenuItem.Name = "nextMissingChapterToolStripMenuItem";
             this.nextMissingChapterToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.nextMissingChapterToolStripMenuItem.Text = "Next Missing Chapter";
+            this.nextMissingChapterToolStripMenuItem.Text = "Next Error Chapter";
             this.nextMissingChapterToolStripMenuItem.Click += new System.EventHandler(this.nextMissingChapterToolStripMenuItem_Click);
             // 
             // sortChaptersToolStripMenuItem

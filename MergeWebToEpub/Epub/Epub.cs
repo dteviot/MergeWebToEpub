@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
+using static MergeWebToEpub.CleanerUtils;
 
 namespace MergeWebToEpub
 {
@@ -124,6 +125,7 @@ namespace MergeWebToEpub
             var srcToTitle = ToC.BuildScrToTitleMap();
             var titles = new List<string>();
             int previousChapterNumber = Epub.NoChapterNum;
+            Signature previousSignature = new Signature();
             foreach (var item in Opf.Spine)
             {
                 string title = null;
@@ -137,6 +139,13 @@ namespace MergeWebToEpub
                 {
                     titles.Add($"Might be a missing chapter before \"{title}\"");
                 }
+                var sig = item.RawBytes.ToXhtml().CalcSignature();
+                string possibleError = item.CheckForErrors(sig, previousSignature);
+                if (possibleError != null)
+                {
+                    titles.Add(possibleError);
+                }
+                previousSignature = sig;
             }
             return titles;
         }

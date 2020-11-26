@@ -116,16 +116,16 @@ namespace MergeWebToEpub
             // ignore all
         }
 
-        public static string ToHash(this byte[] rawBytes)
+        public static Int64 ToHash(this byte[] rawBytes)
         {
             if (rawBytes.Length == 0)
             {
-                return string.Empty;
+                return 0;
             }
 
             var sha = new SHA256Managed();
             byte[] checksum = sha.ComputeHash(rawBytes);
-            return BitConverter.ToString(checksum).Replace("-", String.Empty);
+            return BitConverter.ToInt64(checksum, 0);
         }
 
         public static string RelativePathToAbsolute(string originFolder, string relative)

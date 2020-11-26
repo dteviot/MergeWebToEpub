@@ -16,7 +16,7 @@ namespace MergeWebToEpub
                 return false;
             }
 
-            var toDelete = GetTextNodes(doc).Where(ShouldRemoveTextNode).ToList();
+            var toDelete = doc.GetTextNodes().Where(ShouldRemoveTextNode).ToList();
             foreach(var node in toDelete)
             {
                 System.Diagnostics.Trace.WriteLine(node.Value);

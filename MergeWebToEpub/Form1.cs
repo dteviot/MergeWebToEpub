@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MergeWebToEpub.CleanerUtils;
 
 namespace MergeWebToEpub
 {
@@ -20,7 +21,7 @@ namespace MergeWebToEpub
         {
             public EpubItem Item { get; set; }
             public string Title { get; set; }
-            public bool MissingChapter { get; set; }
+            public bool PossibleError { get; set; }
 
             public ListViewItem ToListViewItem()
             {
@@ -175,18 +176,23 @@ namespace MergeWebToEpub
             var srcToTitle = epub.ToC.BuildScrToTitleMap();
             int previousChapterNumber = Epub.NoChapterNum;
             rows.Clear();
+            Signature previousSignature = new Signature();
             foreach (var item in epub.Opf.Spine)
             {
                 string title = null;
                 srcToTitle.TryGetValue(item.AbsolutePath, out title);
                 int currentChapterNumber = title.ExtractProbableChapterNumber();
+                bool possibleError = ((currentChapterNumber != Epub.NoChapterNum)
+                        && (previousChapterNumber != Epub.NoChapterNum)
+                        && (currentChapterNumber != (previousChapterNumber + 1)));
+                var sig = item.RawBytes.ToXhtml().CalcSignature();
+                possibleError |= item.CheckForErrors(sig, previousSignature) != null;
+                previousSignature = sig;
                 rows.Add(new ListRow()
                 {
                     Item = item,
                     Title = title,
-                    MissingChapter = ((currentChapterNumber != Epub.NoChapterNum) 
-                        && (previousChapterNumber != Epub.NoChapterNum) 
-                        && (currentChapterNumber != (previousChapterNumber + 1)))
+                    PossibleError = possibleError
                 });
                 previousChapterNumber = currentChapterNumber;
             }
@@ -203,7 +209,7 @@ namespace MergeWebToEpub
 
         private void HighlighItemChapterOutOfSequence(ListRow row, ListViewItem viewItem)
         {
-            if (row.MissingChapter)
+            if (row.PossibleError)
             {
                 viewItem.BackColor = Color.LightPink;
             }
@@ -326,7 +332,7 @@ namespace MergeWebToEpub
 
         private void nextMissingChapterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ScrollToMissingChapter();
+            ScrollToPossibleError();
         }
 
         private void sortChaptersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -335,12 +341,12 @@ namespace MergeWebToEpub
             PopulateListView();
         }
 
-        private void ScrollToMissingChapter()
+        private void ScrollToPossibleError()
         {
             int topRow = listViewEpubItems.TopItem?.Index ?? 0;
             for(int i = topRow + 1; i < rows.Count; ++i)
             {
-                if (rows[i].MissingChapter)
+                if (rows[i].PossibleError)
                 {
                     listViewEpubItems.TopItem = listViewEpubItems.Items[i];
                     return;

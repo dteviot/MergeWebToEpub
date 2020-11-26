@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Cleaners\CleanderBase.cs" />
     <Compile Include="Cleaners\CleanerEngine.cs" />
+    <Compile Include="Cleaners\CleanerUtils.cs" />
     <Compile Include="Cleaners\NovelfullCleaner.cs" />
     <Compile Include="Cleaners\ScriptCleaner.cs" />
     <Compile Include="Cleaners\VipnovelCleaner.cs" />

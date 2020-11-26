@@ -23,6 +23,7 @@ namespace MergeWebToEpub
             // this really only needs to be done once
             // Fixes CDATA being added to <style> elements
             RemoveSetting("style", HtmlElementFlag.CData);
+            RemoveSetting("script", HtmlElementFlag.CData);
 
             var doc = new HtmlAgilityPack.HtmlDocument();
             doc.OptionWriteEmptyNodes = true;
@@ -37,6 +38,7 @@ namespace MergeWebToEpub
             BuildElementsToClose().ForEach(element => MarkTagAsClosed(element));
             RemoveSetting("form", HtmlElementFlag.Empty);
             RemoveSetting("style", HtmlElementFlag.CData);
+            RemoveSetting("script", HtmlElementFlag.CData);
         }
 
         public static string PrettyPrint(HtmlDocument doc)

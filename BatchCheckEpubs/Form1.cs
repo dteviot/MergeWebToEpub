@@ -88,6 +88,7 @@ namespace BatchCheckEpubs
                 if (0 < errors.Count)
                 {
                     logFile.LogResults(fileName, "Possibly Missing Chapters", false);
+                    System.Diagnostics.Trace.WriteLine(String.Join(", ", errors));
                     return;
                 }
 

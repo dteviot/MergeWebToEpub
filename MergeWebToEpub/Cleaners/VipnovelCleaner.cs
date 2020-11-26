@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static MergeWebToEpub.CleanerUtils;
 
 namespace MergeWebToEpub
 {
@@ -17,23 +18,18 @@ namespace MergeWebToEpub
             }
 
             bool error = false;
-            var paragraphs = doc.Root.Descendants(Epub.xhtmlNs + "p").ToList();
-            var max = Math.Min(paragraphs.Count, 3);
-            if (2 <= max)
+            var sig = doc.CalcSignature();
+            var errorMsg = item.CheckForErrors(sig, previousSignature);
+            if (errorMsg != null)
             {
-                string text = paragraphs[max - 1].Value.Trim();
-                error = text.Equals(PreviousParagraph);
-                if (error)
-                {
-                    System.Diagnostics.Trace.WriteLine($"Possible Duplicate chaptesr {item.AbsolutePath}");
-                    System.Diagnostics.Trace.WriteLine(text);
-                }
-                PreviousParagraph = text;
+                System.Diagnostics.Trace.WriteLine(errorMsg);
+                error = true;
             }
+            previousSignature = sig;
             return error;
         }
 
-        private string PreviousParagraph = string.Empty;
+        private Signature previousSignature = new Signature();
 
     }
 }

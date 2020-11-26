@@ -18,10 +18,5 @@ namespace MergeWebToEpub
                 ? null
                 : new Uri(item.Source)?.Host;
         }
-
-        public static IEnumerable<XText> GetTextNodes(XDocument doc)
-        {
-            return doc.DescendantNodes().OfType<XText>();
-        }
     }
 }

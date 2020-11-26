@@ -119,7 +119,7 @@ namespace MergeWebToEpub
             var hash = item.RawBytes.ToHash();
 
             // don't copy images that are already in epub
-            if (hash != null)
+            if (hash != 0)
             {
                 string existingImage = null;
                 if (ImageHashes.TryGetValue(hash, out existingImage))
@@ -203,6 +203,6 @@ namespace MergeWebToEpub
         /// <summary>
         /// The hashes of images.  Used to eliminate duplicates
         /// </summary>
-        public Dictionary<string, string> ImageHashes { get; set; } = new Dictionary<string, string>();
+        public Dictionary<Int64, string> ImageHashes { get; set; } = new Dictionary<Int64, string>();
     }
 }
