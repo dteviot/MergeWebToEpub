@@ -60,7 +60,7 @@
     <Compile Include="Cleaners\CleanerEngine.cs" />
     <Compile Include="Cleaners\CleanerUtils.cs" />
     <Compile Include="Cleaners\NovelfullCleaner.cs" />
-    <Compile Include="Cleaners\ScriptCleaner.cs" />
+    <Compile Include="Cleaners\UniversalCleaner.cs" />
     <Compile Include="Cleaners\VipnovelCleaner.cs" />
     <Compile Include="Epub\Container.cs" />
     <Compile Include="Epub\EpubCombiner.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="ImageUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Cleaners\ReLibraryCleaner.cs" />
     <Compile Include="ZipUtils.cs" />
     <EmbeddedResource Include="AddChapterForm.resx">
       <DependentUpon>AddChapterForm.cs</DependentUpon>

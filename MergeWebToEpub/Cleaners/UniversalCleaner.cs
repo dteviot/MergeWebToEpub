@@ -7,13 +7,19 @@ using System.Xml.Linq;
 
 namespace MergeWebToEpub
 {
-    // remove all script elements
-    public class ScriptCleaner : CleanderBase
+    // operations for every XHTML file
+    public class UniversalCleaner : CleanderBase
     {
         public override bool Clean(XDocument doc, EpubItem item)
         {
+            return RemoveScripts(doc, item)
+                | doc.RemoveEmptyDivElements();
+        }
+
+        public bool RemoveScripts(XDocument doc, EpubItem item)
+        {
             var scripts = doc.Root.Descendants(Epub.xhtmlNs + "script").ToList();
-            foreach(var script in scripts)
+            foreach (var script in scripts)
             {
                 System.Diagnostics.Trace.WriteLine(script.ToString());
                 script.Remove();

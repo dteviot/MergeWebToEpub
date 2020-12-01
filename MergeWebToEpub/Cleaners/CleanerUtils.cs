@@ -67,7 +67,7 @@ namespace MergeWebToEpub
             }
             else if (sig1.ProbableDuplicate(prevSig))
             {
-                return $"Possible Duplicate chaptesr {item.AbsolutePath}";
+                return $"Possible Duplicate chapters {item.AbsolutePath}";
             }
             return null;
         }
@@ -89,6 +89,52 @@ namespace MergeWebToEpub
                 }
             }
             return (totalLines / 2) <= sameLines;
+        }
+
+        public static List<XElement> FindElementsMatching(this XDocument doc, string elementName, Func<XElement, bool> testElement)
+        {
+            return doc.Root.Descendants(Epub.xhtmlNs + elementName)
+                .Where(testElement)
+                .ToList();
+        }
+
+        public static List<XElement> FindElementsWithClassName(this XDocument doc, string elementName, string className)
+        {
+            bool ClassNameMatches(XElement e)
+            {
+                var classNames = e.Attribute("class")?.Value?.Split(new char[] { ' ' }) ?? new string[] { };
+                return classNames.Contains(className);
+            }
+            return doc.FindElementsMatching(elementName, ClassNameMatches);
+        }
+
+        public static void RemoveElements(this IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements)
+            {
+                element.Remove();
+            }
+        }
+
+        public static bool RemoveEmptyDivElements(this XDocument doc)
+        {
+            bool modified = false;
+            bool doSweep = true;
+            while (doSweep)
+            {
+                var toDelete = doc.Root.Descendants(Epub.xhtmlNs + "div")
+                    .Where(HasNoChildNodes)
+                    .ToList();
+                toDelete.RemoveElements();
+                doSweep = 0 < toDelete.Count;
+                modified |= doSweep;
+            }
+            return modified;
+        }
+
+        public static bool HasNoChildNodes(this XElement element)
+        {
+            return element.Nodes().Count() == 0;
         }
     }
 }

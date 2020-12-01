@@ -13,8 +13,10 @@ namespace MergeWebToEpub
             Cleaners = new List<CleanderBase>()
             {
                 new NovelfullCleaner(),
-                new ScriptCleaner(),
-                new VipnovelCleaner()
+                new ReLibraryCleaner(),
+                new VipnovelCleaner(),
+
+                new UniversalCleaner(),
             };
         }
 

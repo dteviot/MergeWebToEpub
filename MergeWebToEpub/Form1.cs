@@ -384,9 +384,17 @@ namespace MergeWebToEpub
             }
             var image = listViewThumbs.SelectedItems[0];
             var sb = new StringBuilder("This image is used by:\r\n");
-            foreach(var item in epub.ImagesUsedIndex[image.Text])
+            HashSet<EpubItem> usedChapters = null;
+            if (epub.ImagesUsedIndex.TryGetValue(image.Text, out usedChapters))
             {
-                sb.AppendLine(item.AbsolutePath);
+                foreach (var item in usedChapters)
+                {
+                    sb.AppendLine(item.AbsolutePath);
+                }
+            }
+            else
+            {
+                sb.AppendLine("<none>");
             }
             MessageBox.Show(sb.ToString());
         }
