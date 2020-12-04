@@ -102,10 +102,14 @@ namespace MergeWebToEpub
         {
             bool ClassNameMatches(XElement e)
             {
-                var classNames = e.Attribute("class")?.Value?.Split(new char[] { ' ' }) ?? new string[] { };
-                return classNames.Contains(className);
+                return e.ClassNames().Contains(className);
             }
             return doc.FindElementsMatching(elementName, ClassNameMatches);
+        }
+
+        public static string[] ClassNames(this XElement element)
+        {
+            return element.Attribute("class")?.Value?.Split(new char[] { ' ' }) ?? new string[] { };
         }
 
         public static void RemoveElements(this IEnumerable<XElement> elements)
