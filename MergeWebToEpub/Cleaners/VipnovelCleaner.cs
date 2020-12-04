@@ -17,16 +17,15 @@ namespace MergeWebToEpub
                 return false;
             }
 
-            bool error = false;
-            var sig = doc.CalcSignature();
-            var errorMsg = item.CheckForErrors(sig, previousSignature);
-            if (errorMsg != null)
-            {
-                System.Diagnostics.Trace.WriteLine(errorMsg);
-                error = true;
-            }
-            previousSignature = sig;
-            return error;
+            bool modified = false;
+            var toDelete = doc.FindElementsMatching("div", IsZipNovelPromo);
+            toDelete.RemoveElements();
+            return modified;
+        }
+
+        private static bool IsZipNovelPromo(XElement element)
+        {
+            return element.Value?.StartsWith("Read more chapter on") ?? false;
         }
 
         private Signature previousSignature = new Signature();

@@ -33,11 +33,7 @@ namespace MergeWebToEpub
             var ezoic = doc.Root.DescendantsAndSelf()
                 .Where(IsEzoicElement)
                 .ToList();
-            foreach (var element in ezoic)
-            {
-                System.Diagnostics.Trace.WriteLine(element.ToString());
-                element.Remove();
-            }
+            ezoic.RemoveElements();
             return 0 < ezoic.Count;
         }
 
