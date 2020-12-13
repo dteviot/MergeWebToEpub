@@ -17,10 +17,10 @@ namespace MergeWebToEpub
             InitializeComponent();
         }
 
-        public void PopulateControls(Epub epub, EpubItem selectedItem, int chapterNum)
+        public void PopulateControls(Epub epub, EpubItem itemToInsertBefore, int chapterNum)
         {
             this.epub = epub;
-            this.selectedItem = selectedItem;
+            this.itemToInsertBefore = itemToInsertBefore;
             int idVal = epub.Opf.GetPageItems().GetMaxPrefix()+ 1;
             string idNum = idVal.ToString("D4");
             textBoxId.Text = "xhtml" + idNum;
@@ -43,11 +43,11 @@ namespace MergeWebToEpub
                 Title = textBoxTitle.Text,
                 Item = newChapter
             };
-            epub.InsertChapter(newChapter, newTocEntry, selectedItem);
+            epub.InsertChapter(newChapter, newTocEntry, itemToInsertBefore);
         }
 
         public Epub epub { get; set; }
-        public EpubItem selectedItem { get; set; }
+        public EpubItem itemToInsertBefore { get; set; }
 
         private void button2_Click(object sender, EventArgs e)
         {

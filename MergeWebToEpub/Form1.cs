@@ -239,7 +239,13 @@ namespace MergeWebToEpub
             var form = new AddChapterForm();
             var index = listViewEpubItems.SelectedIndices[0];
             var row = rows[index];
-            form.PopulateControls(epub, row.Item, row.Title.ExtractProbableChapterNumber() + 1);
+            if (index == rows.Count)
+            {
+                System.Diagnostics.Trace.WriteLine("Can't insert after last item in epub.");
+                return;
+            }
+
+            form.PopulateControls(epub, rows[index + 1].Item, row.Title.ExtractProbableChapterNumber() + 1);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 PopulateListView();
