@@ -39,6 +39,7 @@
             this.changeWebpToJpegToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextMissingChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortChaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runCleanersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewEpubItems = new System.Windows.Forms.ListView();
             this.contextMenuStripSpine = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cutItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@
             this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
-            this.runCleanersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -77,21 +78,21 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // appendToEndToolStripMenuItem
             // 
             this.appendToEndToolStripMenuItem.Name = "appendToEndToolStripMenuItem";
-            this.appendToEndToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.appendToEndToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.appendToEndToolStripMenuItem.Text = "Append to End";
             this.appendToEndToolStripMenuItem.Click += new System.EventHandler(this.appendToEndToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -103,7 +104,7 @@
             this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(176, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(84, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -147,6 +148,13 @@
             this.sortChaptersToolStripMenuItem.Text = "Sort Chapters";
             this.sortChaptersToolStripMenuItem.Click += new System.EventHandler(this.sortChaptersToolStripMenuItem_Click);
             // 
+            // runCleanersToolStripMenuItem
+            // 
+            this.runCleanersToolStripMenuItem.Name = "runCleanersToolStripMenuItem";
+            this.runCleanersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.runCleanersToolStripMenuItem.Text = "Run Cleaners";
+            this.runCleanersToolStripMenuItem.Click += new System.EventHandler(this.runCleanersToolStripMenuItem_Click);
+            // 
             // listViewEpubItems
             // 
             this.listViewEpubItems.ContextMenuStrip = this.contextMenuStripSpine;
@@ -166,43 +174,44 @@
             this.pasteItemssToolStripMenuItem,
             this.deleteItemToolStripMenuItem,
             this.insertAfterSelectedToolStripMenuItem,
-            this.renumberIDsToolStripMenuItem});
+            this.renumberIDsToolStripMenuItem,
+            this.editSelectedToolStripMenuItem});
             this.contextMenuStripSpine.Name = "contextMenuStripSpine";
-            this.contextMenuStripSpine.Size = new System.Drawing.Size(180, 114);
+            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 158);
             this.contextMenuStripSpine.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripSpine_Opening);
             // 
             // cutItemsToolStripMenuItem
             // 
             this.cutItemsToolStripMenuItem.Name = "cutItemsToolStripMenuItem";
-            this.cutItemsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.cutItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cutItemsToolStripMenuItem.Text = "Cut Item(s)";
             this.cutItemsToolStripMenuItem.Click += new System.EventHandler(this.cutItemsToolStripMenuItem_Click);
             // 
             // pasteItemssToolStripMenuItem
             // 
             this.pasteItemssToolStripMenuItem.Name = "pasteItemssToolStripMenuItem";
-            this.pasteItemssToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.pasteItemssToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pasteItemssToolStripMenuItem.Text = "Paste Items(s)";
             this.pasteItemssToolStripMenuItem.Click += new System.EventHandler(this.pasteItemssToolStripMenuItem_Click);
             // 
             // deleteItemToolStripMenuItem
             // 
             this.deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteItemToolStripMenuItem.Text = "Delete Item";
             this.deleteItemToolStripMenuItem.Click += new System.EventHandler(this.deleteItemToolStripMenuItem_Click);
             // 
             // insertAfterSelectedToolStripMenuItem
             // 
             this.insertAfterSelectedToolStripMenuItem.Name = "insertAfterSelectedToolStripMenuItem";
-            this.insertAfterSelectedToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.insertAfterSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.insertAfterSelectedToolStripMenuItem.Text = "Insert After Selected";
             this.insertAfterSelectedToolStripMenuItem.Click += new System.EventHandler(this.insertAfterSelectedToolStripMenuItem_Click);
             // 
             // renumberIDsToolStripMenuItem
             // 
             this.renumberIDsToolStripMenuItem.Name = "renumberIDsToolStripMenuItem";
-            this.renumberIDsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.renumberIDsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.renumberIDsToolStripMenuItem.Text = "Renumber IDs";
             this.renumberIDsToolStripMenuItem.Click += new System.EventHandler(this.renumberIDsToolStripMenuItem_Click);
             // 
@@ -292,12 +301,12 @@
             this.imageListThumbs.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListThumbs.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // runCleanersToolStripMenuItem
+            // editSelectedToolStripMenuItem
             // 
-            this.runCleanersToolStripMenuItem.Name = "runCleanersToolStripMenuItem";
-            this.runCleanersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.runCleanersToolStripMenuItem.Text = "Run Cleaners";
-            this.runCleanersToolStripMenuItem.Click += new System.EventHandler(this.runCleanersToolStripMenuItem_Click);
+            this.editSelectedToolStripMenuItem.Name = "editSelectedToolStripMenuItem";
+            this.editSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editSelectedToolStripMenuItem.Text = "Edit Selected";
+            this.editSelectedToolStripMenuItem.Click += new System.EventHandler(this.editSelectedToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -350,6 +359,7 @@
         private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runCleanersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editSelectedToolStripMenuItem;
     }
 }
 

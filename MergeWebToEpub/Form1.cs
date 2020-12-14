@@ -422,5 +422,23 @@ namespace MergeWebToEpub
             var changed = new CleanerEngine().Clean(epub);
             MessageBox.Show(changed ? "Save Changes" : "Nothing to Change" );
         }
+
+        private void editSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateChapter();
+        }
+
+        private void UpdateChapter()
+        {
+            var form = new AddChapterForm();
+            var index = listViewEpubItems.SelectedIndices[0];
+            var row = rows[index];
+
+            form.PopulateControlsForUpdate(epub, row.Item);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                PopulateListView();
+            }
+        }
     }
 }

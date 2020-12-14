@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace MergeWebToEpub
 {
@@ -26,6 +27,24 @@ namespace MergeWebToEpub
             textBoxId.Text = "xhtml" + idNum;
             textBoxTitle.Text = $"Chapter {chapterNum}";
             textBoxPath.Text = $"OEBPS/Text/{idNum}_Chapter{chapterNum}.xhtml";
+            changeEpubAction = InsertChapter;
+        }
+
+        public void PopulateControlsForUpdate(Epub epub, EpubItem toUpdate)
+        {
+            this.toUpdate = toUpdate;
+            var entryDetails = epub.ToC.FindTocEntry(toUpdate.AbsolutePath);
+            tocEntry = entryDetails.entries[entryDetails.index];
+            textBoxId.Enabled = false;
+            textBoxId.Text = toUpdate.Id;
+            textBoxTitle.Text = tocEntry.Title;
+            textBoxSource.Text = tocEntry.ContentSrc;
+            textBoxSource.Enabled = false;
+            textBoxPath.Text = toUpdate.AbsolutePath;
+            textBoxPath.Enabled = false;
+            textBox1.Text = toUpdate.RawBytes.ToXhtml().ToString();
+            changeEpubAction = UpdateChapter;
+            this.Text = "Update Chapter";
         }
 
         public void InsertChapter()
@@ -46,12 +65,23 @@ namespace MergeWebToEpub
             epub.InsertChapter(newChapter, newTocEntry, itemToInsertBefore);
         }
 
+        public void UpdateChapter()
+        {
+            tocEntry.Title = textBoxTitle.Text;
+            var doc = XDocument.Parse(textBox1.Text);
+            toUpdate.RawBytes = doc.ToSBytes();
+        }
+
         public Epub epub { get; set; }
         public EpubItem itemToInsertBefore { get; set; }
 
+        private EpubItem toUpdate { get; set; }
+        private TocEntry tocEntry { get; set; }
+        private Action   changeEpubAction { get; set; }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            InsertChapter();
+            changeEpubAction();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
