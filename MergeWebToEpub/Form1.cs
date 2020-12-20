@@ -232,6 +232,7 @@ namespace MergeWebToEpub
             insertAfterSelectedToolStripMenuItem.Enabled = (selectedCount == 1);
             pasteItemssToolStripMenuItem.Enabled = (0 < cutItems.Count) && (selectedCount == 1);
             renumberIDsToolStripMenuItem.Enabled = (selectedCount == 1);
+            editSelectedToolStripMenuItem.Enabled = (selectedCount == 1);
         }
 
         private void insertAfterSelectedToolStripMenuItem_Click(object sender, EventArgs e)

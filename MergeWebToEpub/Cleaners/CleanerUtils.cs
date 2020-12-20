@@ -10,11 +10,17 @@ namespace MergeWebToEpub
 {
     public static class CleanerUtils
     {
-        public class Signature : Dictionary<Int64, int> { }
+        public class Signature : Dictionary<Int64, int> 
+        {
+            public bool HasImages { get; set; }
+        }
 
         static public Signature CalcSignature(this XDocument doc)
         {
-            var sig = new Signature();
+            var sig = new Signature()
+            {
+                HasImages = 0 < doc.GetImages().Count
+            };
             var texts = doc.GetTextNodes()
                 .Select(RemoveWhitespace)
                 .Where(s => !string.IsNullOrEmpty(s))
@@ -40,6 +46,13 @@ namespace MergeWebToEpub
             return doc.DescendantNodes().OfType<XText>();
         }
 
+        static public List<XElement> GetImages(this XDocument doc)
+        {
+            var images = doc.Descendants(Epub.svgNs + "image").ToList();
+            images.AddRange(doc.Descendants(Epub.xhtmlNs + "img"));
+            return images;
+        }
+
         static public string RemoveWhitespace(this XText node)
         {
             var sb = new StringBuilder();
@@ -56,7 +69,7 @@ namespace MergeWebToEpub
         static public string CheckForErrors(this EpubItem item, Signature sig1, Signature prevSig)
         {
             var baseName = Path.GetFileName(item.AbsolutePath);
-            bool littleTextExpected = baseName.Equals("Cover.xhtml") || baseName.Equals("0000_Information.xhtml");
+            bool littleTextExpected = baseName.Equals("0000_Information.xhtml") || sig1.HasImages;
             if (littleTextExpected)
             {
                 return null;

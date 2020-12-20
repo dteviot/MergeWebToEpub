@@ -45,6 +45,7 @@ namespace MergeWebToEpub
             textBox1.Text = toUpdate.RawBytes.ToXhtml().ToString();
             changeEpubAction = UpdateChapter;
             this.Text = "Update Chapter";
+            button2.Text = "Update";
         }
 
         public void InsertChapter()
