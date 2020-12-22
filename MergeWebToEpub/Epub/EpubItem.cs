@@ -112,7 +112,7 @@ namespace MergeWebToEpub
         public static string ExtractPrefixFromFileName(string absolutePath)
         {
             var fileName = absolutePath.getZipFileName();
-            return ((5 < fileName.Length) && (fileName[4] == '_'))
+            return ((5 < fileName.Length) && ((fileName[4] == '_') || (fileName[4] == '.')))
                 ? fileName.Substring(0, 4)
                 : null;
         }

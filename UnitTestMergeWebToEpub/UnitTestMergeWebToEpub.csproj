@@ -56,6 +56,7 @@
     <Compile Include="TestCleaner.cs" />
     <Compile Include="TestContainer.cs" />
     <Compile Include="TestEpubCombiner.cs" />
+    <Compile Include="TestEpubItem.cs" />
     <Compile Include="TestEpubUtils.cs" />
     <Compile Include="TestOpf.cs" />
     <Compile Include="TestOpfMetadata.cs" />
