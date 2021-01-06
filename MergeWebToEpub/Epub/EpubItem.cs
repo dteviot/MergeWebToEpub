@@ -32,6 +32,9 @@ namespace MergeWebToEpub
 
         public void WriteTo(ZipFile zipFile)
         {
+            zipFile.CompressionLevel = this.IsXhtmlPage
+                ? Ionic.Zlib.CompressionLevel.BestCompression
+                : Ionic.Zlib.CompressionLevel.None;
             zipFile.AddEntry(AbsolutePath, RawBytes);
         }
 
