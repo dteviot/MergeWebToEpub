@@ -16,5 +16,13 @@ namespace UnitTestMergeWebToEpub
             bool actual = cleaner.Clean(doc, null);
             Assert.IsTrue(actual);
         }
+
+        [TestMethod]
+        public void TestChrysanthemumGardenDecryptText()
+        {
+            var cypherText = "——Pc gfagbrqfma, Bf Wec kbeiv tjnf qgfofggfv ab tjnf gfwjlcfv lvif. Snfc lo tf vfnfibqfv tfwbggtblvr ogbw rlaalcu rb ibcu, tf ralii kbeivc’a tjnf mtbrfc ab ajxf j rafq lcab atja ujiifgs.";
+            var clearText = ChrysanthemumGardenCleaner.DecryptText(cypherText);
+            Assert.AreEqual("——In retrospect, Ke Xun would have preferred to have remained idle. Even if he developed hemorrhoids from sitting so long, he still wouldn’t have chosen to take a step into that gallery.", clearText);
+        }
     }
 }

@@ -16,39 +16,40 @@ namespace MergeWebToEpub
             {
                 return false;
             }
-            MakeDecryptTable();
-            return DecryptText(doc);
+            return DecryptDocument(doc);
         }
 
-        private static bool DecryptText(XDocument doc)
+        private static bool DecryptDocument(XDocument doc)
         {
             bool modified = false;
             foreach (var e in doc.FindElementsWithClassName("span", "jum"))
             {
-                var sb = new StringBuilder();
-                foreach(var c in e.Value)
+                var clearText = DecryptText(e.Value);
+                if (!clearText.Equals(e.Value))
                 {
-                    char p = c;
-                    if (decryptTable.TryGetValue(c, out p))
-                    {
-                        modified = true;
-                        sb.Append(p);
-                    }
-                    else
-                    {
-                        sb.Append(c);
-                    }
-                }
-                if (modified)
-                {
-                    e.Value = sb.ToString();
+                    modified = true;
+                    e.Value = clearText;
                 }
             }
             return modified;
         }
 
+        public static string DecryptText(string cypherText)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in cypherText)
+            {
+                char p;
+                sb.Append(decryptTable.TryGetValue(c, out p) ? p : c);
+            }
+            return sb.ToString();
+        }
+
         private static Dictionary<char, char> MakeDecryptTable()
         {
+            const string crypt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string clear = "tonquerzlawicvfjpsyhgdmkbxJKABRUDQZCTHFVLIWNEYPSXGOM";
+
             if (decryptTable == null)
             {
                 decryptTable = new Dictionary<char, char>();
@@ -60,11 +61,6 @@ namespace MergeWebToEpub
             return decryptTable;
         }
 
-        private static Dictionary<char, char> decryptTable = null;
-
-        private Signature previousSignature = new Signature();
-
-        private static string crypt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private static string clear = "tonquerzlawicvfjpsyhgdmkbxJKABRUDQZCTHFVLIWNEYPSXGOM";
+        private static Dictionary<char, char> decryptTable = MakeDecryptTable();
     }
 }
