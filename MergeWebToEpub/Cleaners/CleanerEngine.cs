@@ -16,6 +16,7 @@ namespace MergeWebToEpub
                 new ReLibraryCleaner(),
                 new VipnovelCleaner(),
                 new ChrysanthemumGardenCleaner(),
+                new WuxiapubCleaner(),
                 new UniversalCleaner(),
             };
         }

@@ -125,11 +125,11 @@ namespace MergeWebToEpub
             return element.Attribute("class")?.Value?.Split(new char[] { ' ' }) ?? new string[] { };
         }
 
-        public static void RemoveElements(this IEnumerable<XElement> elements)
+        public static void RemoveElements(this IEnumerable<XNode> nodes)
         {
-            foreach (var element in elements)
+            foreach (var node in nodes)
             {
-                element.Remove();
+                node.Remove();
             }
         }
 
