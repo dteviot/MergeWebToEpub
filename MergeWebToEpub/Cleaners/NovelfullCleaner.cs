@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace MergeWebToEpub
 {
-    public class NovelfullCleaner : CleanderBase
+    public class NovelfullCleaner : CleanerBase
     {
         public override bool Clean(XDocument doc, EpubItem item)
         {

@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace MergeWebToEpub
 {
     // operations for every XHTML file
-    public class UniversalCleaner : CleanderBase
+    public class UniversalCleaner : CleanerBase
     {
         public override bool Clean(XDocument doc, EpubItem item)
         {

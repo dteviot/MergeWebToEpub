@@ -8,7 +8,7 @@ using static MergeWebToEpub.CleanerUtils;
 
 namespace MergeWebToEpub
 {
-    public class VipnovelCleaner : CleanderBase
+    public class VipnovelCleaner : CleanerBase
     {
         public override bool Clean(XDocument doc, EpubItem item)
         {

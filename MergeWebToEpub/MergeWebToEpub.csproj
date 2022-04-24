@@ -57,7 +57,7 @@
       <DependentUpon>AddChapterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Cleaners\ChrysanthemumGardenCleaner.cs" />
-    <Compile Include="Cleaners\CleanderBase.cs" />
+    <Compile Include="Cleaners\CleanerBase.cs" />
     <Compile Include="Cleaners\CleanerEngine.cs" />
     <Compile Include="Cleaners\CleanerUtils.cs" />
     <Compile Include="Cleaners\NovelfullCleaner.cs" />

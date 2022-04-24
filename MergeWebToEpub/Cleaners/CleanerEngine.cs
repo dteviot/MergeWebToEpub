@@ -10,7 +10,7 @@ namespace MergeWebToEpub
     {
         public CleanerEngine()
         {
-            Cleaners = new List<CleanderBase>()
+            Cleaners = new List<CleanerBase>()
             {
                 new NovelfullCleaner(),
                 new ReLibraryCleaner(),
@@ -45,6 +45,6 @@ namespace MergeWebToEpub
             return changed;
         }
 
-        private List<CleanderBase> Cleaners { get; set; }
+        private List<CleanerBase> Cleaners { get; set; }
     }
 }

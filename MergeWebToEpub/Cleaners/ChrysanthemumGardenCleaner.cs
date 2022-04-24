@@ -8,7 +8,7 @@ using static MergeWebToEpub.CleanerUtils;
 
 namespace MergeWebToEpub
 {
-    public class ChrysanthemumGardenCleaner : CleanderBase
+    public class ChrysanthemumGardenCleaner : CleanerBase
     {
         public override bool Clean(XDocument doc, EpubItem item)
         {
