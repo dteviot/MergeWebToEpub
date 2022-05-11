@@ -18,13 +18,16 @@ namespace MergeWebToEpub
             }
 
             var toDelete = doc.FindElementsMatching("div", IsZipNovelPromo);
+            DumpElements(item, toDelete);
             toDelete.RemoveElements();
             return 0 < toDelete.Count;
         }
 
         private static bool IsZipNovelPromo(XElement element)
         {
-            return element.Value?.StartsWith("Read more chapter on") ?? false;
+            return element.Value?.StripWhiteSpace()?.StartsWith(VipNovelString) ?? false;
         }
+
+        private static readonly string VipNovelString = CleanerUtils.StripWhiteSpace("Read more chapter on vi pnovel. com");
     }
 }

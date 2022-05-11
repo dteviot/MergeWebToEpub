@@ -153,5 +153,47 @@ namespace MergeWebToEpub
         {
             return element.Nodes().Count() == 0;
         }
+
+        public static List<XText> FindTextNodesToDelete(XDocument doc, EpubItem item, Func<XText, bool>shouldRemoveTextNode)
+        {
+            var toDelete = doc.GetTextNodes()
+                .Where(shouldRemoveTextNode)
+                .ToList();
+
+            if (0 < toDelete.Count)
+            {
+                System.Diagnostics.Trace.WriteLine($"Changing: {item.Source}");
+                foreach (var e in toDelete)
+                {
+                    System.Diagnostics.Trace.WriteLine($" ==>  {e.Value}");
+                }
+            }
+            return toDelete;
+        }
+
+        public static void DumpElements(EpubItem item, List<XElement> elements)
+        {
+            if (0 < elements.Count)
+            {
+                System.Diagnostics.Trace.WriteLine($"Changing: {item.Source}");
+                foreach (var e in elements)
+                {
+                    System.Diagnostics.Trace.WriteLine($" ==>  {e.Value}");
+                }
+            }
+        }
+
+        public static string StripWhiteSpace(this string toStrip)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in toStrip)
+            {
+                if (!char.IsWhiteSpace(c))
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
+        }
     }
 }

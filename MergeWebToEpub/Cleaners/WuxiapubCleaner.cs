@@ -48,42 +48,17 @@ namespace MergeWebToEpub
         {
             bool ShouldRemoveTextNode(XText text)
             {
-                string rawText = StripWhiteSpace(text.Value);
+                string rawText = text.Value.StripWhiteSpace();
                 return
                     rawText.Equals("Advertisements") ||
                     rawText.Contains(WuxiaString) ||
                     rawText.Contains(WebnovelString);
             }
 
-            var toDelete = doc.GetTextNodes()
-                .Where(ShouldRemoveTextNode)
-                .ToList();
-
-            if (0 < toDelete.Count)
-            {
-                System.Diagnostics.Trace.WriteLine($"Changing: {item.Source}");
-                foreach (var e in toDelete)
-                {
-                    System.Diagnostics.Trace.WriteLine($" ==>  {e.Value}");
-                }
-            }
-            return toDelete;
+            return CleanerUtils.FindTextNodesToDelete(doc, item, ShouldRemoveTextNode);
         }
 
-        private static string StripWhiteSpace(string toStrip)
-        {
-            var sb = new StringBuilder();
-            foreach(var c in toStrip)
-            {
-                if (!char.IsWhiteSpace(c))
-                {
-                    sb.Append(c);
-                }
-            }
-            return sb.ToString();
-        }
-
-        private static readonly string WuxiaString = StripWhiteSpace("Read latest Chapters at WuxiaWorld.S");
-        private static readonly string WebnovelString = StripWhiteSpace("for faster releases read on webnovel");
+        private static readonly string WuxiaString = CleanerUtils.StripWhiteSpace("Read latest Chapters at WuxiaWorld.S");
+        private static readonly string WebnovelString = CleanerUtils.StripWhiteSpace("for faster releases read on webnovel");
     }
 }
