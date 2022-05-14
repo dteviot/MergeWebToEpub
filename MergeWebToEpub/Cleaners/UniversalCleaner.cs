@@ -13,8 +13,10 @@ namespace MergeWebToEpub
         public override bool Clean(XDocument doc, EpubItem item)
         {
             return RemoveScripts(doc)
-                | RemoveEzoic(doc)
-                | doc.RemoveEmptyDivElements();
+                | RemoveEzoic(doc, item)
+                | doc.RemoveEmptyDivElements()
+                | RemoveEmptyItalic(doc, item)
+                | RemoveEmptySpan(doc, item);
         }
 
         public bool RemoveScripts(XDocument doc)
@@ -28,13 +30,19 @@ namespace MergeWebToEpub
             return 0 < scripts.Count;
         }
 
-        public bool RemoveEzoic(XDocument doc)
+        public bool RemoveEzoic(XDocument doc, EpubItem item)
         {
-            var ezoic = doc.Root.DescendantsAndSelf()
-                .Where(IsEzoicElement)
-                .ToList();
-            ezoic.RemoveElements();
-            return 0 < ezoic.Count;
+            return CleanerUtils.RemoveElementsMatchingFilter(doc, item, IsEzoicElement);
+        }
+
+        public bool RemoveEmptyItalic(XDocument doc, EpubItem item)
+        {
+            return CleanerUtils.RemoveElementsMatchingFilter(doc, item, IsEmptyItalic);
+        }
+
+        public bool RemoveEmptySpan(XDocument doc, EpubItem item)
+        {
+            return CleanerUtils.RemoveElementsMatchingFilter(doc, item, IsEmptySpan);
         }
 
         public bool IsEzoicElement(XElement element)
@@ -42,6 +50,20 @@ namespace MergeWebToEpub
             var classNames = element.ClassNames();
             return classNames.Contains("ezoic-adpicker-ad") ||
                 classNames.Contains("ezoic-ad");
+        }
+
+        public bool IsEmptyItalic(XElement element)
+        {
+            return (element.Name.LocalName == "i")
+                && (!element.HasElements)
+                && (element.Value.Trim().Length == 0);
+        }
+
+        public bool IsEmptySpan(XElement element)
+        {
+            return (element.Name.LocalName == "span")
+                && (!element.HasElements)
+                && (element.Value.Trim().Length == 0);
         }
     }
 }

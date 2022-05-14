@@ -178,9 +178,19 @@ namespace MergeWebToEpub
                 System.Diagnostics.Trace.WriteLine($"Changing: {item.Source}");
                 foreach (var e in elements)
                 {
-                    System.Diagnostics.Trace.WriteLine($" ==>  {e.Value}");
+                    System.Diagnostics.Trace.WriteLine($" ==>  {e}");
                 }
             }
+        }
+
+        public static bool RemoveElementsMatchingFilter(XDocument doc, EpubItem item, Func<XElement, bool> filter)
+        {
+            var toRemove = doc.Root.DescendantsAndSelf()
+                .Where(filter)
+                .ToList();
+            toRemove.RemoveElements();
+            DumpElements(item, toRemove);
+            return 0 < toRemove.Count;
         }
 
         public static string StripWhiteSpace(this string toStrip)
