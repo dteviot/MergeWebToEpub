@@ -21,46 +21,11 @@ namespace MergeWebToEpub
 
         private static bool DecryptDocument(XDocument doc)
         {
-            bool modified = false;
-            foreach (var e in doc.FindElementsWithClassName("span", "jum"))
-            {
-                var clearText = DecryptText(e.Value);
-                if (!clearText.Equals(e.Value))
-                {
-                    modified = true;
-                    e.Value = clearText;
-                }
-            }
-            return modified;
+            return decrypter.DecryptElements(doc.FindElementsWithClassName("span", "jum"));
         }
 
-        public static string DecryptText(string cypherText)
-        {
-            var sb = new StringBuilder();
-            foreach (var c in cypherText)
-            {
-                char p;
-                sb.Append(decryptTable.TryGetValue(c, out p) ? p : c);
-            }
-            return sb.ToString();
-        }
+        public static string ClearText = "tonquerzlawicvfjpsyhgdmkbxJKABRUDQZCTHFVLIWNEYPSXGOM";
 
-        private static Dictionary<char, char> MakeDecryptTable()
-        {
-            const string crypt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            const string clear = "tonquerzlawicvfjpsyhgdmkbxJKABRUDQZCTHFVLIWNEYPSXGOM";
-
-            if (decryptTable == null)
-            {
-                decryptTable = new Dictionary<char, char>();
-                for(int i = 0; i < crypt.Length; ++i)
-                {
-                    decryptTable.Add(crypt[i], clear[i]);
-                }
-            }
-            return decryptTable;
-        }
-
-        private static Dictionary<char, char> decryptTable = MakeDecryptTable();
+        private static Decrypter decrypter = new Decrypter(ClearText);
     }
 }

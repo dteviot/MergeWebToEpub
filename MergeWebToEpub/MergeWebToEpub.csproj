@@ -62,9 +62,11 @@
     <Compile Include="Cleaners\CleanerEngine.cs" />
     <Compile Include="Cleaners\CleanerUtils.cs" />
     <Compile Include="Cleaners\NovelfullCleaner.cs" />
+    <Compile Include="Cleaners\SecondLifeTranslationsCleaner.cs" />
     <Compile Include="Cleaners\UniversalCleaner.cs" />
     <Compile Include="Cleaners\VipnovelCleaner.cs" />
     <Compile Include="Cleaners\WuxiapubCleaner.cs" />
+    <Compile Include="Decrypter.cs" />
     <Compile Include="Epub\Container.cs" />
     <Compile Include="Epub\EpubCombiner.cs" />
     <Compile Include="Epub\Epub.Constants.cs" />
