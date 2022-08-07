@@ -16,6 +16,7 @@ namespace MergeWebToEpub
                 | RemoveEzoic(doc, item)
                 | doc.RemoveEmptyDivElements()
                 | StripWebnovelChaff(doc, item)
+                | StripLightnovelpubWatermark(doc, item)
                 | RemoveEmptyItalic(doc, item)
                 | RemoveEmptySpan(doc, item);
         }
@@ -119,6 +120,37 @@ namespace MergeWebToEpub
         {
             return (element.Name.LocalName == "div")
                 && (element.Attribute("class").Value == "dib pr");
+        }
+
+        public bool StripLightnovelpubWatermark(XDocument doc, EpubItem item)
+        {
+            return CleanerUtils.RemoveElementsMatchingFilter(doc, item, IsightnovelpubWatermark);
+        }
+
+        public bool IsightnovelpubWatermark(XElement element)
+        {
+            string StripToAsciiLetters(string raw)
+            {
+                var sb = new StringBuilder();
+                foreach(var c in raw.ToLower())
+                {
+                    if (Char.IsLetter(c))
+                    {
+                        sb.Append(c);
+                    }
+                }
+                return sb.ToString();
+            }
+
+            bool HasWatermarkText(string raw)
+            {
+                return raw.Contains("ʟɪɢʜᴛɴᴏᴠᴇʟᴘᴜʙ.ᴄᴏᴍ")  // not ASCII
+                    || StripToAsciiLetters(raw).Contains("lightnovelpub");
+            }
+
+            return (element.Name.LocalName == "sub")
+                && (element.Elements().Count() == 0)
+                && (HasWatermarkText(element.Value));
         }
     }
 }
