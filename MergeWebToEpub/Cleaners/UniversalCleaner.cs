@@ -15,6 +15,7 @@ namespace MergeWebToEpub
             return RemoveScripts(doc)
                 | RemoveEzoic(doc, item)
                 | doc.RemoveEmptyDivElements()
+                | StripWebnovelChaff(doc, item)
                 | RemoveEmptyItalic(doc, item)
                 | RemoveEmptySpan(doc, item);
         }
@@ -64,6 +65,60 @@ namespace MergeWebToEpub
             return (element.Name.LocalName == "span")
                 && (!element.HasElements)
                 && (element.Value.Trim().Length == 0);
+        }
+
+        public bool StripWebnovelChaff(XDocument doc, EpubItem item)
+        {
+            return CleanerUtils.RemoveElementsMatchingFilter(doc, item, IsWebnovelParaCommentNum)
+                | StripParagraphDivsFromWebNovel(doc, item);
+        }
+
+        public bool StripParagraphDivsFromWebNovel(XDocument doc, EpubItem item)
+        {
+            var toDelete = new List<XElement>();
+            var words = doc.Root.DescendantsAndSelf().Where(IsWebnovelWordsElement).FirstOrDefault();
+            if (words != null)
+            {
+                foreach (var paragraph in words.Elements().Where(IsWebnovelParagraphElement))
+                {
+                    var dib = paragraph.Elements().Where(IsWebnovelDibElement).FirstOrDefault();
+                    if (dib != null)
+                    {
+                        var children = dib.Elements().ToList();
+                        foreach (var c in children)
+                        {
+                            words.Add(c);
+                        }
+                        toDelete.Add(paragraph);
+                    }
+                }
+            }
+            CleanerUtils.DumpElements(item, toDelete);
+            toDelete.RemoveElements();
+            return 0 < toDelete.Count;
+        }
+
+        public bool IsWebnovelParaCommentNum(XElement element)
+        {
+            return (element.Name.LocalName == "i")
+                && (element.ClassNames().Contains("para-comment-num"));
+        }
+
+        public bool IsWebnovelWordsElement(XElement element)
+        {
+            return (element.Name.LocalName == "div")
+                && (element.ClassNames().Contains("cha-words"));
+        }
+
+        public bool IsWebnovelParagraphElement(XElement element)
+        {
+            return (element.Name.LocalName == "div")
+                && (element.ClassNames().Contains("cha-paragraph"));
+        }
+        public bool IsWebnovelDibElement(XElement element)
+        {
+            return (element.Name.LocalName == "div")
+                && (element.Attribute("class").Value == "dib pr");
         }
     }
 }
