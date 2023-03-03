@@ -20,15 +20,15 @@ namespace MergeWebToEpub
             Date = element.Element(Epub.DaisyNs + "date")?.Value;
 
             var creatorElement = element.Element(Epub.DaisyNs + "creator");
-            CreatorFileAs = creatorElement?.Attribute(Epub.PackageNs + "file-as")?.Value;
             Creator = creatorElement?.Value;
+            CreatorFileAs = creatorElement?.Attribute(Epub.PackageNs + "file-as")?.Value ?? Creator;
 
             var identifierElement = element.Element(Epub.DaisyNs + "identifier");
             IdentifierId = identifierElement?.Attribute("id")?.Value;
             Identifier = identifierElement?.Value;
 
             var contributorElement = element.Element(Epub.DaisyNs + "contributor");
-            ContributorRole = contributorElement?.Attribute(Epub.PackageNs + "role")?.Value;
+            ContributorRole = contributorElement?.Attribute(Epub.PackageNs + "role")?.Value ?? "bkp";
             Contributor = contributorElement?.Value;
 
             CoverImageId = FindCoverImageId(element);
