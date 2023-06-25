@@ -28,7 +28,8 @@ namespace BatchCheckEpubs
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    ScanEpubsInDirectory(dlg.SelectedPath);
+                    //ScanEpubsInDirectory(dlg.SelectedPath);
+                    ScanEpubsInDirectory(@"D:\ToBackup\EPUBS");
                 }
             }
         }

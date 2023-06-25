@@ -15,13 +15,13 @@ namespace MergeWebToEpub
             var epub2 = new Epub();
             try
             {
-                epub1.ReadFile(@"E:\temp\work\zip\unpack\ccg\Cultivation Chat Group.c1313-1325.epub");
-                epub2.ReadFile(@"E:\temp\work\zip\unpack\ccg\Cultivation Chat Group.c1326-c1331.epub");
+                epub1.ReadFile(@"D:\temp\work\zip\unpack\ccg\Cultivation Chat Group.c1313-1325.epub");
+                epub2.ReadFile(@"D:\temp\work\zip\unpack\ccg\Cultivation Chat Group.c1326-c1331.epub");
 
                 var combiner = new EpubCombiner(epub1);
                 combiner.Add(epub2);
 
-                epub1.WriteFile(@"E:\temp\work\zip\unpack\ccg\Cultivation Chat Group.c1313-c1331.epub");
+                epub1.WriteFile(@"D:\temp\work\zip\unpack\ccg\Cultivation Chat Group.c1313-c1331.epub");
             }
             catch (Exception ex)
             {
