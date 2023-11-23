@@ -34,7 +34,9 @@ namespace MergeWebToEpub
 
         public bool Clean(EpubItem item)
         {
-            bool changed = false;
+            var text = Encoding.UTF8.GetString(item.RawBytes, 0, item.RawBytes.Length);
+            var cleanText = text.stripNbsp();
+            bool changed = string.Equals(cleanText, text);
             var doc = item.RawBytes.ToXhtml();
             foreach (var cleaner in Cleaners)
             {

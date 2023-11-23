@@ -71,11 +71,27 @@ namespace MergeWebToEpub
 
         public static XDocument ToXhtml(this byte[] bytes)
         {
-            using (var ms = new MemoryStream(bytes))
+            using (var ms = new MemoryStream(bytes.stripNbsp()))
             using (var reader = XmlReader.Create(ms, GetXmlReaderSettings()))
             {
                 return XDocument.Load(reader);
             }
+        }
+
+        public static byte[] stripNbsp(this byte[] buffer)
+        {
+            var text = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+            return Encoding.UTF8.GetBytes(text.stripNbsp());
+        }
+
+        public static string stripNbsp(this string text)
+        {
+            return text.Replace("&nbsp;", "&#160;")
+                .Replace("&copy;", "&#169;")
+                .Replace("&igrave;", "&#xcc;")
+                .Replace("&egrave;", "&#xc8;")
+                .Replace("&agrave;", "&#xc0;")
+                .Replace("&uacute;", "&#xda;");
         }
 
         static XmlReaderSettings xmlReaderSettings = null;
