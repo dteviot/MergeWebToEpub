@@ -9,6 +9,13 @@ Instead, just download the new chapters and merge them into the previous downloa
 
 I built this for my own use.  If it works for you, great.  If it doesn't, feel free to create an issue, but I make no promise I will do anything about it.
 
+## How to install
+If you have a Windows computer, there's a pre-built version you can install with the following steps.
+1. Go to https://drive.google.com/drive/folders/1B_X2WcsaI_eg9yA-5bHJb8VeTZGKExl8.
+2. Download the MergeWebToEpub zip file
+3. Unpack the zip file
+4. Double click on MergeWebToEpub.exe
+
 ## How to use
 1. Start MergeWebToEpub
 2. On file menu, select open and pick the Epub that will be the first chapters.
