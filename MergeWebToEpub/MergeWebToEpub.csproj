@@ -87,6 +87,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="HtmlAgilityPackUtils.cs" />
+    <Compile Include="HtmlToText.cs" />
     <Compile Include="ImageUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

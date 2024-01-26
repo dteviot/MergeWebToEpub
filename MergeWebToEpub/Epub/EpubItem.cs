@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,26 @@ namespace MergeWebToEpub
                 ? Ionic.Zlib.CompressionLevel.BestCompression
                 : Ionic.Zlib.CompressionLevel.None;
             zipFile.AddEntry(AbsolutePath, RawBytes);
+        }
+
+        public void WriteAsTextFile(ZipOutputStream zipStream)
+        {
+            Trace.Assert(this.IsXhtmlPage);
+
+            string entryName = AbsolutePath.Replace(".xhtml", ".txt");
+            zipStream.PutNextEntry(entryName);
+            using (var text = ContentAsTextStream())
+            {
+                text.CopyTo(zipStream);
+            }
+        }
+
+        private Stream ContentAsTextStream()
+        {
+            var htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            htmlDoc.OptionFixNestedTags = true;
+            htmlDoc.LoadHtml(Encoding.UTF8.GetString(RawBytes));
+            return HtmlToText.ConvertToPlainText(htmlDoc);
         }
 
         public XElement ToXElement(string opfFolder)

@@ -57,6 +57,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
             this.editSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsTextFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -70,7 +71,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.appendToEndToolStripMenuItem,
-            this.saveToolStripMenuItem});
+            this.saveToolStripMenuItem,
+            this.saveAsTextFilesToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
@@ -104,7 +106,7 @@
             this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(84, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(204, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -177,7 +179,7 @@
             this.renumberIDsToolStripMenuItem,
             this.editSelectedToolStripMenuItem});
             this.contextMenuStripSpine.Name = "contextMenuStripSpine";
-            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 158);
+            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 136);
             this.contextMenuStripSpine.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripSpine_Opening);
             // 
             // cutItemsToolStripMenuItem
@@ -308,6 +310,13 @@
             this.editSelectedToolStripMenuItem.Text = "Edit Selected";
             this.editSelectedToolStripMenuItem.Click += new System.EventHandler(this.editSelectedToolStripMenuItem_Click);
             // 
+            // saveAsTextFilesToolStripMenuItem
+            // 
+            this.saveAsTextFilesToolStripMenuItem.Name = "saveAsTextFilesToolStripMenuItem";
+            this.saveAsTextFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsTextFilesToolStripMenuItem.Text = "Save as &text files";
+            this.saveAsTextFilesToolStripMenuItem.Click += new System.EventHandler(this.saveAstextToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +369,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runCleanersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editSelectedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsTextFilesToolStripMenuItem;
     }
 }
 

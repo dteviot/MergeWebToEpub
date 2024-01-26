@@ -52,6 +52,15 @@ namespace MergeWebToEpub
             }
         }
 
+        public void WriteContentToTextFiles(ZipOutputStream zipStream)
+        {
+            zipStream.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression;
+            foreach (var item in Manifest.Where(i => i.IsXhtmlPage))
+            {
+                item.WriteAsTextFile(zipStream);
+            }
+        }
+
         public XDocument ToXDocument()
         {
             var doc = new XDocument(

@@ -441,5 +441,23 @@ namespace MergeWebToEpub
                 PopulateListView();
             }
         }
+
+        private void saveAstextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RunTrappingExceptions(SaveAsTextFiles);
+        }
+
+        private void SaveAsTextFiles()
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    epub.WriteAsTextFiles(saveFileDialog.FileName);
+                }
+            }
+        }
     }
 }

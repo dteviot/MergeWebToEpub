@@ -1,6 +1,7 @@
 ﻿using Ionic.Zip;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
 using System.Text;
@@ -48,6 +49,15 @@ namespace MergeWebToEpub
                 Opf.WriteManifestTo(zip);
 
                 zip.Save(fileName);
+            }
+        }
+
+        public void WriteAsTextFiles(string fileName)
+        {
+            using (var raw = File.Open(fileName, FileMode.Create, FileAccess.ReadWrite))
+            using (var output = new ZipOutputStream(raw))
+            {
+                Opf.WriteContentToTextFiles(output);
             }
         }
 
