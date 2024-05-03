@@ -18,6 +18,7 @@ namespace MergeWebToEpub
                 new ChrysanthemumGardenCleaner(),
                 new SecondLifeTranslationsCleaner(),
                 new WuxiapubCleaner(),
+                new RoyalRoadCleaner(),
                 new UniversalCleaner(),
             };
         }
@@ -34,6 +35,11 @@ namespace MergeWebToEpub
 
         public bool Clean(EpubItem item)
         {
+            if (!string.IsNullOrEmpty(item.Source))
+            {
+                System.Diagnostics.Trace.WriteLine($"Cleaning: {item.Source}");
+            }
+
             var text = Encoding.UTF8.GetString(item.RawBytes, 0, item.RawBytes.Length);
             var cleanText = text.stripNbsp();
             bool changed = string.Equals(cleanText, text);
