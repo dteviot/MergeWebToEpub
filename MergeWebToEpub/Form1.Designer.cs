@@ -316,6 +316,7 @@
             this.saveAsTextFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsTextFilesToolStripMenuItem.Text = "Save as &text files";
             this.saveAsTextFilesToolStripMenuItem.Click += new System.EventHandler(this.saveAstextToolStripMenuItem_Click);
+            this.saveAsTextFilesToolStripMenuItem.Visible = false;
             // 
             // Form1
             // 
