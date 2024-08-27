@@ -58,6 +58,7 @@
             this.imageListThumbs = new System.Windows.Forms.ImageList(this.components);
             this.editSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsTextFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runNoelbinCleanerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripSpine.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -80,21 +81,21 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // appendToEndToolStripMenuItem
             // 
             this.appendToEndToolStripMenuItem.Name = "appendToEndToolStripMenuItem";
-            this.appendToEndToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.appendToEndToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.appendToEndToolStripMenuItem.Text = "Append to End";
             this.appendToEndToolStripMenuItem.Click += new System.EventHandler(this.appendToEndToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -117,7 +118,8 @@
             this.changeWebpToJpegToolStripMenuItem,
             this.nextMissingChapterToolStripMenuItem,
             this.sortChaptersToolStripMenuItem,
-            this.runCleanersToolStripMenuItem});
+            this.runCleanersToolStripMenuItem,
+            this.runNoelbinCleanerToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -179,41 +181,41 @@
             this.renumberIDsToolStripMenuItem,
             this.editSelectedToolStripMenuItem});
             this.contextMenuStripSpine.Name = "contextMenuStripSpine";
-            this.contextMenuStripSpine.Size = new System.Drawing.Size(181, 136);
+            this.contextMenuStripSpine.Size = new System.Drawing.Size(180, 136);
             this.contextMenuStripSpine.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripSpine_Opening);
             // 
             // cutItemsToolStripMenuItem
             // 
             this.cutItemsToolStripMenuItem.Name = "cutItemsToolStripMenuItem";
-            this.cutItemsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cutItemsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.cutItemsToolStripMenuItem.Text = "Cut Item(s)";
             this.cutItemsToolStripMenuItem.Click += new System.EventHandler(this.cutItemsToolStripMenuItem_Click);
             // 
             // pasteItemssToolStripMenuItem
             // 
             this.pasteItemssToolStripMenuItem.Name = "pasteItemssToolStripMenuItem";
-            this.pasteItemssToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pasteItemssToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.pasteItemssToolStripMenuItem.Text = "Paste Items(s)";
             this.pasteItemssToolStripMenuItem.Click += new System.EventHandler(this.pasteItemssToolStripMenuItem_Click);
             // 
             // deleteItemToolStripMenuItem
             // 
             this.deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.deleteItemToolStripMenuItem.Text = "Delete Item";
             this.deleteItemToolStripMenuItem.Click += new System.EventHandler(this.deleteItemToolStripMenuItem_Click);
             // 
             // insertAfterSelectedToolStripMenuItem
             // 
             this.insertAfterSelectedToolStripMenuItem.Name = "insertAfterSelectedToolStripMenuItem";
-            this.insertAfterSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.insertAfterSelectedToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.insertAfterSelectedToolStripMenuItem.Text = "Insert After Selected";
             this.insertAfterSelectedToolStripMenuItem.Click += new System.EventHandler(this.insertAfterSelectedToolStripMenuItem_Click);
             // 
             // renumberIDsToolStripMenuItem
             // 
             this.renumberIDsToolStripMenuItem.Name = "renumberIDsToolStripMenuItem";
-            this.renumberIDsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renumberIDsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.renumberIDsToolStripMenuItem.Text = "Renumber IDs";
             this.renumberIDsToolStripMenuItem.Click += new System.EventHandler(this.renumberIDsToolStripMenuItem_Click);
             // 
@@ -304,6 +306,7 @@
             this.imageListThumbs.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // editSelectedToolStripMenuItem
+            // runNoelbinCleanerToolStripMenuItem
             // 
             this.editSelectedToolStripMenuItem.Name = "editSelectedToolStripMenuItem";
             this.editSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -317,6 +320,10 @@
             this.saveAsTextFilesToolStripMenuItem.Text = "Save as &text files";
             this.saveAsTextFilesToolStripMenuItem.Click += new System.EventHandler(this.saveAstextToolStripMenuItem_Click);
             this.saveAsTextFilesToolStripMenuItem.Visible = false;
+            this.runNoelbinCleanerToolStripMenuItem.Name = "runNoelbinCleanerToolStripMenuItem";
+            this.runNoelbinCleanerToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.runNoelbinCleanerToolStripMenuItem.Text = "Run Noelbin Cleaner";
+            this.runNoelbinCleanerToolStripMenuItem.Click += new System.EventHandler(this.runNoelbinCleanerToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -371,6 +378,7 @@
         private System.Windows.Forms.ToolStripMenuItem runCleanersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsTextFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runNoelbinCleanerToolStripMenuItem;
     }
 }
 
