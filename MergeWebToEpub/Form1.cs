@@ -462,7 +462,10 @@ namespace MergeWebToEpub
 
         private void runNoelbinCleanerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            using (var dlg = new NoelbinWatermarkForm())
+            {
+                dlg.ShowDialog();
+            }
         }
     }
 }
