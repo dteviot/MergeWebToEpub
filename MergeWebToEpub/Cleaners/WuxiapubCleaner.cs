@@ -52,6 +52,7 @@ namespace MergeWebToEpub
                 return
                     rawText.Equals("Advertisements") ||
                     rawText.Contains(WuxiaString) ||
+                    rawText.Contains(BoxNovelString) ||
                     rawText.Contains(WebnovelString);
             }
 
@@ -60,5 +61,6 @@ namespace MergeWebToEpub
 
         private static readonly string WuxiaString = CleanerUtils.StripWhiteSpace("Read latest Chapters at WuxiaWorld.S");
         private static readonly string WebnovelString = CleanerUtils.StripWhiteSpace("for faster releases read on webnovel");
+        private static readonly string BoxNovelString = CleanerUtils.StripWhiteSpace("MYBOXNOVEL");
     }
 }
