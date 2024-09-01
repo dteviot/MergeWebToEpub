@@ -59,6 +59,15 @@ namespace UnitTestMergeWebToEpub
             Assert.AreEqual("<divid=\"4\"xmlns=\"http://www.w3.org/1999/xhtml\"><span>3</span></div>", GetDiv("4"));
         }
 
+        [TestMethod]
+        public void TestFindStartOfWatermark()
+        {
+            string raw = "“Let’s hope so.”Nêww 𝒄hapters will be fully updated at (n)ov(𝒆)l/bin(.)com";
+            var startAt = NovelbinCleaner.FindStartOfWatermark(raw);
+            Assert.AreEqual(startAt, 15);
 
+            raw = "Reêad latest 𝒏ov𝒆ls at n𝒐𝒐v/e/l/bi𝒏(.)com";
+            startAt = NovelbinCleaner.FindStartOfWatermark(raw);
+        }
     }
 }

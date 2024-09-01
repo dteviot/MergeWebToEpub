@@ -12,6 +12,7 @@ namespace MergeWebToEpub
         {
             Cleaners = new List<CleanerBase>()
             {
+                new NovelbinCleaner(),
                 new NovelfullCleaner(),
                 new ReLibraryCleaner(),
                 new VipnovelCleaner(),

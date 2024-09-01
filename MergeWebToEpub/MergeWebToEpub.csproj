@@ -61,6 +61,7 @@
     <Compile Include="Cleaners\CleanerBase.cs" />
     <Compile Include="Cleaners\CleanerEngine.cs" />
     <Compile Include="Cleaners\CleanerUtils.cs" />
+    <Compile Include="Cleaners\NovelbinCleaner.cs" />
     <Compile Include="Cleaners\NovelfullCleaner.cs" />
     <Compile Include="Cleaners\RoyalRoadCleaner.cs" />
     <Compile Include="Cleaners\SecondLifeTranslationsCleaner.cs" />
