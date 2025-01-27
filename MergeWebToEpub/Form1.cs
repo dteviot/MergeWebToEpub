@@ -380,7 +380,7 @@ namespace MergeWebToEpub
         {
             int selectedCount = listViewThumbs.SelectedItems.Count;
             informationToolStripMenuItem.Enabled = (selectedCount == 1);
-            deleteToolStripMenuItem.Enabled = (selectedCount == 1);
+            deleteToolStripMenuItem.Enabled = (1 <= selectedCount);
         }
 
         private void ShowInformationForImage()
@@ -412,8 +412,11 @@ namespace MergeWebToEpub
             {
                 return;
             }
-            var image = listViewThumbs.SelectedItems[0];
-            var images = new List<EpubItem>() { epub.Opf.AbsolutePathIndex[image.Text] };
+            var images = new List<EpubItem>();
+            foreach (ListViewItem image in listViewThumbs.SelectedItems)
+            {
+                images.Add(epub.Opf.AbsolutePathIndex[image.Text]);
+            }
             epub.DeleteImages(images);
             PopulateThumbnails();
         }
